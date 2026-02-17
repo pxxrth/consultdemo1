@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Consultation Form | MA Consultation</title>
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --secondary-navy: #1a2b3c;
+            --accent-teal: #e0f2f1;
+            --text-dark: #333333;
+            --text-light: #ffffff;
+            --gray-bg: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--gray-bg); }
+        a { text-decoration: none; color: var(--primary-blue); transition: var(--transition); }
+        a:hover { text-decoration: underline; }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-blue); letter-spacing: -1px; }
+        .logo a { color: inherit; text-decoration: none; }
+
+        .intake-wrap { max-width: 680px; margin: 0 auto; padding: 40px 5% 80px; }
+        .appointment-banner {
+            background: linear-gradient(135deg, var(--secondary-navy) 0%, #2a3f52 100%);
+            color: #fff;
+            padding: 24px 28px;
+            border-radius: 12px;
+            margin-bottom: 32px;
+        }
+        .appointment-banner h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; opacity: 0.9; }
+        .appointment-banner .datetime { font-size: 1.4rem; font-weight: 700; }
+
+        .form-card {
+            background: #fff;
+            padding: 28px 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-bottom: 24px;
+        }
+        .form-card h3 {
+            font-size: 1.15rem;
+            color: var(--secondary-navy);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-teal);
+        }
+        .form-group { margin-bottom: 18px; }
+        .form-group:last-child { margin-bottom: 0; }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--secondary-navy);
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .form-group textarea { min-height: 80px; resize: vertical; }
+        .form-group .hint { font-size: 0.85rem; color: #666; margin-top: 4px; }
+
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+        .checkbox-item { display: flex; align-items: center; gap: 8px; }
+        .checkbox-item input { width: 18px; height: 18px; accent-color: var(--primary-blue); }
+        .checkbox-item label { margin: 0; font-weight: 500; cursor: pointer; }
+
+        .yn-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .yn-row label { margin-bottom: 0; }
+        .yn-options { display: flex; gap: 20px; }
+        .yn-options label { display: flex; align-items: center; gap: 6px; font-weight: 500; cursor: pointer; }
+        .yn-options input { width: 18px; height: 18px; accent-color: var(--primary-blue); }
+
+        .photo-upload-zone {
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            background: #fafafa;
+        }
+        .photo-upload-zone.has-files { border-color: var(--primary-blue); background: var(--accent-teal); }
+        .photo-upload-zone input[type="file"] { display: none; }
+        .photo-upload-zone .upload-label {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--secondary-navy);
+        }
+        .photo-upload-zone .upload-label:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
+        .photo-tagline {
+            margin-top: 14px;
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .photo-preview { margin-top: 12px; font-size: 0.85rem; color: var(--primary-blue); }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary-blue);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: var(--transition);
+        }
+        .btn-submit:hover { background: #004494; transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,86,179,0.3); }
+
+        .success-msg {
+            display: none;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .success-msg.show { display: block; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><a href="index.html">MA CONSULTATION</a></div>
+    </nav>
+
+    <div class="intake-wrap">
+        <div class="appointment-banner" id="appointmentBanner">
+            <h2>Your consultation</h2>
+            <div class="datetime" id="appointmentDatetime">—</div>
+        </div>
+
+        <div class="success-msg" id="successMsg">
+            <strong>Thank you.</strong> Your information has been submitted. We'll call you at your scheduled time. If you need to change your appointment, contact us.
+        </div>
+
+        <form id="intakeForm">
+            <!-- Basic info -->
+            <div class="form-card">
+                <h3>Basic information</h3>
+                <div class="form-group">
+                    <label for="fullName">Full name *</label>
+                    <input type="text" id="fullName" name="fullName" required placeholder="As on your ID">
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of birth *</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone number *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="We'll call this number for your consultation">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="For confirmation and follow-up">
+                </div>
+            </div>
+
+            <!-- Allergies -->
+            <div class="form-card">
+                <h3>Allergies & reactions</h3>
+                <p class="form-group hint" style="margin-bottom: 14px;">Select any that apply. This helps us keep you safe during treatment.</p>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="allergy_penicillin" name="allergies" value="Penicillin/antibiotics">
+                        <label for="allergy_penicillin">Penicillin / antibiotics</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="allergy_anesthetic" name="allergies" value="Local anesthetics">
+                        <label for="allergy_anesthetic">Local anesthetics (e.g. lidocaine)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="allergy_aspirin" name="allergies" value="Aspirin/NSAIDs">
+                        <label for="allergy_aspirin">Aspirin / NSAIDs</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="allergy_latex" name="allergies" value="Latex">
+                        <label for="allergy_latex">Latex</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="allergy_none" name="allergies" value="None">
+                        <label for="allergy_none">None</label>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 14px;">
+                    <label for="allergy_other">Other allergies (medications, materials, etc.)</label>
+                    <input type="text" id="allergy_other" name="allergyOther" placeholder="e.g. metals, sulfa drugs">
+                </div>
+            </div>
+
+            <!-- Current medications -->
+            <div class="form-card">
+                <h3>Current medications</h3>
+                <div class="form-group">
+                    <label for="medications">List all prescription and over-the-counter medications you take regularly</label>
+                    <textarea id="medications" name="medications" placeholder="Include name and dose if you know it. Write 'None' if you don't take any."></textarea>
+                </div>
+            </div>
+
+            <!-- Medical history -->
+            <div class="form-card">
+                <h3>Medical history</h3>
+                <p class="form-group hint" style="margin-bottom: 16px;">Please answer so we can tailor your dental care safely.</p>
+                <div class="form-group">
+                    <label>Heart disease, pacemaker, or heart valve replacement?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="heart_no" name="heart" value="no" checked>
+                            <label for="heart_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="heart_yes" name="heart" value="yes">
+                            <label for="heart_yes">Yes</label>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 10px; display: none;" data-show-when="heart_yes">
+                        <input type="text" id="heart_details" name="heartDetails" placeholder="Details (optional)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>High blood pressure?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="bp_no" name="bp" value="no" checked>
+                            <label for="bp_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="bp_yes" name="bp" value="yes">
+                            <label for="bp_yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Diabetes?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="diabetes_no" name="diabetes" value="no" checked>
+                            <label for="diabetes_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="diabetes_yes" name="diabetes" value="yes">
+                            <label for="diabetes_yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Bleeding disorder or taking blood thinners (e.g. warfarin, aspirin daily)?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="bleeding_no" name="bleeding" value="no" checked>
+                            <label for="bleeding_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="bleeding_yes" name="bleeding" value="yes">
+                            <label for="bleeding_yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Asthma or other breathing conditions?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="asthma_no" name="asthma" value="no" checked>
+                            <label for="asthma_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="asthma_yes" name="asthma" value="yes">
+                            <label for="asthma_yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Joint replacement or need antibiotic before dental work?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="joint_no" name="joint" value="no" checked>
+                            <label for="joint_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="joint_yes" name="joint" value="yes">
+                            <label for="joint_yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Pregnant or nursing?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="pregnant_no" name="pregnant" value="no" checked>
+                            <label for="pregnant_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="pregnant_yes" name="pregnant" value="yes">
+                            <label for="pregnant_yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="medical_other">Other conditions we should know about</label>
+                    <textarea id="medical_other" name="medicalOther" placeholder="e.g. recent surgery, cancer treatment, autoimmune condition"></textarea>
+                </div>
+            </div>
+
+            <!-- Dental-specific -->
+            <div class="form-card">
+                <h3>Dental information</h3>
+                <div class="form-group">
+                    <label for="reason_visit">Main reason for this consultation *</label>
+                    <textarea id="reason_visit" name="reasonVisit" required placeholder="e.g. toothache, need a cleaning, cosmetic concern, second opinion"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="last_exam">When was your last dental exam?</label>
+                    <select id="last_exam" name="lastExam">
+                        <option value="">Select</option>
+                        <option value="within_6mo">Within the last 6 months</option>
+                        <option value="6mo_1yr">6 months to 1 year ago</option>
+                        <option value="1yr_2yr">1–2 years ago</option>
+                        <option value="over_2yr">Over 2 years ago</option>
+                        <option value="cant_remember">Can't remember</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Do your gums bleed when brushing or flossing?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="gum_bleed_no" name="gumBleed" value="no" checked>
+                            <label for="gum_bleed_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="gum_bleed_yes" name="gumBleed" value="yes">
+                            <label for="gum_bleed_yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tooth sensitivity to hot, cold, or sweets?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="sensitivity_no" name="sensitivity" value="no" checked>
+                            <label for="sensitivity_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="sensitivity_yes" name="sensitivity" value="yes">
+                            <label for="sensitivity_yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Jaw pain, clicking, or difficulty opening?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="jaw_no" name="jaw" value="no" checked>
+                            <label for="jaw_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="jaw_yes" name="jaw" value="yes">
+                            <label for="jaw_yes">Yes</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Dental anxiety or past difficult experience?</label>
+                    <div class="yn-row" style="margin-top: 8px;">
+                        <div class="yn-options">
+                            <input type="radio" id="anxiety_no" name="anxiety" value="no" checked>
+                            <label for="anxiety_no">No</label>
+                        </div>
+                        <div class="yn-options">
+                            <input type="radio" id="anxiety_yes" name="anxiety" value="yes">
+                            <label for="anxiety_yes">Yes</label>
+                        </div>
+                    </div>
+                    <input type="text" id="anxiety_details" name="anxietyDetails" placeholder="Anything that helps us make you more comfortable (optional)" style="margin-top: 10px;">
+                </div>
+            </div>
+
+            <!-- Photos (optional) -->
+            <div class="form-card">
+                <h3>Photos (optional)</h3>
+                <div class="photo-upload-zone" id="photoZone">
+                    <input type="file" id="photoUpload" name="photos" accept="image/*" multiple>
+                    <label for="photoUpload" class="upload-label">Choose photos to upload</label>
+                    <p class="photo-tagline">Optional — You can also share photos during your call once you're comfortable with the doctor.</p>
+                    <div class="photo-preview" id="photoPreview"></div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Submit pre-consultation form</button>
+        </form>
+    </div>
+
+    <script>
+        // Show booked appointment from sessionStorage
+        const stored = sessionStorage.getItem('maConsultationBooking');
+        if (stored) {
+            try {
+                const { date, time, display } = JSON.parse(stored);
+                document.getElementById('appointmentDatetime').textContent = display || `${date} at ${time}`;
+            } catch (e) {
+                document.getElementById('appointmentDatetime').textContent = 'Consultation booked';
+            }
+        } else {
+            document.getElementById('appointmentBanner').innerHTML = '<h2>Pre-consultation form</h2><div class="datetime">Complete this form before your call.</div>';
+        }
+
+        // Optional: show/hide "details" fields when Yes is selected
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const detail = document.querySelector('[data-show-when="' + this.id + '"]');
+                if (detail && this.value === 'yes') detail.style.display = 'block';
+                else if (detail) detail.style.display = 'none';
+            });
+        });
+        document.querySelectorAll('[data-show-when]').forEach(el => {
+            el.style.display = 'none';
+        });
+
+        // Photo upload preview
+        const photoUpload = document.getElementById('photoUpload');
+        const photoZone = document.getElementById('photoZone');
+        const photoPreview = document.getElementById('photoPreview');
+        photoUpload.addEventListener('change', function() {
+            const files = this.files;
+            if (files.length) {
+                photoZone.classList.add('has-files');
+                photoPreview.textContent = files.length + ' file(s) selected';
+            } else {
+                photoZone.classList.remove('has-files');
+                photoPreview.textContent = '';
+            }
+        });
+
+        // Form submit
+        document.getElementById('intakeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // In production you would send to a server
+            document.getElementById('successMsg').classList.add('show');
+            this.style.display = 'none';
+            document.getElementById('appointmentBanner').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>
