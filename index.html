@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MA Consultation | Expert Medical Guidance & Referrals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'medical-teal': '#0D9488',
+                        'section-bg': '#F8FAFC',
+                    },
+                    boxShadow: {
+                        'card-glow': '0 0 0 1px rgba(13, 148, 136, 0.15), 0 8px 24px rgba(13, 148, 136, 0.12)',
+                    },
+                },
+            },
+        };
+    </script>
     <style>
         /* CSS VARIABLES FOR BRANDING */
         :root {
@@ -233,6 +249,101 @@
                 <span class="step-num">03</span>
                 <h3>Direct Referral</h3>
                 <p>We book you into the most suitable partner clinic, ensuring you skip the waitlist and get the best care.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Bundles -->
+    <section class="py-16 md:py-24 px-4 md:px-6" style="background-color: #F8FAFC;">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-4 md:mb-6 leading-tight">
+                You pay us to say: <span class="text-[#0D9488]">"Here's what actually applies to you."</span>
+            </h2>
+            <p class="text-center text-gray-600 text-base md:text-lg max-w-2xl mx-auto mb-12 md:mb-16">
+                Choose a consultation bundle tailored to your goals. One-time payment — no subscriptions.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Acne Program -->
+                <div class="bundle-card group relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[#0D9488]/40 hover:shadow-card-glow">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                        <span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-[#0D9488] shadow-sm">Most Popular</span>
+                    </div>
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-3 text-[#0D9488]">
+                            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900">Acne Program</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm md:text-base">Clear skin via board-certified expertise.</p>
+                    </div>
+                    <ul class="space-y-3 flex-1 text-sm text-gray-700">
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Everyday Follow-ups</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Personalized AM/PM Routine</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Product Category Guide</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Lifestyle Trigger Mapping</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Timeline & Red Flags</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Access to Global Board-Certified Derms</li>
+                    </ul>
+                    <div class="mt-6 pt-5 border-t border-gray-100 rounded-lg bg-[#F0FDFA]/60 p-4 -mx-1">
+                        <p class="text-sm font-semibold text-[#0D9488]">Cosmetic & Procedure Planning (Botox/Fillers/Pre-Post Checkups)</p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">One-time Payment</p>
+                        <a href="#" class="bundle-cta block w-full py-4 px-6 rounded-xl font-semibold text-center text-white bg-[#0D9488] hover:bg-[#0F766E] transition-all duration-200 hover:shadow-lg hover:shadow-[#0D9488]/25 hover:-translate-y-0.5" data-hubspot="acne">Get a Quote</a>
+                    </div>
+                </div>
+
+                <!-- Hair Loss Plan -->
+                <div class="bundle-card group relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[#0D9488]/40 hover:shadow-card-glow">
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-3 text-[#0D9488]">
+                            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900">Hair Loss Plan</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm md:text-base">Expert-backed plans for healthier hair.</p>
+                    </div>
+                    <ul class="space-y-3 flex-1 text-sm text-gray-700">
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Everyday Follow-ups</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Personalized AM/PM Routine</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Product Category Guide</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Lifestyle Trigger Mapping</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Timeline & Red Flags</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Access to Global Board-Certified Derms</li>
+                    </ul>
+                    <div class="mt-6 pt-5 border-t border-gray-100 rounded-lg bg-[#F0FDFA]/60 p-4 -mx-1">
+                        <p class="text-sm font-semibold text-[#0D9488]">Cosmetic & Procedure Planning (Botox/Fillers/Pre-Post Checkups)</p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">One-time Payment</p>
+                        <a href="#" class="bundle-cta block w-full py-4 px-6 rounded-xl font-semibold text-center text-white bg-[#0D9488] hover:bg-[#0F766E] transition-all duration-200 hover:shadow-lg hover:shadow-[#0D9488]/25 hover:-translate-y-0.5" data-hubspot="hair">Get a Quote</a>
+                    </div>
+                </div>
+
+                <!-- Skincare Routine -->
+                <div class="bundle-card group relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[#0D9488]/40 hover:shadow-card-glow">
+                    <div class="mb-6">
+                        <div class="flex items-center gap-2 mb-3 text-[#0D9488]">
+                            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-900">Skincare Routine</h3>
+                        </div>
+                        <p class="text-gray-600 text-sm md:text-base">A routine that actually fits your skin.</p>
+                    </div>
+                    <ul class="space-y-3 flex-1 text-sm text-gray-700">
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Everyday Follow-ups</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Personalized AM/PM Routine</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Product Category Guide</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Lifestyle Trigger Mapping</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Timeline & Red Flags</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Access to Global Board-Certified Derms</li>
+                    </ul>
+                    <div class="mt-6 pt-5 border-t border-gray-100 rounded-lg bg-[#F0FDFA]/60 p-4 -mx-1">
+                        <p class="text-sm font-semibold text-[#0D9488]">Cosmetic & Procedure Planning (Botox/Fillers/Pre-Post Checkups)</p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-gray-100">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">One-time Payment</p>
+                        <a href="#" class="bundle-cta block w-full py-4 px-6 rounded-xl font-semibold text-center text-white bg-[#0D9488] hover:bg-[#0F766E] transition-all duration-200 hover:shadow-lg hover:shadow-[#0D9488]/25 hover:-translate-y-0.5" data-hubspot="skincare">Get a Quote</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
