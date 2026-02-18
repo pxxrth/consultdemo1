@@ -10,7 +10,7 @@
             theme: {
                 extend: {
                     colors: {
-                        'medical-teal': '#0D9488',
+                        'medical-teal': '#0056b3',
                         'section-bg': '#F8FAFC',
                     },
                     boxShadow: {
@@ -58,7 +58,7 @@
 
         /* HERO SECTION */
         .hero {
-            padding: 100px 5% 80px;
+            padding: 110px 5% 90px;
             background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
             display: flex;
             align-items: center;
@@ -83,8 +83,8 @@
         .btn-main:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,86,179,0.4); }
 
         /* PROCESS SECTION */
-        .process { padding: 80px 5%; text-align: center; background: var(--gray-bg); }
-        .section-title { font-size: 2.5rem; color: var(--secondary-navy); margin-bottom: 3rem; }
+        .process { padding: 120px 5% 120px; text-align: center; background: var(--gray-bg); }
+        .section-title { font-size: 2.5rem; color: var(--secondary-navy); margin-bottom: 1rem; }
         .process-grid {
             display: flex;
             align-items: stretch;
@@ -95,6 +95,7 @@
             margin: 0 auto;
         }
         .step-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); flex: 1; min-width: 220px; max-width: 280px; }
+        .step-card h3 { font-weight: 800; font-size: 1.2rem; }
         .step-num { font-size: 3rem; font-weight: 800; color: #1a2b3c; margin-bottom: 10px; display: block; opacity: 0.5; }
         .process-arrow {
             display: flex;
@@ -135,6 +136,31 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             max-height: 90vh;
             overflow-y: auto;
+        }
+        .modal-content--hubspot {
+            max-width: 700px;
+            text-align: left;
+        }
+        .modal-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .modal-header-row h3 { margin-bottom: 0; }
+        .modal-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.75rem;
+            line-height: 1;
+            color: #666;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+        .modal-close-btn:hover { color: #333; }
+        .meetings-iframe-container {
+            min-height: 500px;
+            width: 100%;
         }
         .modal-content h3 { margin-bottom: 20px; color: var(--secondary-navy); }
         .modal-content input, .modal-content select {
@@ -186,10 +212,11 @@
         }
     </style>
 </head>
+
 <body>
 
     <nav>
-        <div class="logo">MA CONSULTATION</div>
+        <div class="logo">MA DENTAL CONSULTATION</div>
         <ul class="nav-links">
             <li><a href="#">How it Works</a></li>
             <li><a href="#">Our Specialists</a></li>
@@ -205,34 +232,46 @@
             <button class="btn-main btn-trigger">Book a Consultation</button>
         </div>
         <div class="hero-image">
-            <svg width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="#0056b3" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <svg width="360" height="360" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="toothGradient" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#0D9488"/>
+                        <stop offset="100%" stop-color="#0056b3"/>
+                    </linearGradient>
+                </defs>
+                <path d="M20 10c4-4 8-4 12-2 4-2 8-2 12 2 3 3 4 11 2.5 16.5C44.5 33 42 36 40 40c-1.2 2.5-2 7-3.5 9.5C35 52 33.5 53 32 53s-3-1-4.5-3.5C26 47 25.2 42.5 24 40c-2-4-4.5-7-6.5-13.5C15 21 16 13 20 10z" fill="url(#toothGradient)" stroke="#0056b3" stroke-width="1.2" />
+                <path d="M26 18c2-1 4-1 6 0" fill="none" stroke="#e0f2f1" stroke-width="1.4" stroke-linecap="round"/>
+                <circle cx="40" cy="24" r="3" fill="#e0f2f1"/>
+                <path d="M10 50h44" stroke="#cbd5f5" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 4"/>
+            </svg>
         </div>
     </header>
 
     <div class="modal-overlay" id="bookingModal">
-        <div class="modal-content">
-            <h3>Select Date & Time</h3>
-            <p style="margin-bottom: 15px; font-size: 0.9rem; color: #666;">We're available 24/7. Pick a date, then choose a time slot.</p>
-            <label class="date-time-label" for="appointmentDate">Date</label>
-            <input type="date" id="appointmentDate" min="">
-            <label class="date-time-label">Available time slots</label>
-            <div class="time-slots-wrap">
-                <div class="time-slots-grid" id="timeSlotsGrid"></div>
+        <div class="modal-content modal-content--hubspot">
+            <div class="modal-header-row">
+                <h3>Book your consultation</h3>
+                <button type="button" class="modal-close-btn" id="closeModal" aria-label="Close">&times;</button>
             </div>
-            <div class="modal-btns">
-                <button class="btn-cancel" id="closeModal">Cancel</button>
-                <button class="btn-confirm" id="confirmBooking">Confirm Appointment</button>
-            </div>
+            <p style="margin-bottom: 16px; font-size: 0.9rem; color: #666;">Select a date and time below. You'll complete booking in HubSpot.</p>
+            <!-- HubSpot Meetings Embed. Set post-booking redirect in HubSpot to: booking-complete.html (full URL) -->
+            <!-- Start of Meetings Embed Script -->
+            <div class="meetings-iframe-container" data-src="https://meetings-eu1.hubspot.com/paarth?embed=true"></div>
+            <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+            <!-- End of Meetings Embed Script -->
         </div>
     </div>
 
     <section class="process">
         <h2 class="section-title">How Your Journey Works</h2>
+        <p style="max-width: 720px; margin: 0 auto 40px; color: #555; font-size: 1rem;">
+            We keep it simple: you book once, we do the heavy lifting — from diagnosis, to a real conversation, to a confirmed chair at the right clinic.
+        </p>
         <div class="process-grid">
             <div class="step-card">
                 <span class="step-num">01</span>
-                <h3>Initial Call</h3>
-                <p>Speak with our highly experienced medical consultants who listen to your symptoms and history.</p>
+                <h3>Book Your Appointment</h3>
+                <p>Pick a time that works for you. We collect just enough information to understand your dental concern.</p>
             </div>
             <div class="process-arrow" aria-hidden="true">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>
@@ -240,15 +279,23 @@
             <div class="step-card">
                 <span class="step-num">02</span>
                 <h3>Expert Diagnosis</h3>
-                <p>We analyze your case to determine the specific tests or treatments required for your recovery.</p>
+                <p>Our dental consultants review your history, symptoms, and photos to map out what is actually going on.</p>
             </div>
             <div class="process-arrow" aria-hidden="true">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>
             </div>
             <div class="step-card">
                 <span class="step-num">03</span>
+                <h3>Free Consultation</h3>
+                <p>You speak directly with a doctor-led team that explains options in plain language — no pressure, just clarity.</p>
+            </div>
+            <div class="process-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6-6-6z"/></svg>
+            </div>
+            <div class="step-card">
+                <span class="step-num">04</span>
                 <h3>Direct Referral</h3>
-                <p>We book you into the most suitable partner clinic, ensuring you skip the waitlist and get the best care.</p>
+                <p>We secure you a chair at the most appropriate partner clinic — with context shared ahead so you never repeat yourself.</p>
             </div>
         </div>
     </section>
@@ -257,91 +304,91 @@
     <section class="py-16 md:py-24 px-4 md:px-6" style="background-color: #F8FAFC;">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-4 md:mb-6 leading-tight">
-                You pay us to say: <span class="text-[#0D9488]">"Here's what actually applies to you."</span>
+                You pay us to say: <span class="text-[#0056b3]">"Here's what actually applies to you."</span>
             </h2>
             <p class="text-center text-gray-600 text-base md:text-lg max-w-2xl mx-auto mb-12 md:mb-16">
-                Choose a consultation bundle tailored to your goals. One-time payment — no subscriptions.
+                Three dermatology-led programs to get you from “I’ve tried everything” to a written, personalized plan you can actually follow. One-time payment, no subscriptions.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                 <!-- Acne Program -->
-                <div class="bundle-card group relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[#0D9488]/40 hover:shadow-card-glow">
+                <div class="bundle-card group relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[#0056b3]/40 hover:shadow-card-glow">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-                        <span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-[#0D9488] shadow-sm">Most Popular</span>
+                        <span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide text-white bg-[#0056b3] shadow-sm">Most Popular</span>
                     </div>
                     <div class="mb-6">
-                        <div class="flex items-center gap-2 mb-3 text-[#0D9488]">
+                        <div class="flex items-center gap-2 mb-3 text-[#0056b3]">
                             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                             <h3 class="text-xl md:text-2xl font-bold text-gray-900">Acne Program</h3>
                         </div>
-                        <p class="text-gray-600 text-sm md:text-base">Clear skin via board-certified expertise.</p>
+                        <p class="text-gray-600 text-sm md:text-base">Clear skin via board-certified expertise — not TikTok routines.</p>
                     </div>
                     <ul class="space-y-3 flex-1 text-sm text-gray-700">
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Everyday Follow-ups</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Personalized AM/PM Routine</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Product Category Guide</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Lifestyle Trigger Mapping</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Timeline & Red Flags</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Access to Global Board-Certified Derms</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Follow‑ups every day while your skin adjusts</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Step‑by‑step routine (AM/PM) for acne‑prone skin</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Product categories to use/avoid (not just brand pushes)</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Lifestyle triggers to avoid (dairy, workouts, makeup habits)</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Timeline expectations & red flags to watch for</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Services from board‑certified dermatologists worldwide</li>
                     </ul>
-                    <div class="mt-6 pt-5 border-t border-gray-100 rounded-lg bg-[#F0FDFA]/60 p-4 -mx-1">
-                        <p class="text-sm font-semibold text-[#0D9488]">Cosmetic & Procedure Planning (Botox/Fillers/Pre-Post Checkups)</p>
+                    <div class="mt-6 pt-5 border-t border-gray-100 rounded-lg bg-[#e0f2f1]/80 p-4 -mx-1">
+                        <p class="text-sm font-semibold text-[#0056b3]">Cosmetic consults (Botox, fillers planning — not injection)</p>
                     </div>
                     <div class="mt-8 pt-6 border-t border-gray-100">
                         <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">One-time Payment</p>
-                        <a href="#" class="bundle-cta block w-full py-4 px-6 rounded-xl font-semibold text-center text-white bg-[#0D9488] hover:bg-[#0F766E] transition-all duration-200 hover:shadow-lg hover:shadow-[#0D9488]/25 hover:-translate-y-0.5" data-hubspot="acne">Get a Quote</a>
+                        <a href="#" class="bundle-cta block w-full py-4 px-6 rounded-xl font-semibold text-center text-white bg-[#0056b3] hover:bg-[#004494] transition-all duration-200 hover:shadow-lg hover:shadow-[#0056b3]/25 hover:-translate-y-0.5" data-hubspot="acne">Get a Quote</a>
                     </div>
                 </div>
 
                 <!-- Hair Loss Plan -->
-                <div class="bundle-card group relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[#0D9488]/40 hover:shadow-card-glow">
+                <div class="bundle-card group relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[#0056b3]/40 hover:shadow-card-glow">
                     <div class="mb-6">
-                        <div class="flex items-center gap-2 mb-3 text-[#0D9488]">
+                        <div class="flex items-center gap-2 mb-3 text-[#0056b3]">
                             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                             <h3 class="text-xl md:text-2xl font-bold text-gray-900">Hair Loss Plan</h3>
                         </div>
-                        <p class="text-gray-600 text-sm md:text-base">Expert-backed plans for healthier hair.</p>
+                        <p class="text-gray-600 text-sm md:text-base">Slow or reverse shedding with a dermatologist who reads your scalp, not just your lab work.</p>
                     </div>
                     <ul class="space-y-3 flex-1 text-sm text-gray-700">
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Everyday Follow-ups</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Personalized AM/PM Routine</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Product Category Guide</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Lifestyle Trigger Mapping</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Timeline & Red Flags</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Access to Global Board-Certified Derms</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Follow‑ups every day while treatments kick in</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Step‑by‑step routine (AM/PM) around topicals & orals</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Product categories to invest in (and ones to skip)</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Lifestyle triggers to avoid (stress, styling, heat, diet)</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Timeline expectations & red flags for shedding/regrowth</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Services from board‑certified dermatologists worldwide</li>
                     </ul>
-                    <div class="mt-6 pt-5 border-t border-gray-100 rounded-lg bg-[#F0FDFA]/60 p-4 -mx-1">
-                        <p class="text-sm font-semibold text-[#0D9488]">Cosmetic & Procedure Planning (Botox/Fillers/Pre-Post Checkups)</p>
+                    <div class="mt-6 pt-5 border-t border-gray-100 rounded-lg bg-[#e0f2f1]/80 p-4 -mx-1">
+                        <p class="text-sm font-semibold text-[#0056b3]">Cosmetic consults (Botox, fillers planning — not injection)</p>
                     </div>
                     <div class="mt-8 pt-6 border-t border-gray-100">
                         <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">One-time Payment</p>
-                        <a href="#" class="bundle-cta block w-full py-4 px-6 rounded-xl font-semibold text-center text-white bg-[#0D9488] hover:bg-[#0F766E] transition-all duration-200 hover:shadow-lg hover:shadow-[#0D9488]/25 hover:-translate-y-0.5" data-hubspot="hair">Get a Quote</a>
+                        <a href="#" class="bundle-cta block w-full py-4 px-6 rounded-xl font-semibold text-center text-white bg-[#0056b3] hover:bg-[#004494] transition-all duration-200 hover:shadow-lg hover:shadow-[#0056b3]/25 hover:-translate-y-0.5" data-hubspot="hair">Get a Quote</a>
                     </div>
                 </div>
 
                 <!-- Skincare Routine -->
-                <div class="bundle-card group relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[#0D9488]/40 hover:shadow-card-glow">
+                <div class="bundle-card group relative bg-white rounded-2xl border border-gray-200 p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[#0056b3]/40 hover:shadow-card-glow">
                     <div class="mb-6">
-                        <div class="flex items-center gap-2 mb-3 text-[#0D9488]">
+                        <div class="flex items-center gap-2 mb-3 text-[#0056b3]">
                             <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
                             <h3 class="text-xl md:text-2xl font-bold text-gray-900">Skincare Routine</h3>
                         </div>
-                        <p class="text-gray-600 text-sm md:text-base">A routine that actually fits your skin.</p>
+                        <p class="text-gray-600 text-sm md:text-base">A routine that actually fits your skin type, budget, and lifestyle.</p>
                     </div>
                     <ul class="space-y-3 flex-1 text-sm text-gray-700">
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Everyday Follow-ups</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Personalized AM/PM Routine</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Product Category Guide</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Lifestyle Trigger Mapping</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Timeline & Red Flags</li>
-                        <li class="flex items-start gap-2"><span class="text-[#0D9488] mt-0.5">✓</span> Access to Global Board-Certified Derms</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Follow‑ups every day while you build the habit</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Step‑by‑step routine (AM/PM) matched to your skin type</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Product categories to focus on (and what to skip buying)</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Lifestyle triggers to avoid (sleep, stress, environment)</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Timeline expectations & red flags as your skin changes</li>
+                        <li class="flex items-start gap-2"><span class="text-[#0056b3] mt-0.5">✓</span> Services from board‑certified dermatologists worldwide</li>
                     </ul>
-                    <div class="mt-6 pt-5 border-t border-gray-100 rounded-lg bg-[#F0FDFA]/60 p-4 -mx-1">
-                        <p class="text-sm font-semibold text-[#0D9488]">Cosmetic & Procedure Planning (Botox/Fillers/Pre-Post Checkups)</p>
+                    <div class="mt-6 pt-5 border-t border-gray-100 rounded-lg bg-[#e0f2f1]/80 p-4 -mx-1">
+                        <p class="text-sm font-semibold text-[#0056b3]">Pre‑ and post‑procedure check‑ups around peels, lasers & more</p>
                     </div>
                     <div class="mt-8 pt-6 border-t border-gray-100">
                         <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">One-time Payment</p>
-                        <a href="#" class="bundle-cta block w-full py-4 px-6 rounded-xl font-semibold text-center text-white bg-[#0D9488] hover:bg-[#0F766E] transition-all duration-200 hover:shadow-lg hover:shadow-[#0D9488]/25 hover:-translate-y-0.5" data-hubspot="skincare">Get a Quote</a>
+                        <a href="#" class="bundle-cta block w-full py-4 px-6 rounded-xl font-semibold text-center text-white bg-[#0056b3] hover:bg-[#004494] transition-all duration-200 hover:shadow-lg hover:shadow-[#0056b3]/25 hover:-translate-y-0.5" data-hubspot="skincare">Get a Quote</a>
                     </div>
                 </div>
             </div>
@@ -362,106 +409,28 @@
         const modal = document.getElementById('bookingModal');
         const triggers = document.querySelectorAll('.btn-trigger');
         const closeBtn = document.getElementById('closeModal');
-        const confirmBtn = document.getElementById('confirmBooking');
-        const dateInput = document.getElementById('appointmentDate');
-        const timeSlotsGrid = document.getElementById('timeSlotsGrid');
 
-        let selectedSlot = null; // e.g. "09:00"
-
-        // Set min date to today
-        const today = new Date();
-        const y = today.getFullYear();
-        const m = String(today.getMonth() + 1).padStart(2, '0');
-        const d = String(today.getDate()).padStart(2, '0');
-        dateInput.min = `${y}-${m}-${d}`;
-
-        // Generate 24/7 time slots (every 30 minutes)
-        function getTimeSlots() {
-            const slots = [];
-            for (let h = 0; h < 24; h++) {
-                for (let m = 0; m < 60; m += 30) {
-                    const hh = String(h).padStart(2, '0');
-                    const mm = String(m).padStart(2, '0');
-                    const hour12 = h === 0 ? 12 : (h > 12 ? h - 12 : h);
-                    const suffix = h < 12 ? 'AM' : 'PM';
-                    slots.push({ value: `${hh}:${mm}`, label: `${hour12}:${mm} ${suffix}` });
-                }
-            }
-            return slots;
-        }
-
-        function renderTimeSlots() {
-            const date = dateInput.value;
-            timeSlotsGrid.innerHTML = '';
-            selectedSlot = null;
-            if (!date) {
-                timeSlotsGrid.innerHTML = '<p style="grid-column:1/-1;color:#888;font-size:0.9rem;">Select a date above to see available slots.</p>';
-                return;
-            }
-            const slots = getTimeSlots();
-            slots.forEach(({ value, label }) => {
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'time-slot-btn';
-                btn.textContent = label;
-                btn.dataset.time = value;
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.time-slot-btn.selected').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    selectedSlot = value;
-                });
-                timeSlotsGrid.appendChild(btn);
-            });
-        }
-
-        dateInput.addEventListener('change', renderTimeSlots);
-
-        // Open Modal
+        // Open modal — shows HubSpot meetings embed (calendar is HubSpot)
         triggers.forEach(btn => {
             btn.addEventListener('click', () => {
                 modal.style.display = 'flex';
-                selectedSlot = null;
-                dateInput.value = '';
-                renderTimeSlots();
             });
         });
 
-        // Close Modal
         closeBtn.addEventListener('click', () => {
             modal.style.display = 'none';
         });
 
-        // Confirm Action — save booking and go to intake form
-        confirmBtn.addEventListener('click', () => {
-            const dateVal = dateInput.value;
-            if (!dateVal) {
-                alert("Please select a date.");
-                return;
-            }
-            if (!selectedSlot) {
-                alert("Please select a time slot.");
-                return;
-            }
-            const displayDate = new Date(dateVal + 'T' + selectedSlot).toLocaleString('en-US', {
-                weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
-                hour: 'numeric', minute: '2-digit'
-            });
-            sessionStorage.setItem('maConsultationBooking', JSON.stringify({
-                date: dateVal,
-                time: selectedSlot,
-                display: displayDate
-            }));
-            modal.style.display = 'none';
-            window.location.href = 'intake.html';
-        });
-
-        // Close if clicking outside the content box
         window.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.style.display = 'none';
             }
         });
     </script>
+
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/146384728.js"></script>
+<!-- End of HubSpot Embed Code -->
 
 </body>
 </html>

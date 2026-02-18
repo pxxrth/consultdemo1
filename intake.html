@@ -150,6 +150,23 @@
             text-align: center;
         }
         .success-msg.show { display: block; }
+        .step-pill {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            background: rgba(0, 86, 179, 0.08);
+            padding: 6px 14px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+        .intake-intro {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 28px;
+            line-height: 1.65;
+        }
+        .post-booking-intro.show { display: block !important; }
     </style>
 </head>
 <body>
@@ -163,9 +180,14 @@
             <h2>Your consultation</h2>
             <div class="datetime" id="appointmentDatetime">—</div>
         </div>
+        <div id="postBookingIntro" class="post-booking-intro" style="display: none;">
+            <p class="step-pill">Step 2 of 2</p>
+            <h2 style="font-size: 1.5rem; color: var(--secondary-navy); margin-bottom: 8px;">You're booked. One quick form and we're ready.</h2>
+            <p class="intake-intro">This helps our team prepare for your call so we can focus on what matters. Most fields are optional except the basics. Take your time.</p>
+        </div>
 
         <div class="success-msg" id="successMsg">
-            <strong>Thank you.</strong> Your information has been submitted. We'll call you at your scheduled time. If you need to change your appointment, contact us.
+            <strong>You're all done.</strong> We have everything we need. We'll see you on your call — and if anything comes up before then, just reach out.
         </div>
 
         <form id="intakeForm">
@@ -419,12 +441,27 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-submit">Submit pre-consultation form</button>
+            <button type="submit" class="btn-submit">Submit — we'll see you on your call</button>
         </form>
     </div>
 
     <script>
-        // Show booked appointment from sessionStorage
+        // Post-booking flow: show intro when user came from booking (HubSpot redirect or booking-complete page)
+        (function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var referrer = typeof document.referrer === 'string' ? document.referrer : '';
+            var fromBooking = urlParams.get('from') === 'booking'
+                || referrer.indexOf('booking-complete') !== -1
+                || referrer.indexOf('hubspot') !== -1
+                || sessionStorage.getItem('maFromBooking') === '1';
+            if (fromBooking) {
+                try { sessionStorage.setItem('maFromBooking', '1'); } catch (e) {}
+                var intro = document.getElementById('postBookingIntro');
+                if (intro) intro.classList.add('show');
+            }
+        })();
+
+        // Show booked appointment from sessionStorage (or friendly text after HubSpot booking)
         const stored = sessionStorage.getItem('maConsultationBooking');
         if (stored) {
             try {
@@ -434,7 +471,11 @@
                 document.getElementById('appointmentDatetime').textContent = 'Consultation booked';
             }
         } else {
-            document.getElementById('appointmentBanner').innerHTML = '<h2>Pre-consultation form</h2><div class="datetime">Complete this form before your call.</div>';
+            if (sessionStorage.getItem('maFromBooking')) {
+                document.getElementById('appointmentBanner').innerHTML = '<h2>Your consultation</h2><div class="datetime">Confirmed — check your email for date & time</div>';
+            } else {
+                document.getElementById('appointmentBanner').innerHTML = '<h2>Pre-consultation form</h2><div class="datetime">Complete this form before your call.</div>';
+            }
         }
 
         // Optional: show/hide "details" fields when Yes is selected
@@ -473,6 +514,10 @@
             document.getElementById('appointmentBanner').scrollIntoView({ behavior: 'smooth' });
         });
     </script>
+
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/146384728.js"></script>
+<!-- End of HubSpot Embed Code -->
 
 </body>
 </html>

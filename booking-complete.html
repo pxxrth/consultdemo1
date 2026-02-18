@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're booked! | MA Consultation</title>
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --secondary-navy: #1a2b3c;
+            --gray-bg: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: var(--gray-bg);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 1rem 5%;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+        .logo a { color: inherit; text-decoration: none; }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 48px 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        }
+        .checkmark {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 24px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .checkmark svg {
+            width: 40px;
+            height: 40px;
+            stroke: #2e7d32;
+        }
+        .card h1 {
+            font-size: 1.75rem;
+            color: var(--secondary-navy);
+            margin-bottom: 12px;
+        }
+        .card .sub {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 28px;
+        }
+        .card .email-note {
+            font-size: 0.9rem;
+            color: #555;
+            background: #f5f5f5;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 32px;
+        }
+        .cta-primary {
+            display: block;
+            width: 100%;
+            padding: 18px 24px;
+            background: var(--primary-blue);
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: var(--transition);
+            margin-bottom: 16px;
+        }
+        .cta-primary:hover {
+            background: #004494;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,86,179,0.3);
+        }
+        .cta-secondary {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .cta-secondary a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+        .cta-secondary a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="logo">MA CONSULTATION</a>
+
+    <div class="card">
+        <div class="checkmark" aria-hidden="true">
+            <svg fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M20 6L9 17l-5-5"/>
+            </svg>
+        </div>
+        <h1>You're all set</h1>
+        <p class="sub">Your consultation is confirmed.</p>
+        <p class="email-note">Check your email for the date, time, and calendar invite. We'll call you at your scheduled time.</p>
+        <a href="intake.html?from=booking" class="cta-primary">Complete your pre-consultation form →</a>
+        <p class="cta-secondary">Takes about 3 minutes. Helps our team prepare so your call is more useful.<br><a href="intake.html?from=booking">Do this later</a></p>
+    </div>
+
+    <script>
+        // Mark that user came from post-booking so intake page shows the right intro
+        try { sessionStorage.setItem('maFromBooking', '1'); } catch (e) {}
+    </script>
+    <!--
+    HUBSPOT SETUP: In HubSpot go to
+    Settings → Meetings → Your meeting type → After booking → Redirect to a different page
+    and set the URL to this page, e.g.:
+    https://yourdomain.com/consultation/booking-complete.html
+    -->
+
+</body>
+</html>
