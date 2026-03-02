@@ -787,7 +787,7 @@
 
     <div class="nav">
       <div></div>
-      <button class="btn btn-next" onclick="goTo(2)">Continue →</button>
+      <button type="button" class="btn btn-next" onclick="goTo(2)">Continue →</button>
     </div>
   </div>
 
@@ -851,8 +851,8 @@
     </div>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(1)">← Back</button>
-      <button class="btn btn-next" onclick="goTo(3)">Continue →</button>
+      <button type="button" class="btn btn-back" onclick="goTo(1)">← Back</button>
+      <button type="button" class="btn btn-next" onclick="goTo(3)">Continue →</button>
     </div>
   </div>
 
@@ -929,8 +929,8 @@
     </div>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(2)">← Back</button>
-      <button class="btn btn-next" onclick="goTo(4)">Continue →</button>
+      <button type="button" class="btn btn-back" onclick="goTo(2)">← Back</button>
+      <button type="button" class="btn btn-next" onclick="goTo(4)">Continue →</button>
     </div>
   </div>
 
@@ -966,8 +966,8 @@
     </div>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(3)">← Back</button>
-      <button class="btn btn-next" onclick="goTo(5)">Continue →</button>
+      <button type="button" class="btn btn-back" onclick="goTo(3)">← Back</button>
+      <button type="button" class="btn btn-next" onclick="goTo(5)">Continue →</button>
     </div>
   </div>
 
@@ -1057,8 +1057,8 @@
     </div>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(4)">← Back</button>
-      <button class="btn btn-next" onclick="goTo(6)">Continue →</button>
+      <button type="button" class="btn btn-back" onclick="goTo(4)">← Back</button>
+      <button type="button" class="btn btn-next" onclick="goTo(6)">Continue →</button>
     </div>
   </div>
 
@@ -1095,8 +1095,8 @@
     </label>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(5)">← Back</button>
-      <button class="btn btn-submit" onclick="submitForm()">Submit Consultation ✓</button>
+      <button type="button" class="btn btn-back" onclick="goTo(5)">← Back</button>
+      <button type="button" class="btn btn-submit" onclick="submitForm()">Submit Consultation ✓</button>
     </div>
   </div>
 
@@ -1243,8 +1243,8 @@
 </html>
                 </form>
 
-                <button id="nextButton" class="btn-primary" type="button">
-                    Next: Choose Your Appointment →
+                <button id="main-cta-btn" class="btn-primary" type="button">
+                    Continue →
                 </button>
             </section>
         </div>
@@ -1256,72 +1256,130 @@
     </footer>
 
     <script>
-        const form = document.getElementById("patientForm");
-        const nextButton = document.getElementById("nextButton");
+        const mainButton = document.getElementById("main-cta-btn");
+        const TOTAL_SECTIONS = 6;
 
-        function clearErrors() {
-            if (!form) return;
-            const errored = form.querySelectorAll(".error-border");
-            errored.forEach((el) => el.classList.remove("error-border"));
-            const messages = form.querySelectorAll(".field-error");
-            messages.forEach((el) => el.remove());
+        function clearSectionErrors(sectionEl) {
+            if (!sectionEl) return;
+            sectionEl.querySelectorAll(".error-border").forEach((el) => {
+                el.classList.remove("error-border");
+            });
+            sectionEl.querySelectorAll(".field-error").forEach((el) => el.remove());
         }
 
-        function showError(field) {
-            field.classList.add("error-border");
-            const msg = document.createElement("div");
-            msg.className = "field-error";
-            msg.textContent = "This field is required";
-            const parent = field.parentElement || field;
-            parent.appendChild(msg);
+        function attachFieldListeners(fieldEl) {
+            if (!fieldEl) return;
+            const clear = () => {
+                const group = fieldEl.closest(".field-group") || fieldEl.parentElement;
+                if (!group) return;
+                group.querySelectorAll(".error-border").forEach((el) =>
+                    el.classList.remove("error-border")
+                );
+                group.querySelectorAll(".field-error").forEach((el) => el.remove());
+            };
+            fieldEl.addEventListener("input", clear);
+            fieldEl.addEventListener("change", clear);
         }
 
-        function validateForm() {
-            if (!form) return false;
-            clearErrors();
+        function markError(target) {
+            if (!target) return;
+            const group = target.closest(".field-group") || target.parentElement || target;
+            target.classList.add("error-border");
+            if (!group.querySelector(".field-error")) {
+                const span = document.createElement("span");
+                span.className = "field-error";
+                span.textContent = "This field is required";
+                group.appendChild(span);
+            }
+            attachFieldListeners(target);
+        }
+
+        function validateCurrentSection() {
+            const secId = "s" + currentSection;
+            const sectionEl = document.getElementById(secId);
+            if (!sectionEl) return true;
+
+            clearSectionErrors(sectionEl);
+
             let valid = true;
-            const requiredFields = form.querySelectorAll("[required]");
+            const groups = sectionEl.querySelectorAll(".field-group");
 
-            requiredFields.forEach((field) => {
-                const value = field.value != null ? String(field.value).trim() : "";
-                if (!value) {
-                    valid = false;
-                    showError(field);
+            groups.forEach((group) => {
+                const hasReq = !!group.querySelector("label .req");
+                if (!hasReq) return;
+
+                const textLike = group.querySelector(
+                    'input[type="text"],input[type="email"],input[type="tel"],input[type="date"],textarea,select'
+                );
+                const radios = group.querySelectorAll('input[type="radio"]');
+                const files = group.querySelectorAll('input[type="file"]');
+
+                if (radios.length) {
+                    const anyChecked = Array.from(radios).some((r) => r.checked);
+                    if (!anyChecked) {
+                        valid = false;
+                        const radioGroup = group.querySelector(".radio-group") || radios[0];
+                        markError(radioGroup);
+                    }
+                } else if (files.length) {
+                    const anyFile = Array.from(files).some(
+                        (f) => f.files && f.files.length > 0
+                    );
+                    if (!anyFile) {
+                        valid = false;
+                        const zone = group.querySelector(".upload-zone") || files[0];
+                        markError(zone);
+                    }
+                } else if (textLike) {
+                    const value = (textLike.value || "").trim();
+                    if (!value) {
+                        valid = false;
+                        markError(textLike);
+                    }
                 }
             });
 
             return valid;
         }
 
-        function buildCalendarURL() {
-            if (!form) return "calendar.html";
-            const data = new FormData(form);
-            const params = new URLSearchParams();
-
-            data.forEach((value, key) => {
-                params.append(key, value);
-            });
-
-            const qs = params.toString();
-            return qs ? `calendar.html?${qs}` : "calendar.html";
+        function updateButton(sectionIndex) {
+            if (!mainButton) return;
+            if (sectionIndex < TOTAL_SECTIONS) {
+                mainButton.textContent = "Continue →";
+            } else {
+                mainButton.textContent = "Next: Choose Your Appointment →";
+            }
         }
 
-        nextButton.addEventListener("click", () => {
-            if (!validateForm()) {
-                return;
+        function redirectToCalendar() {
+            const params = new URLSearchParams();
+            const emailInput = document.querySelector('input[type="email"]');
+            if (emailInput && emailInput.value.trim()) {
+                params.set("email", emailInput.value.trim());
             }
-            const originalText = nextButton.textContent;
-            nextButton.textContent = "Please wait...";
-            nextButton.disabled = true;
+            const target = params.toString()
+                ? `calendar.html?${params.toString()}`
+                : "calendar.html";
+            window.location.href = target;
+        }
 
-            const targetURL = buildCalendarURL();
+        function handleMainClick() {
+            if (!validateCurrentSection()) return;
 
-            setTimeout(() => {
-                window.location.href = targetURL;
-                nextButton.textContent = originalText;
-                nextButton.disabled = false;
-            }, 400);
-        });
+            if (currentSection < TOTAL_SECTIONS) {
+                goTo(currentSection + 1);
+                updateButton(currentSection);
+            } else {
+                redirectToCalendar();
+            }
+        }
+
+        if (mainButton) {
+            mainButton.addEventListener("click", handleMainClick);
+        }
+
+        // Ensure initial label is correct
+        updateButton(typeof currentSection === "number" ? currentSection : 1);
     </script>
 </body>
 </html>
