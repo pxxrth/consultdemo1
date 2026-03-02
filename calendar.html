@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<!-- Tally removed -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Appointment | MA Consultation</title>
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --secondary-navy: #1a2b3c;
+            --accent-teal: #e0f2f1;
+            --text-dark: #333333;
+            --text-light: #ffffff;
+            --gray-bg: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--gray-bg);
+        }
+        a { text-decoration: none; color: inherit; }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: var(--text-light);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: -1px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--secondary-navy);
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        .nav-cta {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .progress-bar-shell {
+            width: 100%;
+            height: 4px;
+            background: rgba(0,0,0,0.05);
+        }
+        .progress-bar-fill {
+            width: 100%;
+            height: 100%;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+
+        main {
+            padding: 40px 16px 60px;
+        }
+        .page-wrap {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .page-header {
+            margin-bottom: 20px;
+        }
+        .step-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary-navy);
+            margin-bottom: 6px;
+        }
+        .page-subtext {
+            font-size: 0.98rem;
+            color: #555555;
+        }
+
+        .card {
+            background: var(--text-light);
+            border-radius: 12px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-top: 24px;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .calendar-month {
+            font-weight: 600;
+            color: var(--secondary-navy);
+        }
+        .calendar-nav-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,0.12);
+            background: var(--text-light);
+            color: var(--secondary-navy);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .calendar-nav-btn:hover {
+            background: var(--accent-teal);
+        }
+
+        .weekday-row {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            font-size: 0.8rem;
+            color: #666666;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .weekday-row span {
+            padding: 4px 0;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 4px;
+        }
+        .day-cell {
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+            background: var(--text-light);
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .day-cell-empty {
+            background: transparent;
+            border: none;
+            cursor: default;
+        }
+        .day-cell-disabled {
+            background: var(--gray-bg);
+            color: #aaaaaa;
+            cursor: not-allowed;
+        }
+        .day-cell-today {
+            box-shadow: 0 0 0 2px var(--primary-blue);
+        }
+        .day-cell-available:hover {
+            background: var(--accent-teal);
+        }
+        .day-cell-selected {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            box-shadow: 0 2px 8px rgba(0,86,179,0.3);
+        }
+
+        .slots-shell {
+            margin-top: 20px;
+        }
+        .slots-header {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--secondary-navy);
+            margin-bottom: 10px;
+        }
+        .slots-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .slot-btn {
+            min-height: 44px;
+            border-radius: 999px;
+            border: 1px solid var(--primary-blue);
+            background: var(--text-light);
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .slot-btn:hover {
+            background: var(--primary-blue);
+            color: var(--text-light);
+        }
+        .slot-selected {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        .slot-taken {
+            background: #e0e0e0;
+            color: #777777;
+            border-color: transparent;
+            text-decoration: line-through;
+            cursor: not-allowed;
+        }
+
+        .btn-confirm {
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 999px;
+            border: none;
+            background: var(--primary-blue);
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: none;
+        }
+        .btn-confirm.visible {
+            display: block;
+        }
+        .btn-confirm:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0,86,179,0.3);
+        }
+
+        .confirmation-card {
+            display: none;
+            background: var(--text-light);
+            border-radius: 12px;
+            padding: 40px 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+
+        .check-circle {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+        }
+        .check-circle svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--primary-blue);
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .check-circle path {
+            stroke-dasharray: 60;
+            stroke-dashoffset: 60;
+            animation: draw-check 0.4s ease-out forwards 0.2s;
+        }
+        @keyframes draw-check {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .confirm-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-navy);
+            margin-bottom: 12px;
+        }
+        .confirm-line {
+            font-size: 0.98rem;
+            color: #555555;
+            margin-bottom: 10px;
+        }
+        .confirm-divider {
+            margin: 18px auto;
+            height: 1px;
+            max-width: 360px;
+            background: rgba(0,0,0,0.08);
+        }
+        .confirm-small {
+            font-size: 0.9rem;
+            color: #666666;
+            margin-bottom: 22px;
+        }
+        .btn-ghost {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,0.16);
+            background: transparent;
+            color: var(--secondary-navy);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+        .btn-ghost:hover {
+            background: var(--accent-teal);
+        }
+
+        footer {
+            padding: 24px 5% 28px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777777;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            background: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding-inline: 16px; }
+            .nav-links { display: none; }
+            .card,
+            .confirmation-card { padding: 28px 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .slots-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nav copied from index.html -->
+    <nav>
+        <div class="logo">MA CONSULTATION</div>
+        <ul class="nav-links">
+            <li><a href="index.html#how-it-works">How it Works</a></li>
+            <li><a href="index.html#bundles">Programs</a></li>
+        </ul>
+        <button class="nav-cta" type="button" onclick="window.location.href='form.html'">Book a Consultation</button>
+    </nav>
+
+    <div class="progress-bar-shell" aria-hidden="true">
+        <div class="progress-bar-fill"></div>
+    </div>
+
+    <main>
+        <div class="page-wrap">
+            <header class="page-header">
+                <div class="step-label">Step 2 of 2</div>
+                <h1 class="page-title">Choose Your Appointment</h1>
+                <p class="page-subtext">
+                    All consultations are conducted online. Pick a date and time that works for you.
+                </p>
+            </header>
+
+            <section class="card" id="calendarCard" aria-label="Appointment calendar">
+                <div class="calendar-header">
+                    <button type="button" class="calendar-nav-btn" id="prevMonth" aria-label="Previous month">&larr;</button>
+                    <div class="calendar-month" id="monthLabel"></div>
+                    <button type="button" class="calendar-nav-btn" id="nextMonth" aria-label="Next month">&rarr;</button>
+                </div>
+
+                <div class="weekday-row" aria-hidden="true">
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                    <span>Sun</span>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid" aria-label="Select appointment date"></div>
+
+                <div class="slots-shell" id="slotsShell"></div>
+
+                <button type="button" class="btn-confirm" id="confirmButton">
+                    Confirm Appointment →
+                </button>
+            </section>
+
+            <section class="confirmation-card" id="confirmationCard" aria-label="Appointment confirmed">
+                <div class="check-circle">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M7 13l3 3 7-7"></path>
+                    </svg>
+                </div>
+                <h2 class="confirm-title">You're All Set!</h2>
+                <p class="confirm-line" id="confirmLineMain"></p>
+                <p class="confirm-line" id="confirmLineEmail"></p>
+                <div class="confirm-divider"></div>
+                <p class="confirm-small">
+                    Our specialist will review your details before the call. If you need to reschedule,
+                    reply to your confirmation email.
+                </p>
+                <a href="index.html" class="btn-ghost">← Back to Home</a>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer copied from index.html -->
+    <footer>
+        &copy; 2026 MA Consultation. All rights reserved. Professional medical guidance you can trust.
+    </footer>
+
+    <script src="calendar.js"></script>
+</body>
+</html>
+
