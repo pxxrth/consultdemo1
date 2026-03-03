@@ -68,13 +68,15 @@ function formatFullDisplay(date, time) {
 // Read name, email, and other fields passed from form.html
 
 function readUrlParams() {
-  const search = window.location.search || "";
-  const params = new URLSearchParams(search);
-  const result = {};
-  params.forEach((value, key) => {
-    result[key] = value;
-  });
-  calendarState.params = result;
+  const params = new URLSearchParams(window.location.search);
+  const patientName = params.get('name') || 'Patient';
+  const patientEmail = params.get('email') || '';
+  const patientPhone = params.get('phone') || '';
+  calendarState.params = {
+    name: patientName,
+    email: patientEmail,
+    phone: patientPhone
+  };
 }
 
 // === CALENDAR RENDER ===
@@ -255,37 +257,54 @@ function slideUp(el) {
 // showConfirmation() — builds and animates in the confirmation card
 
 function showConfirmation() {
-  if (
-    !calendarDOM.calendarCard ||
-    !calendarDOM.confirmationCard ||
-    !calendarState.selectedDate ||
-    !calendarState.selectedTime
-  ) {
+  // when user has chosen date/time, redirect to the standalone confirmation page
+  if (!calendarState.selectedDate || !calendarState.selectedTime) {
     return;
   }
 
-  const fullText = formatFullDisplay(
-    calendarState.selectedDate,
-    calendarState.selectedTime
-  );
-  const email = calendarState.params.email || "";
+  // construct outgoing params
+  const outParams = new URLSearchParams();
+  outParams.set('name', calendarState.params.name || '');
+  outParams.set('email', calendarState.params.email || '');
+  outParams.set('phone', calendarState.params.phone || '');
 
-  if (calendarDOM.confirmLineMain) {
-    calendarDOM.confirmLineMain.textContent =
-      `Your consultation has been booked for ${fullText}.`;
-  }
-  if (calendarDOM.confirmLineEmail) {
-    calendarDOM.confirmLineEmail.textContent =
-      email
-        ? `A confirmation email is on its way to ${email}. Please check your spam folder if you don't see it within a few minutes.`
-        : "A confirmation email is on its way. Please check your spam folder if you don't see it within a few minutes.";
+  // human-readable date and time values
+  const dateStr = calendarState.selectedDate
+    ? new Intl.DateTimeFormat('en-US', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(calendarState.selectedDate)
+    : '';
+  const timeStr = calendarState.selectedTime || '';
+
+  outParams.set('date', dateStr);
+  outParams.set('time', timeStr);
+
+  // Update CRM record with appointment date and time
+  var patientEmail = calendarState.params.email || '';
+
+  if (patientEmail) {
+    fetch('https://preview-sandbox--69a50682df9af07889300c56.base44.app/functions/new-patient-webhook', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': 'K7mP3xQn9vR2tY8wA4jB6cD1eF5gH0iL'
+      },
+      body: JSON.stringify({
+        updateOnly: true,
+        email: patientEmail,
+        appointmentDate: dateStr,
+        appointmentTime: timeStr
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(d) { console.log('Appointment updated in CRM:', d); })
+    .catch(function(e) { console.error('Appointment update failed:', e); });
   }
 
-  fadeOut(calendarDOM.calendarCard, () => {
-    calendarDOM.calendarCard.style.display = "none";
-    calendarDOM.confirmationCard.style.display = "block";
-    slideUp(calendarDOM.confirmationCard);
-  });
+  window.location.href = 'confirmation.html?' + outParams.toString();
 }
 
 // === EVENT LISTENERS ===

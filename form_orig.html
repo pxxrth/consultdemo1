@@ -1,13 +1,194 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+<!-- Tally removed -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Consultation Form | AM Consultation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <!-- add any needed CSS or scripts here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Details | MA Consultation</title>
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --secondary-navy: #1a2b3c;
+            --accent-teal: #e0f2f1;
+            --text-dark: #333333;
+            --text-light: #ffffff;
+            --gray-bg: #f8f9fa;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--gray-bg);
+        }
+        a { text-decoration: none; color: inherit; }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: var(--text-light);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: -1px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: var(--secondary-navy);
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        .nav-cta {
+            background: var(--primary-blue);
+            color: var(--text-light);
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .progress-bar-shell {
+            width: 100%;
+            height: 4px;
+            background: rgba(0,0,0,0.05);
+        }
+        .progress-bar-fill {
+            width: 50%;
+            height: 100%;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+
+        main {
+            padding: 40px 16px 60px;
+        }
+        .page-wrap {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .page-header {
+            margin-bottom: 20px;
+        }
+        .step-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--secondary-navy);
+            margin-bottom: 6px;
+        }
+        .page-subtext {
+            font-size: 0.98rem;
+            color: #555555;
+        }
+
+        .card {
+            background: var(--text-light);
+            border-radius: 12px;
+            padding: 28px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            margin-top: 24px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 999px;
+            border: none;
+            background: var(--primary-blue);
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0,86,179,0.3);
+        }
+
+        .field-error {
+            margin-top: 4px;
+            font-size: 0.8rem;
+            color: #e53e3e;
+        }
+
+        .error-border {
+            border-color: #e53e3e !important;
+        }
+
+        footer {
+            padding: 24px 5% 28px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777777;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            background: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding-inline: 16px; }
+            .nav-links { display: none; }
+            .card { padding: 24px 20px; }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Nav copied from index.html -->
+    <nav>
+        <div class="logo">MA CONSULTATION</div>
+        <ul class="nav-links">
+            <li><a href="index.html#how-it-works">How it Works</a></li>
+            <li><a href="index.html#bundles">Programs</a></li>
+        </ul>
+        <button class="nav-cta" type="button" onclick="window.location.href='form.html'">Book a Consultation</button>
+    </nav>
+
+    <div class="progress-bar-shell" aria-hidden="true">
+        <div class="progress-bar-fill"></div>
+    </div>
+
+    <main>
+        <div class="page-wrap">
+            <header class="page-header">
+                <div class="step-label">Step 1 of 2</div>
+                <h1 class="page-title">Tell Us About Yourself</h1>
+                <p class="page-subtext">
+                    This helps us match you with the right specialist before your consultation.
+                </p>
+            </header>
+
+            <section class="card" aria-label="Patient intake form">
+                <form id="patientForm" novalidate>
+                    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dermatology & Aesthetic Consultation Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #faf7f4;
@@ -145,11 +326,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes circleIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-
   .section-header {
     margin-bottom: 36px;
   }
@@ -283,7 +459,7 @@
   }
 
   .check-item.checked .check-box::after {
-    content: '✓';
+    content: 'Γ£ô';
     color: white;
     font-size: 11px;
     font-weight: 600;
@@ -393,7 +569,7 @@
   }
 
   .consent-item.checked .consent-box::after {
-    content: '✓';
+    content: 'Γ£ô';
     color: white;
     font-size: 12px;
     font-weight: 600;
@@ -576,11 +752,11 @@
     <div class="field-row">
       <div class="field-group">
         <label>Full Name <span class="req">*</span></label>
-        <input type="text" id="f-name" placeholder="e.g. Aisha Khan">
+        <input type="text" placeholder="e.g. Aisha Khan">
       </div>
       <div class="field-group">
         <label>Date of Birth <span class="req">*</span></label>
-        <input type="date" id="f-dob">
+        <input type="date">
       </div>
     </div>
 
@@ -596,22 +772,22 @@
     <div class="field-row">
       <div class="field-group">
         <label>WhatsApp Number <span class="req">*</span></label>
-        <input type="tel" id="f-phone" placeholder="+92 300 0000000">
+        <input type="tel" placeholder="+92 300 0000000">
       </div>
       <div class="field-group">
         <label>Email Address <span class="req">*</span></label>
-        <input type="email" id="f-email" placeholder="you@email.com">
+        <input type="email" placeholder="you@email.com">
       </div>
     </div>
 
     <div class="field-group">
       <label>City <span class="req">*</span></label>
-      <input type="text" id="f-city" placeholder="e.g. Karachi">
+      <input type="text" placeholder="e.g. Karachi">
     </div>
 
     <div class="nav">
       <div></div>
-      <button class="btn btn-next" onclick="goTo(2)">Continue →</button>
+      <button type="button" class="btn btn-next" onclick="goTo(2)">Continue ΓåÆ</button>
     </div>
   </div>
 
@@ -634,17 +810,17 @@
 
     <div class="field-group">
       <label>Describe your main concern <span class="req">*</span></label>
-      <textarea id="f-concern" placeholder="Please describe your skin concern in as much detail as possible..."></textarea>
+      <textarea placeholder="Please describe your skin concern in as much detail as possible..."></textarea>
     </div>
 
     <div class="field-group">
       <label>How long have you had this concern? <span class="req">*</span></label>
-      <select id="f-duration">
+      <select>
         <option value="" disabled selected>Select duration</option>
         <option>Less than a month</option>
-        <option>1 – 3 months</option>
-        <option>3 – 6 months</option>
-        <option>6 – 12 months</option>
+        <option>1 ΓÇô 3 months</option>
+        <option>3 ΓÇô 6 months</option>
+        <option>6 ΓÇô 12 months</option>
         <option>Over a year</option>
       </select>
     </div>
@@ -670,13 +846,13 @@
       </div>
       <div class="conditional" id="prev-detail">
         <label>What treatment did you receive?</label>
-        <textarea id="f-prev-treatment" placeholder="Describe previous treatments..."></textarea>
+        <textarea placeholder="Describe previous treatments..."></textarea>
       </div>
     </div>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(1)">← Back</button>
-      <button class="btn btn-next" onclick="goTo(3)">Continue →</button>
+      <button type="button" class="btn btn-back" onclick="goTo(1)">ΓåÉ Back</button>
+      <button type="button" class="btn btn-next" onclick="goTo(3)">Continue ΓåÆ</button>
     </div>
   </div>
 
@@ -696,7 +872,7 @@
       </div>
       <div class="conditional" id="allergy-detail">
         <label>List your allergies</label>
-        <input type="text" id="f-allergies" placeholder="e.g. penicillin, latex, certain foods">
+        <input type="text" placeholder="e.g. penicillin, latex, certain foods">
       </div>
     </div>
 
@@ -708,7 +884,7 @@
       </div>
       <div class="conditional" id="meds-detail">
         <label>List current medications</label>
-        <input type="text" id="f-meds" placeholder="e.g. metformin 500mg, vitamin D">
+        <input type="text" placeholder="e.g. metformin 500mg, vitamin D">
       </div>
     </div>
 
@@ -753,8 +929,8 @@
     </div>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(2)">← Back</button>
-      <button class="btn btn-next" onclick="goTo(4)">Continue →</button>
+      <button type="button" class="btn btn-back" onclick="goTo(2)">ΓåÉ Back</button>
+      <button type="button" class="btn btn-next" onclick="goTo(4)">Continue ΓåÆ</button>
     </div>
   </div>
 
@@ -770,7 +946,7 @@
       <label>Had aesthetic treatments before?</label>
       <div class="radio-group">
         <label class="radio-pill" data-shows="aesth-detail"><input type="radio" name="aesth">Yes</label>
-        <label class="radio-pill"><input type="radio" name="aesth">No — first time</label>
+        <label class="radio-pill"><input type="radio" name="aesth">No ΓÇö first time</label>
       </div>
       <div class="conditional" id="aesth-detail">
         <label>Which treatments have you had? <span class="opt">(select all)</span></label>
@@ -783,15 +959,15 @@
           <label class="check-item"><input type="checkbox"><div class="check-box"></div><span class="check-label">Thread Lift</span></label>
         </div>
         <label>Any reactions or complications?</label>
-        <textarea id="f-aesth-reactions" placeholder="Describe any side effects or reactions you experienced..."></textarea>
+        <textarea placeholder="Describe any side effects or reactions you experienced..."></textarea>
         <label style="margin-top:14px">When was your last treatment?</label>
-        <input type="date" id="f-aesth-date">
+        <input type="date">
       </div>
     </div>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(3)">← Back</button>
-      <button class="btn btn-next" onclick="goTo(5)">Continue →</button>
+      <button type="button" class="btn btn-back" onclick="goTo(3)">ΓåÉ Back</button>
+      <button type="button" class="btn btn-next" onclick="goTo(5)">Continue ΓåÆ</button>
     </div>
   </div>
 
@@ -813,11 +989,11 @@
         <div class="field-row">
           <div class="field-group">
             <label>Morning routine</label>
-            <textarea id="f-morning" style="min-height:80px" placeholder="e.g. CeraVe cleanser, niacinamide, SPF 50..."></textarea>
+            <textarea style="min-height:80px" placeholder="e.g. CeraVe cleanser, niacinamide, SPF 50..."></textarea>
           </div>
           <div class="field-group">
             <label>Evening routine</label>
-            <textarea id="f-evening" style="min-height:80px" placeholder="e.g. oil cleanser, retinol, moisturiser..."></textarea>
+            <textarea style="min-height:80px" placeholder="e.g. oil cleanser, retinol, moisturiser..."></textarea>
           </div>
         </div>
       </div>
@@ -839,21 +1015,21 @@
         <label class="radio-pill"><input type="radio" name="react">No</label>
       </div>
       <div class="conditional" id="react-detail">
-        <input type="text" id="f-reaction" placeholder="Which product and what reaction?">
+        <input type="text" placeholder="Which product and what reaction?">
       </div>
     </div>
 
     <div class="divider"></div>
 
-    <div class="note">📸 Please upload photos in <strong>natural lighting</strong>, without filters or makeup on the affected area. Minimum 2 photos required.</div>
+    <div class="note">≡ƒô╕ Please upload photos in <strong>natural lighting</strong>, without filters or makeup on the affected area. Minimum 2 photos required.</div>
 
     <div class="field-group">
       <label>Front facing photo <span class="req">*</span></label>
       <div class="upload-zone" onclick="this.querySelector('input').click()">
         <input type="file" accept="image/*" onchange="previewImage(this, 'preview1')">
-        <div class="upload-icon">📷</div>
+        <div class="upload-icon">≡ƒô╖</div>
         <h3>Upload front photo</h3>
-        <p>JPG or PNG · Max 10MB</p>
+        <p>JPG or PNG ┬╖ Max 10MB</p>
         <div class="upload-preview" id="preview1"></div>
       </div>
     </div>
@@ -862,9 +1038,9 @@
       <label>Close-up of affected area <span class="req">*</span></label>
       <div class="upload-zone" onclick="this.querySelector('input').click()">
         <input type="file" accept="image/*" onchange="previewImage(this, 'preview2')">
-        <div class="upload-icon">🔍</div>
+        <div class="upload-icon">≡ƒöì</div>
         <h3>Upload close-up photo</h3>
-        <p>JPG or PNG · Max 10MB</p>
+        <p>JPG or PNG ┬╖ Max 10MB</p>
         <div class="upload-preview" id="preview2"></div>
       </div>
     </div>
@@ -873,7 +1049,7 @@
       <label>Additional photos <span class="opt">optional</span></label>
       <div class="upload-zone" onclick="this.querySelector('input').click()">
         <input type="file" accept="image/*" multiple onchange="previewImage(this, 'preview3')">
-        <div class="upload-icon">➕</div>
+        <div class="upload-icon">Γ₧ò</div>
         <h3>Upload more photos</h3>
         <p>Multiple files allowed</p>
         <div class="upload-preview" id="preview3"></div>
@@ -881,8 +1057,8 @@
     </div>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(4)">← Back</button>
-      <button class="btn btn-next" onclick="goTo(6)">Continue →</button>
+      <button type="button" class="btn btn-back" onclick="goTo(4)">ΓåÉ Back</button>
+      <button type="button" class="btn btn-next" onclick="goTo(6)">Continue ΓåÆ</button>
     </div>
   </div>
 
@@ -919,129 +1095,36 @@
     </label>
 
     <div class="nav">
-      <button class="btn btn-back" onclick="goTo(5)">← Back</button>
-      <button class="btn btn-submit" onclick="submitForm()">Submit Consultation ✓</button>
+      <button type="button" class="btn btn-back" onclick="goTo(5)">ΓåÉ Back</button>
+      <button type="button" class="btn btn-submit" onclick="submitForm()">Submit Consultation Γ£ô</button>
     </div>
   </div>
 
-<div id="form-success-screen" style="display:none; text-align:center; padding: 60px 24px; animation: fadeIn 0.6s ease;">
-  
-  <!-- Checkmark -->
-  <div style="
-    width: 72px; height: 72px; border-radius: 50%;
-    border: 3px solid #7a9e8e;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 24px;
-    animation: circleIn 0.5s ease forwards;
-  ">
-    <div style="
-      width: 28px; height: 16px;
-      border-left: 3px solid #7a9e8e;
-      border-bottom: 3px solid #7a9e8e;
-      transform: rotate(-45deg) translateY(-3px);
-    "></div>
+  <!-- SUCCESS -->
+  <div class="success" id="success">
+    <div class="success-icon">≡ƒî┐</div>
+    <h2>Thank you for<br>submitting!</h2>
+    <p>Your consultation request has been received. Our dermatologist will review your details and photos within 24 hours.</p>
+    <p style="margin-top:8px">As a welcome gift, here is your exclusive voucher:</p>
+
+    <div class="voucher-box">
+      <div class="voucher-tag">Γ£ª Exclusive Welcome Voucher</div>
+      <div class="voucher-amount">PKR 5,000</div>
+      <div class="voucher-desc">Redeemable at our partnered dermatology clinic</div>
+      <div class="voucher-code" id="voucher-code">DERM-XXXX</div>
+      <div class="voucher-expiry">Valid for 30 days ┬╖ Present at clinic reception</div>
+    </div>
+
+    <p style="font-size:12px; color:var(--muted)">A copy of this voucher has been sent to your WhatsApp number.</p>
   </div>
-
-  <!-- Headline -->
-  <h2 style="
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem; font-weight: 400;
-    color: #2c1f1a; margin-bottom: 12px;
-  ">Form submitted successfully.</h2>
-
-  <!-- Subtext -->
-  <p style="font-size: 14px; color: #8a7068; max-width: 380px; margin: 0 auto 8px; line-height: 1.7;">
-    Your consultation details have been received. The next step is to book your appointment date and time.
-  </p>
-  <p style="font-size: 13px; color: #8a7068; max-width: 380px; margin: 0 auto 36px; line-height: 1.7;">
-    Your summary PDF has been downloaded to your device.
-  </p>
-
-  <!-- Voucher Block -->
-  <div style="
-    margin: 28px auto 32px;
-    max-width: 360px;
-    background: linear-gradient(135deg, #2c1f1a, #4a2e25);
-    border-radius: 16px;
-    padding: 32px;
-    color: white;
-    position: relative;
-    overflow: hidden;
-    text-align: left;
-  ">
-    <!-- decorative glow -->
-    <div style="
-      position: absolute; top: -30%; right: -20%;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(201,130,107,0.25), transparent 70%);
-      pointer-events: none;
-    "></div>
-
-    <div style="font-size:10px; letter-spacing:3px; text-transform:uppercase; color:#e8c4b0; margin-bottom:10px;">
-      ✦ Exclusive Welcome Voucher
-    </div>
-    <div style="font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:300; color:white; line-height:1; margin-bottom:6px;">
-      PKR 5,000
-    </div>
-    <div style="font-size:12px; color:rgba(255,255,255,0.55); margin-bottom:20px;">
-      Redeemable at our partnered dermatology clinic
-    </div>
-    <div style="
-      background: rgba(255,255,255,0.1);
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-family: monospace;
-      font-size: 18px;
-      letter-spacing: 3px;
-      color: #e8c4b0;
-    " id="voucher-code">DERM-XXXX</div>
-    <div style="font-size:11px; color:rgba(255,255,255,0.35); margin-top:12px;">
-      Valid for 30 days · Present at clinic reception
-    </div>
-  </div>
-
-  <p style="font-size:12px; color:#8a7068; margin-bottom: 28px;">
-    A copy of this voucher has been sent to your WhatsApp number.
-  </p>
-
-  <!-- CTA Button -->
-  <button
-    type="button"
-    onclick="proceedToCalendar()"
-    style="
-      background: #c9826b;
-      color: white;
-      border: none;
-      padding: 16px 40px;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(201,130,107,0.35);
-      transition: all 0.2s;
-      letter-spacing: 0.3px;
-    "
-    onmouseover="this.style.background='#b8725e'; this.style.transform='translateY(-1px)'"
-    onmouseout="this.style.background='#c9826b'; this.style.transform='translateY(0)'"
-  >
-    Book Your Appointment Date &#8594;
-  </button>
-
-  <p style="font-size: 11px; color: #b8a09a; margin-top: 16px;">
-    You will be asked to select a date and time for your consultation.
-  </p>
 
 </div>
 
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
   let currentSection = 1;
   const totalSections = 6;
 
-  // ── Navigation ──────────────────────────────────────────────
+  // ΓöÇΓöÇ Navigation ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
   function goTo(n) {
     document.getElementById('s' + currentSection).classList.remove('active');
     for (let i = 1; i <= totalSections; i++) {
@@ -1054,18 +1137,30 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // ── Radio pills ──────────────────────────────────────────────
+  // ΓöÇΓöÇ Radio pills ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+  // Wire up after DOM ready
   function initRadioPills() {
     document.querySelectorAll('.radio-pill input[type="radio"]').forEach(input => {
       input.addEventListener('change', function() {
         const name = this.name;
+        // deselect all pills in this group
         document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
           r.closest('.radio-pill').classList.remove('selected');
         });
+        // select this one
         this.closest('.radio-pill').classList.add('selected');
+
+        // handle conditional visibility
         const pill = this.closest('.radio-pill');
         const conditionalId = pill.dataset.shows;
-        if (conditionalId) document.getElementById(conditionalId).classList.add('show');
+        const conditionalHideId = pill.dataset.hides;
+        if (conditionalId) {
+          document.getElementById(conditionalId).classList.add('show');
+        }
+        if (conditionalHideId) {
+          document.getElementById(conditionalHideId).classList.remove('show');
+        }
+        // also hide siblings' conditionals
         document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
           const p = r.closest('.radio-pill');
           if (p !== pill && p.dataset.shows) {
@@ -1076,7 +1171,7 @@
     });
   }
 
-  // ── Checkboxes ───────────────────────────────────────────────
+  // ΓöÇΓöÇ Checkboxes ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
   function initCheckItems() {
     document.querySelectorAll('.check-item').forEach(item => {
       item.addEventListener('click', function(e) {
@@ -1088,7 +1183,7 @@
     });
   }
 
-  // ── Consent items ────────────────────────────────────────────
+  // ΓöÇΓöÇ Consent items ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
   function initConsentItems() {
     document.querySelectorAll('.consent-item').forEach(item => {
       item.addEventListener('click', function(e) {
@@ -1098,7 +1193,7 @@
     });
   }
 
-  // ── Photo preview ────────────────────────────────────────────
+  // ΓöÇΓöÇ Photo preview ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
   function previewImage(input, previewId) {
     const preview = document.getElementById(previewId);
     preview.innerHTML = '';
@@ -1114,23 +1209,7 @@
     });
   }
 
-  // ── Helpers ──────────────────────────────────────────────────
-  function getRadio(name) {
-    const checked = document.querySelector(`input[name="${name}"]:checked`);
-    return checked ? checked.closest('.radio-pill').textContent.trim() : 'Not answered';
-  }
-
-  function getChecked(containerSelector) {
-    const items = document.querySelectorAll(`${containerSelector} .check-item.checked .check-label`);
-    if (!items.length) return 'None selected';
-    return Array.from(items).map(i => i.textContent.trim()).join(', ');
-  }
-
-  function val(id) {
-    const el = document.getElementById(id);
-    return el && el.value.trim() ? el.value.trim() : '—';
-  }
-
+  // ΓöÇΓöÇ Voucher code generator ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
   function generateVoucherCode() {
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     let code = 'DERM-';
@@ -1138,394 +1217,170 @@
     return code;
   }
 
-  // ── PDF Generator ────────────────────────────────────────────
-  function generatePDF(voucherCode) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-    const pageW = 210;
-    const margin = 20;
-    const colW = pageW - margin * 2;
-    let y = 0;
-
-    // Colours
-    const dark   = [44, 31, 26];
-    const rose   = [201, 130, 107];
-    const sage   = [122, 158, 142];
-    const light  = [250, 247, 244];
-    const muted  = [138, 112, 104];
-    const white  = [255, 255, 255];
-    const border = [226, 213, 204];
-
-    function newPage() {
-      doc.addPage();
-      y = 20;
-    }
-
-    function checkPage(needed = 12) {
-      if (y + needed > 275) newPage();
-    }
-
-    // ── Header ──
-    doc.setFillColor(...dark);
-    doc.rect(0, 0, 210, 42, 'F');
-    doc.setFillColor(...rose);
-    doc.rect(0, 42, 210, 3, 'F');
-
-    doc.setTextColor(...white);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.text('AM CONSULTATION', margin, 14);
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(20);
-    doc.text('Dermatology & Aesthetic', margin, 25);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(13);
-    doc.text('Medical Intake Form', margin, 33);
-
-    const dateStr = new Date().toLocaleDateString('en-PK', { day:'2-digit', month:'short', year:'numeric' });
-    doc.setFontSize(8);
-    doc.setTextColor(...rose);
-    doc.text(`Submitted: ${dateStr}`, pageW - margin, 14, { align: 'right' });
-    doc.setTextColor(200,200,200);
-    doc.text(`Ref: ${voucherCode}`, pageW - margin, 20, { align: 'right' });
-
-    y = 52;
-
-    // ── Section renderer ──
-    function section(title, color = sage) {
-      checkPage(16);
-      doc.setFillColor(...color);
-      doc.roundedRect(margin, y, colW, 8, 1, 1, 'F');
-      doc.setTextColor(...white);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(9);
-      doc.text(title.toUpperCase(), margin + 4, y + 5.5);
-      y += 12;
-    }
-
-    function row(label, value, highlight = false) {
-      const lines = doc.splitTextToSize(String(value), colW - 52);
-      const rowH = Math.max(10, lines.length * 5 + 4);
-      checkPage(rowH + 2);
-
-      if (highlight) {
-        doc.setFillColor(...light);
-        doc.roundedRect(margin, y, colW, rowH, 1, 1, 'F');
-      }
-
-      doc.setTextColor(...muted);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(7.5);
-      doc.text(label, margin + 3, y + 6);
-
-      doc.setTextColor(...dark);
-      doc.setFont('helvetica', value === '—' ? 'normal' : 'normal');
-      doc.setFontSize(9);
-      doc.text(lines, margin + 52, y + 6);
-
-      doc.setDrawColor(...border);
-      doc.line(margin, y + rowH, margin + colW, y + rowH);
-      y += rowH;
-    }
-
-    // ══ SECTION 1: Personal Info ══
-    section('01 — Personal & Contact Information');
-    row('Full Name', val('f-name'), true);
-    row('Date of Birth', val('f-dob'));
-    row('Gender', getRadio('gender'), true);
-    row('WhatsApp', val('f-phone'));
-    row('Email', val('f-email'), true);
-    row('City', val('f-city'));
-    y += 6;
-
-    // ══ SECTION 2: Primary Concern ══
-    section('02 — Primary Concern');
-    row('Consultation Type', getRadio('consult'), true);
-    row('Main Concern', val('f-concern'));
-    row('Duration', val('f-duration'), true);
-    row('Area(s) Affected', getChecked('#s2 .check-grid'));
-    row('Seen Doctor Before', getRadio('prev'), true);
-    if (document.getElementById('prev-detail').classList.contains('show')) {
-      row('Previous Treatment', val('f-prev-treatment'));
-    }
-    y += 6;
-
-    // ══ SECTION 3: Medical History ══
-    section('03 — Medical History & Allergies', rose);
-    row('Known Allergies', getRadio('allergy'), true);
-    if (document.getElementById('allergy-detail').classList.contains('show')) {
-      row('Allergy Details', val('f-allergies'));
-    }
-    row('Current Medications', getRadio('meds'), true);
-    if (document.getElementById('meds-detail').classList.contains('show')) {
-      row('Medication Details', val('f-meds'));
-    }
-    row('Medical Conditions', getChecked('#s3 .check-grid'));
-    row('Pregnant / Breastfeeding', getRadio('preg'), true);
-    row('Smoker', getRadio('smoke'));
-    row('Alcohol Consumption', getRadio('alcohol'), true);
-    y += 6;
-
-    // ══ SECTION 4: Aesthetic History ══
-    section('04 — Aesthetic Treatment History');
-    row('Prior Aesthetic Treatments', getRadio('aesth'), true);
-    if (document.getElementById('aesth-detail').classList.contains('show')) {
-      row('Treatments Received', getChecked('#aesth-detail .check-grid'));
-      row('Reactions / Complications', val('f-aesth-reactions'), true);
-      row('Last Treatment Date', val('f-aesth-date'));
-    }
-    y += 6;
-
-    // ══ SECTION 5: Skincare ══
-    section('05 — Skincare Routine');
-    row('Follows Skincare Routine', getRadio('routine'), true);
-    if (document.getElementById('routine-detail').classList.contains('show')) {
-      row('Morning Routine', val('f-morning'));
-      row('Evening Routine', val('f-evening'), true);
-    }
-    row('Uses SPF Daily', getRadio('spf'));
-    row('Recent Product Reactions', getRadio('react'), true);
-    if (document.getElementById('react-detail').classList.contains('show')) {
-      row('Reaction Details', val('f-reaction'));
-    }
-    y += 6;
-
-    // ══ CONSENT ══
-    section('06 — Patient Consent', [90, 130, 110]);
-    const c1 = document.getElementById('c1').classList.contains('checked');
-    const c2 = document.getElementById('c2').classList.contains('checked');
-    const c3 = document.getElementById('c3').classList.contains('checked');
-    row('Accuracy of Information', c1 ? '✓ Agreed' : '✗ Not agreed', true);
-    row('Data & Photo Consent', c2 ? '✓ Agreed' : '✗ Not agreed');
-    row('Online Consultation Acknowledgement', c3 ? '✓ Agreed' : '✗ Not agreed', true);
-    y += 8;
-
-    // ══ VOUCHER BLOCK ══
-    checkPage(36);
-    doc.setFillColor(...dark);
-    doc.roundedRect(margin, y, colW, 32, 3, 3, 'F');
-    doc.setFillColor(...rose);
-    doc.roundedRect(margin, y, 4, 32, 2, 2, 'F');
-
-    doc.setTextColor(...rose);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7);
-    doc.text('EXCLUSIVE WELCOME VOUCHER', margin + 10, y + 8);
-
-    doc.setTextColor(...white);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(16);
-    doc.text('PKR 5,000', margin + 10, y + 17);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(200, 180, 170);
-    doc.text('Redeemable at partnered dermatology clinic', margin + 10, y + 23);
-
-    doc.setTextColor(...rose);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.text(voucherCode, pageW - margin - 4, y + 17, { align: 'right' });
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7);
-    doc.setTextColor(150, 130, 120);
-    doc.text('Valid 30 days · Show at reception', pageW - margin - 4, y + 23, { align: 'right' });
-
-    y += 40;
-
-    // ── Footer on every page ──
-    const pageCount = doc.internal.getNumberOfPages();
-    for (let i = 1; i <= pageCount; i++) {
-      doc.setPage(i);
-      doc.setFillColor(...light);
-      doc.rect(0, 285, 210, 12, 'F');
-      doc.setTextColor(...muted);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(7);
-      doc.text('AM Consultation — Confidential Medical Record', margin, 291);
-      doc.text(`Page ${i} of ${pageCount}`, pageW - margin, 291, { align: 'right' });
-    }
-
-    return doc;
-  }
-
-  // ── Submit ───────────────────────────────────────────────────
+  // ΓöÇΓöÇ Submit ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
   function submitForm() {
-    console.log('submitForm() called');
     const allChecked = ['c1','c2','c3'].every(id => document.getElementById(id).classList.contains('checked'));
     if (!allChecked) {
       alert('Please agree to all consent statements before submitting.');
       return;
     }
-
-    const voucherCode = generateVoucherCode();
-
-    // hide final section and mark steps done (actual success screen shown after PDF)
     document.getElementById('s6').classList.remove('active');
+    document.getElementById('success').style.display = 'block';
+    document.getElementById('voucher-code').textContent = generateVoucherCode();
     document.querySelectorAll('.progress-step').forEach(p => p.className = 'progress-step done');
-    document.getElementById('progress-label').textContent = 'Submitted ✓';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Generate and download PDF
-    setTimeout(() => {
-      try {
-        const doc = generatePDF(voucherCode);
-        const patientName = document.getElementById('f-name').value.trim().replace(/\s+/g, '_') || 'Patient';
-        const dateStr = new Date().toISOString().slice(0, 10);
-        doc.save(`AM_Consultation_${patientName}_${dateStr}.pdf`);
-      } catch(e) {
-        console.error('PDF generation failed:', e);
-      }
-      // Update voucher code on success screen
-      var voucherEl = document.getElementById('voucher-code');
-      if (voucherEl) voucherEl.textContent = voucherCode;
-    }, 600);
-
-    // === SEND TO CRM ===
-    try {
-      // Convert PDF to base64
-      var pdfBase64 = '';
-      try {
-        var pdfDoc = generatePDF(voucherCode);
-        pdfBase64 = pdfDoc.output('datauristring').split(',')[1];
-      } catch(pdfErr) {
-        console.error('PDF failed:', pdfErr);
-      }
-
-      // Collect all form values
-      function getVal(id) {
-        var el = document.getElementById(id);
-        return el ? el.value.trim() : '';
-      }
-
-      function getRadioVal(name) {
-        var checked = document.querySelector('input[name="' + name + '"]:checked');
-        if (!checked) return '';
-        var pill = checked.closest('.radio-pill');
-        return pill ? pill.textContent.trim() : checked.value;
-      }
-
-      function getCheckedItems(sectionId) {
-        var items = document.querySelectorAll('#' + sectionId + ' .check-item.checked .check-label');
-        return Array.from(items).map(function(i) { return i.textContent.trim(); }).join(', ');
-      }
-
-      // Read appointment date and time from URL params
-      // (passed from calendar.html — but since we're on form.html before calendar,
-      // these will be empty here and filled after calendar redirect)
-      var urlParams = new URLSearchParams(window.location.search);
-
-      var payload = {
-        name:               getVal('f-name'),
-        email:              getVal('f-email'),
-        phone:              getVal('f-phone'),
-        city:               getVal('f-city'),
-        gender:             getRadioVal('gender'),
-        consultationType:   getRadioVal('consult'),
-        condition:          getVal('f-concern'),
-        concernDuration:    getVal('f-duration'),
-        areasAffected:      getCheckedItems('s2'),
-        seenDoctorBefore:   getRadioVal('prev'),
-        previousTreatment:  getVal('f-prev-treatment'),
-        knownAllergies:     getRadioVal('allergy'),
-        allergyDetails:     getVal('f-allergies'),
-        currentMedications: getRadioVal('meds'),
-        medicationDetails:  getVal('f-meds'),
-        medicalConditions:  getCheckedItems('s3'),
-        pregnant:           getRadioVal('preg'),
-        smoker:             getRadioVal('smoke'),
-        alcohol:            getRadioVal('alcohol'),
-        aestheticHistory:   getRadioVal('aesth'),
-        aestheticTreatments: getCheckedItems('aesth-detail'),
-        aestheticReactions: getVal('f-aesth-reactions'),
-        lastTreatmentDate:  getVal('f-aesth-date'),
-        skincareRoutine:    getRadioVal('routine'),
-        morningRoutine:     getVal('f-morning'),
-        eveningRoutine:     getVal('f-evening'),
-        usesSPF:            getRadioVal('spf'),
-        productReactions:   getVal('f-reaction'),
-        consentAccuracy:    document.getElementById('c1') ? document.getElementById('c1').classList.contains('checked') : false,
-        consentData:        document.getElementById('c2') ? document.getElementById('c2').classList.contains('checked') : false,
-        consentOnline:      document.getElementById('c3') ? document.getElementById('c3').classList.contains('checked') : false,
-        voucherCode:        voucherCode,
-        appointmentDate:    urlParams.get('date') || '',
-        appointmentTime:    urlParams.get('time') || '',
-        source:             'Website',
-        patientPDF:         pdfBase64
-      };
-
-      console.log('Sending to CRM...', payload);
-
-      fetch('https://preview-sandbox--69a50682df9af07889300c56.base44.app/functions/new-patient-webhook', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': 'K7mP3xQn9vR2tY8wA4jB6cD1eF5gH0iL'
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(function(response) { return response.json(); })
-      .then(function(data) {
-        if (data.success) {
-          console.log('Patient record created in CRM. ID:', data.patientId);
-        } else {
-          console.error('CRM webhook error:', data.error);
-        }
-      })
-      .catch(function(err) {
-        console.error('CRM connection failed:', err);
-      });
-
-    } catch(crmErr) {
-      console.error('CRM submission block failed:', crmErr);
-    }
-
-    // show inline success screen instead of auto redirect
-    // Hide section 6
-    document.getElementById('s6').classList.remove('active');
-
-    // Update progress bar to complete
-    document.querySelectorAll('.progress-step').forEach(function(p) {
-      p.className = 'progress-step done';
-    });
-    document.getElementById('progress-label').textContent = 'Form Complete ✓';
-
-    // Show the inline success message
-    var successDiv = document.getElementById('form-success-screen');
-    if (successDiv) {
-      successDiv.style.display = 'block';
-    }
-
+    document.getElementById('progress-label').textContent = 'Submitted Γ£ô';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // helper to go to calendar when user clicks button
-  function proceedToCalendar() {
-    var params = new URLSearchParams();
-    params.set('name', document.getElementById('f-name') ? document.getElementById('f-name').value.trim() : '');
-    params.set('email', document.getElementById('f-email') ? document.getElementById('f-email').value.trim() : '');
-    params.set('phone', document.getElementById('f-phone') ? document.getElementById('f-phone').value.trim() : '');
-    window.location.href = 'calendar.html?' + params.toString();
-  }
-
-  // ── Boot ─────────────────────────────────────────────────────
+  // ΓöÇΓöÇ Boot ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
   document.addEventListener('DOMContentLoaded', () => {
     initRadioPills();
     initCheckItems();
     initConsentItems();
   });
 </script>
-
-<!-- NAVIGATION: paste the <nav> block from index.html here -->
-
-<!-- BEGIN FORM WIZARD -->
-<!-- Paste entire form markup (sections, inputs, etc.) here -->
-<!-- END FORM WIZARD -->
-
-<!-- FOOTER: paste the <footer> block from index.html here -->
-
-<!-- Scripts: once form structure is pasted, add wizard JS here -->
-
 </body>
 </html>
+                </form>
+
+                <button id="main-cta-btn" class="btn-primary" type="button">
+                    Continue ΓåÆ
+                </button>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer copied from index.html -->
+    <footer>
+        &copy; 2026 MA Consultation. All rights reserved. Professional medical guidance you can trust.
+    </footer>
+
+    <script>
+        const mainButton = document.getElementById("main-cta-btn");
+        const TOTAL_SECTIONS = 6;
+
+        function clearSectionErrors(sectionEl) {
+            if (!sectionEl) return;
+            sectionEl.querySelectorAll(".error-border").forEach((el) => {
+                el.classList.remove("error-border");
+            });
+            sectionEl.querySelectorAll(".field-error").forEach((el) => el.remove());
+        }
+
+        function attachFieldListeners(fieldEl) {
+            if (!fieldEl) return;
+            const clear = () => {
+                const group = fieldEl.closest(".field-group") || fieldEl.parentElement;
+                if (!group) return;
+                group.querySelectorAll(".error-border").forEach((el) =>
+                    el.classList.remove("error-border")
+                );
+                group.querySelectorAll(".field-error").forEach((el) => el.remove());
+            };
+            fieldEl.addEventListener("input", clear);
+            fieldEl.addEventListener("change", clear);
+        }
+
+        function markError(target) {
+            if (!target) return;
+            const group = target.closest(".field-group") || target.parentElement || target;
+            target.classList.add("error-border");
+            if (!group.querySelector(".field-error")) {
+                const span = document.createElement("span");
+                span.className = "field-error";
+                span.textContent = "This field is required";
+                group.appendChild(span);
+            }
+            attachFieldListeners(target);
+        }
+
+        function validateCurrentSection() {
+            const secId = "s" + currentSection;
+            const sectionEl = document.getElementById(secId);
+            if (!sectionEl) return true;
+
+            clearSectionErrors(sectionEl);
+
+            let valid = true;
+            const groups = sectionEl.querySelectorAll(".field-group");
+
+            groups.forEach((group) => {
+                const hasReq = !!group.querySelector("label .req");
+                if (!hasReq) return;
+
+                const textLike = group.querySelector(
+                    'input[type="text"],input[type="email"],input[type="tel"],input[type="date"],textarea,select'
+                );
+                const radios = group.querySelectorAll('input[type="radio"]');
+                const files = group.querySelectorAll('input[type="file"]');
+
+                if (radios.length) {
+                    const anyChecked = Array.from(radios).some((r) => r.checked);
+                    if (!anyChecked) {
+                        valid = false;
+                        const radioGroup = group.querySelector(".radio-group") || radios[0];
+                        markError(radioGroup);
+                    }
+                } else if (files.length) {
+                    const anyFile = Array.from(files).some(
+                        (f) => f.files && f.files.length > 0
+                    );
+                    if (!anyFile) {
+                        valid = false;
+                        const zone = group.querySelector(".upload-zone") || files[0];
+                        markError(zone);
+                    }
+                } else if (textLike) {
+                    const value = (textLike.value || "").trim();
+                    if (!value) {
+                        valid = false;
+                        markError(textLike);
+                    }
+                }
+            });
+
+            return valid;
+        }
+
+        function updateButton(sectionIndex) {
+            if (!mainButton) return;
+            if (sectionIndex < TOTAL_SECTIONS) {
+                mainButton.textContent = "Continue ΓåÆ";
+            } else {
+                mainButton.textContent = "Next: Choose Your Appointment ΓåÆ";
+            }
+        }
+
+        function redirectToCalendar() {
+            const params = new URLSearchParams();
+            const emailInput = document.querySelector('input[type="email"]');
+            if (emailInput && emailInput.value.trim()) {
+                params.set("email", emailInput.value.trim());
+            }
+            const target = params.toString()
+                ? `calendar.html?${params.toString()}`
+                : "calendar.html";
+            window.location.href = target;
+        }
+
+        function handleMainClick() {
+            if (!validateCurrentSection()) return;
+
+            if (currentSection < TOTAL_SECTIONS) {
+                goTo(currentSection + 1);
+                updateButton(currentSection);
+            } else {
+                redirectToCalendar();
+            }
+        }
+
+        if (mainButton) {
+            mainButton.addEventListener("click", handleMainClick);
+        }
+
+        // Ensure initial label is correct
+        updateButton(typeof currentSection === "number" ? currentSection : 1);
+    </script>
+</body>
+</html>
+
