@@ -894,29 +894,29 @@
       <p>Please read and agree before submitting</p>
     </div>
 
-    <label class="consent-item" id="c1">
+    <div class="consent-item" id="c1">
       <div class="consent-box"></div>
       <div class="consent-text">
         <strong>Accuracy of Information</strong>
         I confirm that all information provided in this form is accurate and complete to the best of my knowledge.
       </div>
-    </label>
+    </div>
 
-    <label class="consent-item" id="c2">
+    <div class="consent-item" id="c2">
       <div class="consent-box"></div>
       <div class="consent-text">
         <strong>Data & Photo Consent</strong>
         I consent to my photos, medical history, and personal data being used solely for the purpose of my dermatology consultation.
       </div>
-    </label>
+    </div>
 
-    <label class="consent-item" id="c3">
+    <div class="consent-item" id="c3">
       <div class="consent-box"></div>
       <div class="consent-text">
         <strong>Online Consultation Acknowledgement</strong>
         I understand this is an online consultation service and not a substitute for emergency medical care.
       </div>
-    </label>
+    </div>
 
     <div class="nav">
       <button class="btn btn-back" onclick="goTo(5)">← Back</button>
@@ -1090,9 +1090,12 @@
 
   // ── Consent items ────────────────────────────────────────────
   function initConsentItems() {
-    document.querySelectorAll('.consent-item').forEach(item => {
+    ['c1', 'c2', 'c3'].forEach(function(id) {
+      var item = document.getElementById(id);
+      if (!item) return;
       item.addEventListener('click', function(e) {
         e.preventDefault();
+        e.stopImmediatePropagation();
         this.classList.toggle('checked');
       });
     });
@@ -1382,104 +1385,103 @@
       if (voucherEl) voucherEl.textContent = voucherCode;
     }, 600);
 
-    // === SEND TO CRM ===
-    try {
-      // Convert PDF to base64
-      var pdfBase64 = '';
-      try {
-        var pdfDoc = generatePDF(voucherCode);
-        pdfBase64 = pdfDoc.output('datauristring').split(',')[1];
-      } catch(pdfErr) {
-        console.error('PDF failed:', pdfErr);
-      }
+    // === SEND TO SUPABASE ===
+    var SUPABASE_URL = 'https://nmkapqqfefqilxysxumk.supabase.co';
+    var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ta2FwcXFmZWZxaWx4eXN4dW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3ODMsImV4cCI6MjA4ODIyNzc4M30.KwQmnv0p10WwCBaQHjkmH37rJ9uFWCW2Lus5HlaXZ3A';
 
-      // Collect all form values
-      function getVal(id) {
-        var el = document.getElementById(id);
-        return el ? el.value.trim() : '';
-      }
-
-      function getRadioVal(name) {
-        var checked = document.querySelector('input[name="' + name + '"]:checked');
-        if (!checked) return '';
-        var pill = checked.closest('.radio-pill');
-        return pill ? pill.textContent.trim() : checked.value;
-      }
-
-      function getCheckedItems(sectionId) {
-        var items = document.querySelectorAll('#' + sectionId + ' .check-item.checked .check-label');
-        return Array.from(items).map(function(i) { return i.textContent.trim(); }).join(', ');
-      }
-
-      // Read appointment date and time from URL params
-      // (passed from calendar.html — but since we're on form.html before calendar,
-      // these will be empty here and filled after calendar redirect)
-      var urlParams = new URLSearchParams(window.location.search);
-
-      var payload = {
-        name:               getVal('f-name'),
-        email:              getVal('f-email'),
-        phone:              getVal('f-phone'),
-        city:               getVal('f-city'),
-        gender:             getRadioVal('gender'),
-        consultationType:   getRadioVal('consult'),
-        condition:          getVal('f-concern'),
-        concernDuration:    getVal('f-duration'),
-        areasAffected:      getCheckedItems('s2'),
-        seenDoctorBefore:   getRadioVal('prev'),
-        previousTreatment:  getVal('f-prev-treatment'),
-        knownAllergies:     getRadioVal('allergy'),
-        allergyDetails:     getVal('f-allergies'),
-        currentMedications: getRadioVal('meds'),
-        medicationDetails:  getVal('f-meds'),
-        medicalConditions:  getCheckedItems('s3'),
-        pregnant:           getRadioVal('preg'),
-        smoker:             getRadioVal('smoke'),
-        alcohol:            getRadioVal('alcohol'),
-        aestheticHistory:   getRadioVal('aesth'),
-        aestheticTreatments: getCheckedItems('aesth-detail'),
-        aestheticReactions: getVal('f-aesth-reactions'),
-        lastTreatmentDate:  getVal('f-aesth-date'),
-        skincareRoutine:    getRadioVal('routine'),
-        morningRoutine:     getVal('f-morning'),
-        eveningRoutine:     getVal('f-evening'),
-        usesSPF:            getRadioVal('spf'),
-        productReactions:   getVal('f-reaction'),
-        consentAccuracy:    document.getElementById('c1') ? document.getElementById('c1').classList.contains('checked') : false,
-        consentData:        document.getElementById('c2') ? document.getElementById('c2').classList.contains('checked') : false,
-        consentOnline:      document.getElementById('c3') ? document.getElementById('c3').classList.contains('checked') : false,
-        voucherCode:        voucherCode,
-        appointmentDate:    urlParams.get('date') || '',
-        appointmentTime:    urlParams.get('time') || '',
-        source:             'Website',
-        patientPDF:         pdfBase64
-      };
-
-      console.log('Sending to CRM...', payload);
-
-      fetch('https://preview-sandbox--69a50682df9af07889300c56.base44.app/functions/new-patient-webhook', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': 'K7mP3xQn9vR2tY8wA4jB6cD1eF5gH0iL'
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(function(response) { return response.json(); })
-      .then(function(data) {
-        if (data.success) {
-          console.log('Patient record created in CRM. ID:', data.patientId);
-        } else {
-          console.error('CRM webhook error:', data.error);
-        }
-      })
-      .catch(function(err) {
-        console.error('CRM connection failed:', err);
-      });
-
-    } catch(crmErr) {
-      console.error('CRM submission block failed:', crmErr);
+    function getVal(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
     }
+
+    function getRadioVal(name) {
+      var checked = document.querySelector('input[name="' + name + '"]:checked');
+      if (!checked) return '';
+      var pill = checked.closest('.radio-pill');
+      return pill ? pill.textContent.trim() : checked.value;
+    }
+
+    function getCheckedItems(sectionId) {
+      var items = document.querySelectorAll('#' + sectionId + ' .check-item.checked .check-label');
+      return Array.from(items).map(function(i) { return i.textContent.trim(); }).join(', ');
+    }
+
+    var pdfBase64 = '';
+    try {
+      var pdfDoc = generatePDF(voucherCode);
+      pdfBase64 = pdfDoc.output('datauristring').split(',')[1];
+    } catch(pdfErr) {
+      console.error('PDF base64 failed:', pdfErr);
+    }
+
+    var patientData = {
+      name:                 getVal('f-name'),
+      email:                getVal('f-email'),
+      phone:                getVal('f-phone'),
+      city:                 getVal('f-city'),
+      gender:               getRadioVal('gender'),
+      consultation_type:    getRadioVal('consult'),
+      condition:            getVal('f-concern'),
+      concern_duration:     getVal('f-duration'),
+      areas_affected:       getCheckedItems('s2'),
+      seen_doctor_before:   getRadioVal('prev'),
+      previous_treatment:   getVal('f-prev-treatment'),
+      known_allergies:      getRadioVal('allergy'),
+      allergy_details:      getVal('f-allergies'),
+      current_medications:  getRadioVal('meds'),
+      medication_details:   getVal('f-meds'),
+      medical_conditions:   getCheckedItems('s3'),
+      pregnant:             getRadioVal('preg'),
+      smoker:               getRadioVal('smoke'),
+      alcohol:              getRadioVal('alcohol'),
+      aesthetic_history:    getRadioVal('aesth'),
+      aesthetic_treatments: getCheckedItems('aesth-detail'),
+      aesthetic_reactions:  getVal('f-aesth-reactions'),
+      last_treatment_date:  getVal('f-aesth-date'),
+      skincare_routine:     getRadioVal('routine'),
+      morning_routine:      getVal('f-morning'),
+      evening_routine:      getVal('f-evening'),
+      uses_spf:             getRadioVal('spf'),
+      product_reactions:    getVal('f-reaction'),
+      consent_accuracy:     document.getElementById('c1') ? document.getElementById('c1').classList.contains('checked') : false,
+      consent_data:         document.getElementById('c2') ? document.getElementById('c2').classList.contains('checked') : false,
+      consent_online:       document.getElementById('c3') ? document.getElementById('c3').classList.contains('checked') : false,
+      voucher_code:         voucherCode,
+      appointment_date:     '',
+      appointment_time:     '',
+      status:               'New',
+      payment_status:       'Pending',
+      source:               'Website',
+      patient_pdf:          pdfBase64
+    };
+
+    console.log('Sending to Supabase...', patientData.name, patientData.email);
+
+    fetch(SUPABASE_URL + '/rest/v1/patients', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify(patientData)
+    })
+    .then(function(r) {
+      console.log('Supabase response status:', r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      console.log('Supabase insert result:', data);
+      if (data && data[0] && data[0].id) {
+        console.log('Patient created in Supabase. ID:', data[0].id);
+      } else {
+        console.error('Supabase error:', data);
+      }
+    })
+    .catch(function(err) {
+      console.error('Supabase connection failed:', err);
+    });
 
     // show inline success screen instead of auto redirect
     // Hide section 6
