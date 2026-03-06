@@ -1,153 +1,380 @@
 <!DOCTYPE html>
-<!-- Tally removed -->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Appointment | MA Consultation</title>
-    <style>
-        :root {
-            --primary-blue: #0056b3;
-            --secondary-navy: #1a2b3c;
-            --accent-teal: #e0f2f1;
-            --text-dark: #333333;
-            --text-light: #ffffff;
-            --gray-bg: #f8f9fa;
-            --transition: all 0.3s ease;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Your Consultation | Lumen — Premium Online Dermatology & Aesthetic Consultancy Pakistan</title>
+  <meta name="description" content="Schedule your online dermatology consultation with Lumen. Choose a convenient date and time for your virtual appointment." />
+  <meta name="keywords" content="book dermatology consultation, online appointment, skin specialist Pakistan, Lumen booking" />
+  <meta name="author" content="Lumen" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://lumen-pk.com/calendar" />
+  <meta property="og:title" content="Book Your Consultation — Lumen" />
+  <meta property="og:description" content="Schedule your online dermatology consultation with our expert doctors." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lumen-pk.com/calendar" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Book Your Consultation — Lumen" />
+  <meta name="twitter:description" content="Schedule your online dermatology consultation with our expert doctors." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --warm: #ede8df;
+      --dark: #2c1a0e;
+      --brown: #3d2512;
+      --gold: #b8865a;
+      --gold-l: #d4a574;
+      --muted: #8a7060;
+      --border: #e0d5c5;
+      --white: #fff;
+      --ease: cubic-bezier(0.22,1,0.36,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;cursor:none}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: var(--gray-bg);
-        }
-        a { text-decoration: none; color: inherit; }
+    /* cursor */
+    #cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+    #cur-r{position:fixed;width:32px;height:32px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;transition:width .3s,height .3s,opacity .3s}
+    @media(max-width:768px){#cur,#cur-r{display:none}body{cursor:auto}}
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 5%;
-            background: var(--text-light);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-blue);
-            letter-spacing: -1px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        .nav-links a {
-            color: var(--secondary-navy);
-            font-weight: 500;
-        }
-        .nav-links a:hover {
-            color: var(--primary-blue);
-        }
-        .nav-cta {
-            background: var(--primary-blue);
-            color: var(--text-light);
-            padding: 0.6rem 1.2rem;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
+    /* nav */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;transition:padding .4s var(--ease),background .4s}
+    nav.s{background:rgba(245,240,232,.96);backdrop-filter:blur(14px);padding:14px 48px;box-shadow:0 1px 0 var(--border)}
+    .logo{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;letter-spacing:8px;text-transform:uppercase;color:#2c1a0e;text-decoration:none;opacity:0.85}
+    .nav-links{display:flex;gap:36px;list-style:none}
+    .nav-links a{font-size:13px;color:var(--dark);text-decoration:none;position:relative;transition:color .3s}
+    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-links a:hover::after{width:100%}
+    .btn-nav{background:var(--gold);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:.4px;padding:11px 26px;border-radius:50px;border:none;cursor:none;text-decoration:none;transition:background .3s,transform .3s}
+    .btn-nav:hover{background:var(--brown);transform:translateY(-1px)}
+    @media(max-width:768px){nav{padding:18px 20px}.nav-links{display:none}nav.s{padding:12px 20px}}
 
-        .progress-bar-shell {
-            width: 100%;
-            height: 4px;
-            background: rgba(0,0,0,0.05);
-        }
-        .progress-bar-fill {
-            width: 100%;
-            height: 100%;
-            background: var(--primary-blue);
-            transition: width 0.3s ease;
-        }
+    /* sections */
+    section{padding:120px 48px}
+    .lbl{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+    .lbl::before{content:'';display:block;width:30px;height:1px;background:var(--gold)}
+    .ttl{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,62px);font-weight:400;line-height:1.1;color:var(--dark)}
+    .ttl em{font-style:italic;color:var(--gold)}
+    .sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.75;max-width:500px;margin-top:14px}
+    .c{text-align:center}.c .lbl{justify-content:center}.c .sub{margin:14px auto 0}
 
-        main {
-            padding: 40px 16px 60px;
-        }
-        .page-wrap {
-            max-width: 680px;
-            margin: 0 auto;
-        }
-        .page-header {
-            margin-bottom: 20px;
-        }
-        .step-label {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--primary-blue);
-            margin-bottom: 8px;
-        }
-        .page-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--secondary-navy);
-            margin-bottom: 6px;
-        }
-        .page-subtext {
-            font-size: 0.98rem;
-            color: #555555;
-        }
+    /* buttons */
+    .btn{display:inline-block;background:var(--gold);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:17px 46px;border-radius:50px;text-decoration:none;letter-spacing:.3px;transition:background .35s var(--ease),transform .35s var(--ease),box-shadow .35s;border:none;cursor:none}
+    .btn:hover{background:var(--brown);transform:translateY(-2px);box-shadow:0 12px 36px rgba(44,26,14,.18)}
+    .btn-outline{display:inline-block;border:1.5px solid var(--gold);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:13px 34px;border-radius:50px;text-decoration:none;transition:background .3s,color .3s;letter-spacing:.3px;cursor:none}
+    .btn-outline:hover{background:var(--gold);color:#fff}
 
-        .card {
-            background: var(--text-light);
-            border-radius: 12px;
-            padding: 28px 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            margin-top: 24px;
-        }
+    /* calendar */
+    .calendar-wrap{max-width:800px;margin:0 auto}
+    .calendar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:40px 0}
+    .calendar-day{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .3s var(--ease)}
+    .calendar-day:hover{border-color:var(--gold);transform:translateY(-2px)}
+    .calendar-day.available{background:var(--warm);border-color:var(--gold-l)}
+    .calendar-day.selected{background:var(--gold);color:#fff;border-color:var(--gold)}
+    .calendar-day.past{opacity:.4;pointer-events:none}
+    .day-num{font-size:18px;font-weight:500;margin-bottom:4px}
+    .day-name{font-size:12px;font-weight:300;color:var(--muted)}
+    .calendar-day.selected .day-name{color:rgba(255,255,255,.8)}
 
-        .calendar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 14px;
-        }
-        .calendar-month {
-            font-weight: 600;
-            color: var(--secondary-navy);
-        }
-        .calendar-nav-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 999px;
-            border: 1px solid rgba(0,0,0,0.12);
-            background: var(--text-light);
-            color: var(--secondary-navy);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .calendar-nav-btn:hover {
-            background: var(--accent-teal);
-        }
+    .time-slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:40px 0}
+    .time-slot{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all .3s var(--ease);font-size:14px;font-weight:500}
+    .time-slot:hover{border-color:var(--gold)}
+    .time-slot.selected{background:var(--gold);color:#fff;border-color:var(--gold)}
 
-        .weekday-row {
-            display: grid;
-            grid-template-columns: repeat(7, minmax(0, 1fr));
-            font-size: 0.8rem;
-            color: #666666;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-        .weekday-row span {
-            padding: 4px 0;
-        }
+    .booking-summary{background:#fff;border-radius:16px;padding:32px;margin:40px 0;border:1px solid var(--border)}
+    .summary-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+    .summary-row:last-child{margin-bottom:0;border-top:1px solid var(--border);padding-top:16px}
+    .summary-label{font-size:14px;color:var(--muted)}
+    .summary-value{font-size:16px;font-weight:500;color:var(--dark)}
+
+    /* footer */
+    footer{background:var(--brown);border-top:1px solid rgba(255,255,255,.08);padding:60px 48px 28px;color:rgba(255,255,255,.5);text-align:center}
+    .f-top{margin-bottom:44px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .f-center{display:flex;flex-direction:column;align-items:center;gap:20px}
+    .f-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;letter-spacing:8px;text-transform:uppercase;color:#fff;opacity:0.7;margin-bottom:14px}
+    .f-tagline{font-size:13px;font-weight:300;max-width:400px;line-height:1.65;margin:0}
+    .f-nav{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+    .f-nav a{font-size:13px;font-weight:300;color:rgba(255,255,255,.45);text-decoration:none;transition:color .3s}
+    .f-nav a:hover{color:var(--gold)}
+    .f-btm{font-size:11px;font-weight:300}
+    .f-btm a{color:var(--gold);text-decoration:none}
+    @media(max-width:768px){section{padding:80px 20px}.cta{padding:80px 20px}.f-top{flex-direction:column;gap:28px}footer{padding:44px 20px 20px}.f-nav{gap:16px}}
+
+    /* calendar page specific */
+    #calendar{padding:80px 48px}
+    #calendar .lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:8px}
+    #calendar .ttl{font-size:44px;margin-bottom:32px}
+    .calendar-wrap{max-width:650px;margin:0 auto}
+    .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:40px}
+    .calendar-day{padding:16px;text-align:center;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all .3s}
+    .calendar-day.available{background:var(--cream)}
+    .calendar-day.past{background:#f0eee8;opacity:.5;cursor:not-allowed}
+    .calendar-day.selected{background:var(--gold);border-color:var(--gold);color:var(--cream)}
+    .calendar-day .day-num{font-size:18px;font-weight:500;margin-bottom:4px}
+    .calendar-day .day-name{font-size:11px;color:var(--muted)}
+    .calendar-day.selected .day-name{color:rgba(255,255,255,.8)}
+
+    #time-selection{background:#fafaf8;border-left:3px solid var(--gold);padding:24px;border-radius:6px;margin-bottom:32px}
+    .time-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+    .time-slot{padding:14px;text-align:center;border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all .2s;font-size:13px}
+    .time-slot:hover{border-color:var(--gold)}
+    .time-slot.selected{background:var(--gold);color:var(--cream);border-color:var(--gold)}
+
+    .booking-summary{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:24px;margin-top:20px}
+    .summary-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+    .summary-row:last-child{border-bottom:none}
+    .summary-label{font-size:13px;color:var(--muted);font-weight:400}
+    .summary-value{font-size:15px;font-weight:500;color:var(--dark)}
+    .booking-summary .btn{margin-top:20px;width:100%}
+
+    /* scroll reveal */
+    .rv{opacity:0;transform:translateY(26px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+    .rv.in{opacity:1;transform:none}
+
+    /* animations */
+    @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="logo" aria-label="Lumen Home">LUMEN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="doctors.html">Our Doctors</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <a href="form.html" class="btn-nav">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-label="Page hero">
+  <div class="c">
+    <div class="lbl">STEP 2 OF 2</div>
+    <h1 class="ttl">Choose Your <em>Appointment</em></h1>
+    <p class="sub">Select a convenient date and time for your online consultation.</p>
+  </div>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar" aria-labelledby="cal-h">
+  <div class="calendar-wrap">
+    <div class="lbl">SELECT DATE</div>
+    <h2 class="ttl" id="cal-h">Available Dates</h2>
+    <div class="calendar-grid rv" id="calendar-grid">
+      <!-- Dates will be populated by JS -->
+    </div>
+
+    <div id="time-selection" style="display:none">
+      <div class="lbl">SELECT TIME</div>
+      <h3 class="ttl" style="font-size:32px;margin-bottom:20px">Available Times</h3>
+      <div class="time-slots" id="time-slots">
+        <!-- Time slots will be populated by JS -->
+      </div>
+    </div>
+
+    <div id="booking-summary" style="display:none">
+      <div class="booking-summary rv">
+        <div class="summary-row">
+          <span class="summary-label">Selected Date</span>
+          <span class="summary-value" id="selected-date">—</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Selected Time</span>
+          <span class="summary-value" id="selected-time">—</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Consultation Fee</span>
+          <span class="summary-value">PKR 5,000</span>
+        </div>
+        <button class="btn" onclick="confirmBooking()">Confirm Booking</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="f-top">
+    <div class="f-center">
+      <div class="f-brand">LUMEN</div>
+      <p class="f-tagline">Pakistan's most trusted online dermatology and aesthetic medicine consultancy.</p>
+      <div class="f-nav">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="doctors.html">Doctors</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+        <a href="form.html">Book Now</a>
+      </div>
+    </div>
+  </div>
+  <div class="f-btm">
+    <p>© 2026 LUMEN. All rights reserved. | <a href="mailto:support@lumen-pk.com">support@lumen-pk.com</a></p>
+  </div>
+</footer>
+
+<script>
+  // cursor
+  const cur = document.getElementById('cur');
+  const curR = document.getElementById('cur-r');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='5px';cur.style.height='5px';curR.style.width='44px';curR.style.height='44px';curR.style.opacity='.8'});
+    el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';curR.style.width='32px';curR.style.height='32px';curR.style.opacity='.45'});
+  });
+
+  // nav scroll
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('s',scrollY>40),{passive:true});
+
+  // scroll reveal
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*70);obs.unobserve(e.target)}});
+  },{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+  // nav active state
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+      link.style.color = 'var(--gold)';
+      link.style.textDecoration = 'underline';
+    }
+  });
+
+  // calendar functionality
+  let selectedDate = null;
+  let selectedTime = null;
+  const today = new Date();
+  const urlParams = new URLSearchParams(window.location.search);
+  const patientName = urlParams.get('name') || '';
+  const patientEmail = urlParams.get('email') || '';
+  const patientPhone = urlParams.get('phone') || '';
+
+  // generate calendar for next 14 days
+  function generateCalendar() {
+    const grid = document.getElementById('calendar-grid');
+    for (let i = 0; i < 14; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      
+      const dayDiv = document.createElement('div');
+      dayDiv.className = `calendar-day ${date < today ? 'past' : 'available'}`;
+      dayDiv.innerHTML = `
+        <div class="day-num">${date.getDate()}</div>
+        <div class="day-name">${date.toLocaleDateString('en', { weekday: 'short' })}</div>
+      `;
+      dayDiv.addEventListener('click', () => selectDate(date));
+      grid.appendChild(dayDiv);
+    }
+  }
+
+  function selectDate(date) {
+    selectedDate = date;
+    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+    event.target.closest('.calendar-day').classList.add('selected');
+    
+    // show time selection
+    document.getElementById('time-selection').style.display = 'block';
+    generateTimeSlots();
+    document.getElementById('time-selection').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function generateTimeSlots() {
+    const slots = document.getElementById('time-slots');
+    slots.innerHTML = '';
+    const times = ['10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
+    
+    times.forEach(time => {
+      const slot = document.createElement('div');
+      slot.className = 'time-slot';
+      slot.textContent = time;
+      slot.addEventListener('click', () => selectTime(time));
+      slots.appendChild(slot);
+    });
+  }
+
+  function selectTime(time) {
+    selectedTime = time;
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    event.target.classList.add('selected');
+    
+    // update summary
+    document.getElementById('selected-date').textContent = selectedDate.toLocaleDateString('en-PK', { 
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+    });
+    document.getElementById('selected-time').textContent = selectedTime;
+    document.getElementById('booking-summary').style.display = 'block';
+    document.getElementById('booking-summary').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function confirmBooking() {
+    if (!selectedDate || !selectedTime) return;
+    
+    // send to Supabase
+    const SUPABASE_URL = 'https://nmkapqqfefqilxysxumk.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ta2FwcXFmZWZxaWx4eXN4dW1rIiwicm9sZSI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ta2FwcXFmZWZxaWx4eXN4dW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3ODMsImV4cCI6MjA4ODIyNzc4M30.KwQmnv0p10WwCBaQHjkmH37rJ9uFWCW2Lus5HlaXZ3A';
+    
+    const bookingData = {
+      name: patientName,
+      email: patientEmail,
+      phone: patientPhone,
+      appointment_date: selectedDate.toISOString().split('T')[0],
+      appointment_time: selectedTime,
+      status: 'Booked',
+      payment_status: 'Pending',
+      source: 'Website'
+    };
+
+    fetch(SUPABASE_URL + '/rest/v1/appointments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Prefer': 'return=representation'
+      },
+      body: JSON.stringify(bookingData)
+    })
+    .then(r => r.json())
+    .then(data => {
+      console.log('Appointment booked:', data);
+      // redirect to confirmation
+      const params = new URLSearchParams({
+        name: patientName,
+        email: patientEmail,
+        date: selectedDate.toISOString().split('T')[0],
+        time: selectedTime
+      });
+      window.location.href = 'confirmation.html?' + params.toString();
+    })
+    .catch(err => {
+      console.error('Booking failed:', err);
+      alert('Booking failed. Please try again.');
+    });
+  }
+
+  // init
+  generateCalendar();
+</script>
+</body>
+</html>
 
         .calendar-grid {
             display: grid;

@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Booking Confirmed | Lumen — Premium Online Dermatology & Aesthetic Consultancy Pakistan</title>
-  <meta name="description" content="Your consultation booking is confirmed. Check your email for details and voucher." />
-  <meta name="keywords" content="booking confirmed, dermatology consultation, Lumen appointment" />
+  <title>Our Doctors | Lumen — Premium Online Dermatology & Aesthetic Consultancy Pakistan</title>
+  <meta name="description" content="Meet our board-certified dermatologists and aesthetic physicians. Expert skin care specialists in Pakistan with decades of combined experience." />
+  <meta name="keywords" content="dermatologists Pakistan, skin specialists Karachi, aesthetic physicians Lahore, board certified doctors Islamabad" />
   <meta name="author" content="Lumen" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://lumen-pk.com/confirmation" />
-  <meta property="og:title" content="Booking Confirmed — Lumen" />
-  <meta property="og:description" content="Your consultation is confirmed. Check your email for details." />
+  <link rel="canonical" href="https://lumen-pk.com/doctors" />
+  <meta property="og:title" content="Meet Our Specialists — Lumen" />
+  <meta property="og:description" content="Board-certified dermatologists and aesthetic physicians with decades of combined experience treating patients across Pakistan." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://lumen-pk.com/confirmation" />
+  <meta property="og:url" content="https://lumen-pk.com/doctors" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Booking Confirmed — Lumen" />
-  <meta name="twitter:description" content="Your consultation is confirmed. Check your email for details." />
+  <meta name="twitter:title" content="Meet Our Specialists — Lumen" />
+  <meta name="twitter:description" content="Board-certified dermatologists and aesthetic physicians with decades of combined experience treating patients across Pakistan." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -54,24 +54,36 @@
     .btn-nav:hover{background:var(--brown);transform:translateY(-1px)}
     @media(max-width:768px){nav{padding:18px 20px}.nav-links{display:none}nav.s{padding:12px 20px}}
 
-    /* confirmation */
-    .confirmation-wrap{max-width:600px;margin:0 auto;padding:120px 48px;text-align:center}
-    .checkmark-circle{width:80px;height:80px;border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 32px;animation:circleIn .6s var(--ease) forwards}
-    .checkmark{width:24px;height:16px;border-left:3px solid var(--gold);border-bottom:3px solid var(--gold);transform:rotate(-45deg) translateY(-2px);animation:checkIn .4s var(--ease) .3s both;opacity:0}
-    @keyframes circleIn{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
-    @keyframes checkIn{from{opacity:0;transform:rotate(-45deg) translateY(-2px) scale(0.5)}to{opacity:1;transform:rotate(-45deg) translateY(-2px) scale(1)}}
+    /* sections */
+    section{padding:120px 48px}
+    .lbl{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+    .lbl::before{content:'';display:block;width:30px;height:1px;background:var(--gold)}
+    .ttl{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,62px);font-weight:400;line-height:1.1;color:var(--dark)}
+    .ttl em{font-style:italic;color:var(--gold)}
+    .sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.75;max-width:500px;margin-top:14px}
+    .c{text-align:center}.c .lbl{justify-content:center}.c .sub{margin:14px auto 0}
 
-    .conf-ttl{font-family:'Playfair Display',serif;font-size:clamp(42px,6vw,68px);font-weight:400;line-height:1.1;color:var(--dark);margin-bottom:20px}
-    .conf-ttl em{font-style:italic;color:var(--gold)}
-    .conf-msg{font-size:16px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+    /* buttons */
+    .btn{display:inline-block;background:var(--gold);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:17px 46px;border-radius:50px;text-decoration:none;letter-spacing:.3px;transition:background .35s var(--ease),transform .35s var(--ease),box-shadow .35s;border:none;cursor:none}
+    .btn:hover{background:var(--brown);transform:translateY(-2px);box-shadow:0 12px 36px rgba(44,26,14,.18)}
+    .btn-outline{display:inline-block;border:1.5px solid var(--gold);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:13px 34px;border-radius:50px;text-decoration:none;transition:background .3s,color .3s;letter-spacing:.3px;cursor:none}
+    .btn-outline:hover{background:var(--gold);color:#fff}
 
-    .conf-details{background:#fff;border-radius:16px;padding:32px;margin:40px 0;border:1px solid var(--border)}
-    .detail-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-    .detail-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
-    .detail-label{font-size:14px;color:var(--muted)}
-    .detail-value{font-size:16px;font-weight:500;color:var(--dark)}
-
-    .conf-note{font-size:14px;font-weight:300;color:var(--muted);margin:32px 0;text-align:left;background:var(--warm);padding:20px;border-radius:12px;border-left:3px solid var(--gold)}
+    /* doctors */
+    #doctors{background:linear-gradient(150deg,#f0ebe0,#e5dccf)}
+    .doc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px;max-width:1080px;margin-left:auto;margin-right:auto}
+    .doc-card{text-align:center;background:#e8dfd0;border:1px solid var(--border);border-radius:16px;padding:44px 34px;transition:transform .4s var(--ease),box-shadow .4s}
+    .doc-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(44,26,14,.08);border-color:rgba(184,134,90,.3)}
+    .doc-card.feat{background:var(--brown);color:#fff}
+    .doc-av{width:112px;height:112px;border-radius:50%;background:linear-gradient(135deg,var(--warm),var(--border));margin:0 auto 18px;border:3px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:34px;font-weight:300;color:var(--gold);transition:border-color .3s}
+    .doc-card.feat .doc-av{border-color:var(--gold-l);color:#fff}
+    .doc-name{font-family:'Playfair Display',serif;font-size:21px;font-weight:400;color:var(--dark);margin-bottom:5px}
+    .doc-card.feat .doc-name{color:#fff}
+    .doc-spec{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+    .doc-card.feat .doc-spec{color:var(--gold-l)}
+    .doc-qual{font-size:12px;font-weight:300;color:var(--muted);line-height:1.4}
+    .doc-card.feat .doc-qual{color:rgba(255,255,255,.7)}
+    @media(max-width:768px){.doc-grid{grid-template-columns:1fr}}
 
     /* footer */
     footer{background:var(--brown);border-top:1px solid rgba(255,255,255,.08);padding:60px 48px 28px;color:rgba(255,255,255,.5);text-align:center}
@@ -113,37 +125,55 @@
   <a href="form.html" class="btn-nav">Book Now</a>
 </nav>
 
-<!-- CONFIRMATION -->
-<section class="confirmation-wrap">
-  <div class="checkmark-circle"><div class="checkmark"></div></div>
-  <h1 class="conf-ttl">You're All <em>Booked</em></h1>
-  <p class="conf-msg">Your consultation is confirmed. A confirmation email with your voucher and all details has been sent to your inbox.</p>
+<!-- HERO -->
+<section class="hero" aria-label="Page hero">
+  <div class="c">
+    <div class="lbl">THE TEAM</div>
+    <h1 class="ttl">Meet Our Specialists</h1>
+    <p class="sub">Board-certified dermatologists and aesthetic physicians with decades of combined experience treating patients across Pakistan.</p>
+  </div>
+</section>
 
-  <div class="conf-details rv">
-    <div class="detail-row">
-      <span class="detail-label">Patient Name</span>
-      <span class="detail-value" id="conf-name">—</span>
+<!-- DOCTORS -->
+<section id="doctors" aria-labelledby="doc-h">
+  <div class="doc-grid">
+    <div class="doc-card feat rv">
+      <div class="doc-av">AM</div>
+      <div class="doc-name">Dr. Ayesha Mirza</div>
+      <div class="doc-spec">Lead Dermatologist</div>
+      <div class="doc-qual">MBBS · FCPS Dermatology · 12 years exp</div>
     </div>
-    <div class="detail-row">
-      <span class="detail-label">Appointment Date</span>
-      <span class="detail-value" id="conf-date">—</span>
+    <div class="doc-card rv">
+      <div class="doc-av">UT</div>
+      <div class="doc-name">Dr. Usman Tariq</div>
+      <div class="doc-spec">Aesthetic Physician</div>
+      <div class="doc-qual">MBBS · MSc Aesthetic Medicine · 9 years exp</div>
     </div>
-    <div class="detail-row">
-      <span class="detail-label">Appointment Time</span>
-      <span class="detail-value" id="conf-time">—</span>
+    <div class="doc-card rv">
+      <div class="doc-av">SK</div>
+      <div class="doc-name">Dr. Sana Khalid</div>
+      <div class="doc-spec">Dermatologist & Trichologist</div>
+      <div class="doc-qual">MBBS · Diploma Trichology · 8 years exp</div>
     </div>
-    <div class="detail-row">
-      <span class="detail-label">Consultation Fee</span>
-      <span class="detail-value">PKR 5,000</span>
+    <div class="doc-card rv">
+      <div class="doc-av">BC</div>
+      <div class="doc-name">Dr. Bilal Chaudhry</div>
+      <div class="doc-spec">Medical Dermatologist</div>
+      <div class="doc-qual">MBBS · MRCP Dermatology · 10 years exp</div>
+    </div>
+    <div class="doc-card rv">
+      <div class="doc-av">HM</div>
+      <div class="doc-name">Dr. Hira Mansoor</div>
+      <div class="doc-spec">Anti-Ageing Specialist</div>
+      <div class="doc-qual">MBBS · MSc Anti-Ageing Medicine · 7 years exp</div>
+    </div>
+    <div class="doc-card rv">
+      <div class="doc-av">KA</div>
+      <div class="doc-name">Dr. Kamran Ali</div>
+      <div class="doc-spec">Skincare Specialist</div>
+      <div class="doc-qual">MBBS · PGDip Cosmetic Dermatology · 6 years exp</div>
     </div>
   </div>
-
-  <div class="conf-note">
-    <strong>What happens next?</strong><br>
-    Our specialist will review your medical form and photos before your call. You'll receive a reminder email 24 hours before your appointment. If you need to reschedule, please reply to your confirmation email or contact us directly.
-  </div>
-
-  <a href="index.html" class="btn" style="margin-top:32px">← Back to Home</a>
 </section>
 
 <!-- FOOTER -->
@@ -197,26 +227,6 @@
       link.style.color = 'var(--gold)';
       link.style.textDecoration = 'underline';
     }
-  });
-
-  // populate from URL params
-  document.addEventListener('DOMContentLoaded', function() {
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get('name') || 'Patient';
-    const email = params.get('email') || '';
-    const dateStr = params.get('date') || '';
-    const time = params.get('time') || '';
-
-    document.getElementById('conf-name').textContent = name;
-    
-    if (dateStr) {
-      const date = new Date(dateStr);
-      document.getElementById('conf-date').textContent = date.toLocaleDateString('en-PK', { 
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-      });
-    }
-    
-    document.getElementById('conf-time').textContent = time;
   });
 </script>
 </body>

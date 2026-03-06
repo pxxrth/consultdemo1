@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services | Lumen — Premium Online Dermatology & Aesthetic Consultancy Pakistan</title>
+  <meta name="description" content="Comprehensive dermatology and aesthetic care online. General dermatology, aesthetic medicine, skincare prescriptions, hair & scalp, anti-ageing, follow-up care." />
+  <meta name="keywords" content="online dermatology Pakistan, skin specialist Karachi, acne treatment online, aesthetic medicine Pakistan, hair loss treatment, skincare consultation Lahore Islamabad" />
+  <meta name="author" content="Lumen" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://lumen-pk.com/services" />
+  <meta property="og:title" content="Our Services — Lumen" />
+  <meta property="og:description" content="Comprehensive dermatology and aesthetic care online, delivered by Pakistan's leading specialists." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lumen-pk.com/services" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Our Services — Lumen" />
+  <meta name="twitter:description" content="Comprehensive dermatology and aesthetic care online, delivered by Pakistan's leading specialists." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --warm: #ede8df;
+      --dark: #2c1a0e;
+      --brown: #3d2512;
+      --gold: #b8865a;
+      --gold-l: #d4a574;
+      --muted: #8a7060;
+      --border: #e0d5c5;
+      --white: #fff;
+      --ease: cubic-bezier(0.22,1,0.36,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;cursor:none}
+
+    /* cursor */
+    #cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+    #cur-r{position:fixed;width:32px;height:32px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;transition:width .3s,height .3s,opacity .3s}
+    @media(max-width:768px){#cur,#cur-r{display:none}body{cursor:auto}}
+
+    /* nav */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;transition:padding .4s var(--ease),background .4s}
+    nav.s{background:rgba(245,240,232,.96);backdrop-filter:blur(14px);padding:14px 48px;box-shadow:0 1px 0 var(--border)}
+    .logo{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;letter-spacing:8px;text-transform:uppercase;color:#2c1a0e;text-decoration:none;opacity:0.85}
+    .nav-links{display:flex;gap:36px;list-style:none}
+    .nav-links a{font-size:13px;color:var(--dark);text-decoration:none;position:relative;transition:color .3s}
+    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-links a:hover::after{width:100%}
+    .btn-nav{background:var(--gold);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:.4px;padding:11px 26px;border-radius:50px;border:none;cursor:none;text-decoration:none;transition:background .3s,transform .3s}
+    .btn-nav:hover{background:var(--brown);transform:translateY(-1px)}
+    @media(max-width:768px){nav{padding:18px 20px}.nav-links{display:none}nav.s{padding:12px 20px}}
+
+    /* sections */
+    section{padding:120px 48px}
+    .lbl{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+    .lbl::before{content:'';display:block;width:30px;height:1px;background:var(--gold)}
+    .ttl{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,62px);font-weight:400;line-height:1.1;color:var(--dark)}
+    .ttl em{font-style:italic;color:var(--gold)}
+    .sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.75;max-width:500px;margin-top:14px}
+    .c{text-align:center}.c .lbl{justify-content:center}.c .sub{margin:14px auto 0}
+
+    /* buttons */
+    .btn{display:inline-block;background:var(--gold);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:17px 46px;border-radius:50px;text-decoration:none;letter-spacing:.3px;transition:background .35s var(--ease),transform .35s var(--ease),box-shadow .35s;border:none;cursor:none}
+    .btn:hover{background:var(--brown);transform:translateY(-2px);box-shadow:0 12px 36px rgba(44,26,14,.18)}
+    .btn-outline{display:inline-block;border:1.5px solid var(--gold);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:13px 34px;border-radius:50px;text-decoration:none;transition:background .3s,color .3s;letter-spacing:.3px;cursor:none}
+    .btn-outline:hover{background:var(--gold);color:#fff}
+
+    /* services */
+    #services{background:var(--cream)}
+    .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px;max-width:1080px;margin-left:auto;margin-right:auto}
+    .svc-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:44px 34px;position:relative;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s;overflow:hidden}
+    .svc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(184,134,90,.05),transparent);opacity:0;transition:opacity .3s}
+    .svc-card:hover{transform:translateY(-7px);box-shadow:0 24px 60px rgba(44,26,14,.08);border-color:rgba(184,134,90,.3)}
+    .svc-card:hover::before{opacity:1}
+    .c-num{font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:24px}
+    .c-ttl{font-family:'Playfair Display',serif;font-size:27px;font-weight:400;color:var(--dark);margin-bottom:14px;line-height:1.2}
+    .c-desc{font-size:13px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:26px}
+    .c-sub{font-size:12px;font-weight:400;color:var(--dark);margin-bottom:8px}
+    .c-list{font-size:12px;font-weight:300;color:var(--muted);line-height:1.6;margin-bottom:4px}
+    .c-lnk{font-size:13px;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap .3s}
+    .c-lnk:hover{gap:10px}
+    .c-dot{position:absolute;bottom:28px;right:28px;width:7px;height:7px;border-radius:50%;background:var(--gold);opacity:.35}
+    @media(max-width:768px){.svc-grid{grid-template-columns:1fr}}
+
+    /* footer */
+    footer{background:var(--brown);border-top:1px solid rgba(255,255,255,.08);padding:60px 48px 28px;color:rgba(255,255,255,.5);text-align:center}
+    .f-top{margin-bottom:44px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .f-center{display:flex;flex-direction:column;align-items:center;gap:20px}
+    .f-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;letter-spacing:8px;text-transform:uppercase;color:#fff;opacity:0.7;margin-bottom:14px}
+    .f-tagline{font-size:13px;font-weight:300;max-width:400px;line-height:1.65;margin:0}
+    .f-nav{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+    .f-nav a{font-size:13px;font-weight:300;color:rgba(255,255,255,.45);text-decoration:none;transition:color .3s}
+    .f-nav a:hover{color:var(--gold)}
+    .f-btm{font-size:11px;font-weight:300}
+    .f-btm a{color:var(--gold);text-decoration:none}
+    @media(max-width:768px){section{padding:80px 20px}.cta{padding:80px 20px}.f-top{flex-direction:column;gap:28px}footer{padding:44px 20px 20px}.f-nav{gap:16px}}
+
+    /* scroll reveal */
+    .rv{opacity:0;transform:translateY(26px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+    .rv.in{opacity:1;transform:none}
+
+    /* animations */
+    @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="logo" aria-label="Lumen Home">LUMEN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="doctors.html">Our Doctors</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <a href="form.html" class="btn-nav">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-label="Page hero">
+  <div class="c">
+    <div class="lbl">WHAT WE OFFER</div>
+    <h1 class="ttl">Our Services</h1>
+    <p class="sub">Comprehensive dermatology and aesthetic care online, delivered by Pakistan's leading specialists — board-certified, evidence-based, personalised.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" aria-labelledby="svc-h">
+  <div class="svc-grid">
+    <article class="svc-card rv">
+      <div class="c-num">01</div>
+      <h3 class="c-ttl">General Dermatology</h3>
+      <p class="c-desc">Acne, eczema, psoriasis, rosacea and all skin conditions — diagnosed and managed by board-certified dermatologists specialising in South Asian skin.</p>
+      <div class="c-sub">Includes:</div>
+      <div class="c-list">• Acne & breakouts</div>
+      <div class="c-list">• Eczema & psoriasis</div>
+      <div class="c-list">• Rosacea & rashes</div>
+      <div class="c-list">• Skin infections</div>
+      <div class="c-list">• Pigmentation disorders</div>
+      <a href="form.html" class="c-lnk">Book now →</a>
+      <div class="c-dot"></div>
+    </article>
+    <article class="svc-card rv">
+      <div class="c-num">02</div>
+      <h3 class="c-ttl">Aesthetic Medicine</h3>
+      <p class="c-desc">Botox, dermal fillers, chemical peels and advanced aesthetic consultations tailored to enhance your natural beauty with clinical precision.</p>
+      <div class="c-sub">Includes:</div>
+      <div class="c-list">• Botox & Dysport</div>
+      <div class="c-list">• Dermal fillers</div>
+      <div class="c-list">• Chemical peels</div>
+      <div class="c-list">• Skin rejuvenation</div>
+      <div class="c-list">• Facial contouring</div>
+      <a href="form.html" class="c-lnk">Book now →</a>
+      <div class="c-dot"></div>
+    </article>
+    <article class="svc-card rv">
+      <div class="c-num">03</div>
+      <h3 class="c-ttl">Skincare Prescriptions</h3>
+      <p class="c-desc">Personalised, evidence-based skincare regimens and prescription treatments formulated specifically for your skin type and concerns.</p>
+      <div class="c-sub">Includes:</div>
+      <div class="c-list">• Custom regimen design</div>
+      <div class="c-list">• Prescription actives</div>
+      <div class="c-list">• Ingredient guidance</div>
+      <div class="c-list">• Routine optimisation</div>
+      <div class="c-list">• Seasonal adaptation</div>
+      <a href="form.html" class="c-lnk">Book now →</a>
+      <div class="c-dot"></div>
+    </article>
+    <article class="svc-card rv">
+      <div class="c-num">04</div>
+      <h3 class="c-ttl">Hair & Scalp</h3>
+      <p class="c-desc">Comprehensive hair loss assessment, alopecia treatment and PRP therapy consultation from specialist trichologists.</p>
+      <div class="c-sub">Includes:</div>
+      <div class="c-list">• Alopecia & hair loss</div>
+      <div class="c-list">• Scalp psoriasis</div>
+      <div class="c-list">• Dandruff & seborrhoea</div>
+      <div class="c-list">• PRP consultation</div>
+      <a href="form.html" class="c-lnk">Book now →</a>
+      <div class="c-dot"></div>
+    </article>
+    <article class="svc-card rv">
+      <div class="c-num">05</div>
+      <h3 class="c-ttl">Anti-Ageing</h3>
+      <p class="c-desc">Preventative and corrective anti-ageing treatments including collagen induction, skin rejuvenation and long-term skin health planning.</p>
+      <div class="c-sub">Includes:</div>
+      <div class="c-list">• Preventative planning</div>
+      <div class="c-list">• Collagen induction</div>
+      <div class="c-list">• Skin texture refinement</div>
+      <div class="c-list">• Seasonal updates</div>
+      <a href="form.html" class="c-lnk">Book now →</a>
+      <div class="c-dot"></div>
+    </article>
+    <article class="svc-card rv">
+      <div class="c-num">06</div>
+      <h3 class="c-ttl">Follow-Up Care</h3>
+      <p class="c-desc">Ongoing monitoring, treatment adjustment and dedicated follow-up consultations to ensure your skin continues to thrive.</p>
+      <div class="c-sub">Includes:</div>
+      <div class="c-list">• Progress monitoring</div>
+      <div class="c-list">• Treatment adjustment</div>
+      <div class="c-list">• Prescription renewal</div>
+      <div class="c-list">• Seasonal updates</div>
+      <a href="form.html" class="c-lnk">Book now →</a>
+      <div class="c-dot"></div>
+    </article>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="f-top">
+    <div class="f-center">
+      <div class="f-brand">LUMEN</div>
+      <p class="f-tagline">Pakistan's most trusted online dermatology and aesthetic medicine consultancy.</p>
+      <div class="f-nav">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="doctors.html">Doctors</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+        <a href="form.html">Book Now</a>
+      </div>
+    </div>
+  </div>
+  <div class="f-btm">
+    <p>© 2026 LUMEN. All rights reserved. | <a href="mailto:support@lumen-pk.com">support@lumen-pk.com</a></p>
+  </div>
+</footer>
+
+<script>
+  // cursor
+  const cur = document.getElementById('cur');
+  const curR = document.getElementById('cur-r');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='5px';cur.style.height='5px';curR.style.width='44px';curR.style.height='44px';curR.style.opacity='.8'});
+    el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';curR.style.width='32px';curR.style.height='32px';curR.style.opacity='.45'});
+  });
+
+  // nav scroll
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('s',scrollY>40),{passive:true});
+
+  // scroll reveal
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*70);obs.unobserve(e.target)}});
+  },{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+  // nav active state
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+      link.style.color = 'var(--gold)';
+      link.style.textDecoration = 'underline';
+    }
+  });
+</script>
+</body>
+</html>

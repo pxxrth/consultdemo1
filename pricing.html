@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Booking Confirmed | Lumen — Premium Online Dermatology & Aesthetic Consultancy Pakistan</title>
-  <meta name="description" content="Your consultation booking is confirmed. Check your email for details and voucher." />
-  <meta name="keywords" content="booking confirmed, dermatology consultation, Lumen appointment" />
+  <title>Pricing | Lumen — Premium Online Dermatology & Aesthetic Consultancy Pakistan</title>
+  <meta name="description" content="Simple, honest pricing for online dermatology consultations. Standard PKR 5,000 and Premium PKR 10,000 plans with comprehensive care." />
+  <meta name="keywords" content="dermatology consultation price Pakistan, online skin specialist cost, aesthetic medicine pricing Karachi Lahore" />
   <meta name="author" content="Lumen" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://lumen-pk.com/confirmation" />
-  <meta property="og:title" content="Booking Confirmed — Lumen" />
-  <meta property="og:description" content="Your consultation is confirmed. Check your email for details." />
+  <link rel="canonical" href="https://lumen-pk.com/pricing" />
+  <meta property="og:title" content="Simple, Honest Pricing — Lumen" />
+  <meta property="og:description" content="All plans include a detailed written report and a personalised skincare PDF on submission. No hidden fees." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://lumen-pk.com/confirmation" />
+  <meta property="og:url" content="https://lumen-pk.com/pricing" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Booking Confirmed — Lumen" />
-  <meta name="twitter:description" content="Your consultation is confirmed. Check your email for details." />
+  <meta name="twitter:title" content="Simple, Honest Pricing — Lumen" />
+  <meta name="twitter:description" content="All plans include a detailed written report and a personalised skincare PDF on submission. No hidden fees." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -54,24 +54,47 @@
     .btn-nav:hover{background:var(--brown);transform:translateY(-1px)}
     @media(max-width:768px){nav{padding:18px 20px}.nav-links{display:none}nav.s{padding:12px 20px}}
 
-    /* confirmation */
-    .confirmation-wrap{max-width:600px;margin:0 auto;padding:120px 48px;text-align:center}
-    .checkmark-circle{width:80px;height:80px;border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 32px;animation:circleIn .6s var(--ease) forwards}
-    .checkmark{width:24px;height:16px;border-left:3px solid var(--gold);border-bottom:3px solid var(--gold);transform:rotate(-45deg) translateY(-2px);animation:checkIn .4s var(--ease) .3s both;opacity:0}
-    @keyframes circleIn{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
-    @keyframes checkIn{from{opacity:0;transform:rotate(-45deg) translateY(-2px) scale(0.5)}to{opacity:1;transform:rotate(-45deg) translateY(-2px) scale(1)}}
+    /* sections */
+    section{padding:120px 48px}
+    .lbl{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+    .lbl::before{content:'';display:block;width:30px;height:1px;background:var(--gold)}
+    .ttl{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,62px);font-weight:400;line-height:1.1;color:var(--dark)}
+    .ttl em{font-style:italic;color:var(--gold)}
+    .sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.75;max-width:500px;margin-top:14px}
+    .c{text-align:center}.c .lbl{justify-content:center}.c .sub{margin:14px auto 0}
 
-    .conf-ttl{font-family:'Playfair Display',serif;font-size:clamp(42px,6vw,68px);font-weight:400;line-height:1.1;color:var(--dark);margin-bottom:20px}
-    .conf-ttl em{font-style:italic;color:var(--gold)}
-    .conf-msg{font-size:16px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+    /* buttons */
+    .btn{display:inline-block;background:var(--gold);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:17px 46px;border-radius:50px;text-decoration:none;letter-spacing:.3px;transition:background .35s var(--ease),transform .35s var(--ease),box-shadow .35s;border:none;cursor:none}
+    .btn:hover{background:var(--brown);transform:translateY(-2px);box-shadow:0 12px 36px rgba(44,26,14,.18)}
+    .btn-outline{display:inline-block;border:1.5px solid var(--gold);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:13px 34px;border-radius:50px;text-decoration:none;transition:background .3s,color .3s;letter-spacing:.3px;cursor:none}
+    .btn-outline:hover{background:var(--gold);color:#fff}
 
-    .conf-details{background:#fff;border-radius:16px;padding:32px;margin:40px 0;border:1px solid var(--border)}
-    .detail-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-    .detail-row:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
-    .detail-label{font-size:14px;color:var(--muted)}
-    .detail-value{font-size:16px;font-weight:500;color:var(--dark)}
-
-    .conf-note{font-size:14px;font-weight:300;color:var(--muted);margin:32px 0;text-align:left;background:var(--warm);padding:20px;border-radius:12px;border-left:3px solid var(--gold)}
+    /* pricing */
+    #pricing{background:var(--cream)}
+    .p-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px;margin-top:60px;max-width:900px;margin-left:auto;margin-right:auto}
+    .p-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:44px 34px;text-align:center;transition:transform .4s var(--ease),box-shadow .4s}
+    .p-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(44,26,14,.08);border-color:rgba(184,134,90,.3)}
+    .p-card.feat{background:var(--brown);color:#fff;border-color:var(--brown)}
+    .p-badge{display:inline-block;font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:50px;background:var(--gold);color:#fff;margin-bottom:20px}
+    .p-plan{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    .p-card.feat .p-plan{color:var(--gold-l)}
+    .p-price{font-family:'Playfair Display',serif;font-size:72px;font-weight:300;line-height:1;margin-bottom:5px;color:var(--dark)}
+    .p-card.feat .p-price{color:#fff}
+    .p-cur{font-size:18px;vertical-align:super;font-weight:400}
+    .p-per{font-size:12px;font-weight:300;color:var(--muted);margin-bottom:28px}
+    .p-card.feat .p-per{color:rgba(255,255,255,.45)}
+    .p-list{list-style:none;margin-bottom:32px;text-align:left}
+    .p-list li{font-size:13px;font-weight:300;color:var(--muted);padding:9px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+    .p-card.feat .p-list li{color:rgba(255,255,255,.65);border-color:rgba(255,255,255,.1)}
+    .p-list li::before{content:'✓';color:var(--gold);font-size:12px;flex-shrink:0}
+    .p-list li.strike::before{content:'✗';color:var(--muted)}
+    .p-card.feat .p-list li.strike::before{color:rgba(255,255,255,.3)}
+    .p-list li.strike{text-decoration:line-through;opacity:.5}
+    .btn-p{display:block;text-align:center;padding:13px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;text-decoration:none;transition:background .3s,color .3s;border:1.5px solid var(--gold);color:var(--gold);letter-spacing:.3px;cursor:none;margin-top:20px}
+    .btn-p:hover{background:var(--gold);color:#fff}
+    .p-card.feat .btn-p{background:var(--gold);color:#fff;border-color:var(--gold)}
+    .p-card.feat .btn-p:hover{background:var(--gold-l)}
+    @media(max-width:768px){.p-grid{grid-template-columns:1fr}}
 
     /* footer */
     footer{background:var(--brown);border-top:1px solid rgba(255,255,255,.08);padding:60px 48px 28px;color:rgba(255,255,255,.5);text-align:center}
@@ -113,37 +136,52 @@
   <a href="form.html" class="btn-nav">Book Now</a>
 </nav>
 
-<!-- CONFIRMATION -->
-<section class="confirmation-wrap">
-  <div class="checkmark-circle"><div class="checkmark"></div></div>
-  <h1 class="conf-ttl">You're All <em>Booked</em></h1>
-  <p class="conf-msg">Your consultation is confirmed. A confirmation email with your voucher and all details has been sent to your inbox.</p>
+<!-- HERO -->
+<section class="hero" aria-label="Page hero">
+  <div class="c">
+    <div class="lbl">CONSULTATION FEES</div>
+    <h1 class="ttl">Simple, Honest Pricing</h1>
+    <p class="sub">All plans include a detailed written report and a personalised skincare PDF on submission. No hidden fees.</p>
+  </div>
+</section>
 
-  <div class="conf-details rv">
-    <div class="detail-row">
-      <span class="detail-label">Patient Name</span>
-      <span class="detail-value" id="conf-name">—</span>
+<!-- PRICING -->
+<section id="pricing" aria-labelledby="p-h">
+  <div class="p-grid">
+    <div class="p-card rv">
+      <div class="p-plan">Standard</div>
+      <div class="p-price"><span class="p-cur">PKR </span>5,000</div>
+      <div class="p-per">per consultation</div>
+      <ul class="p-list">
+        <li>Written consultation report</li>
+        <li>Personalised skincare PDF</li>
+        <li>5-hour response time</li>
+        <li>Priority doctor access</li>
+        <li>Follow-up messages included</li>
+        <li class="strike">Video consultation</li>
+        <li class="strike">Preferred clinic booking</li>
+        <li class="strike">Unlimited pre & post follow-ups</li>
+      </ul>
+      <a href="form.html" class="btn-p">Book Standard</a>
     </div>
-    <div class="detail-row">
-      <span class="detail-label">Appointment Date</span>
-      <span class="detail-value" id="conf-date">—</span>
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">Appointment Time</span>
-      <span class="detail-value" id="conf-time">—</span>
-    </div>
-    <div class="detail-row">
-      <span class="detail-label">Consultation Fee</span>
-      <span class="detail-value">PKR 5,000</span>
+    <div class="p-card feat rv">
+      <div class="p-badge">RECOMMENDED</div>
+      <div class="p-plan">Premium</div>
+      <div class="p-price"><span class="p-cur">PKR </span>10,000</div>
+      <div class="p-per">per consultation</div>
+      <ul class="p-list">
+        <li>Comprehensive consultation report</li>
+        <li>Personalised skincare PDF</li>
+        <li>Immediate response</li>
+        <li>Priority doctor access</li>
+        <li>Unlimited pre & post follow-ups</li>
+        <li>Video consultation included</li>
+        <li>Preferred clinic booking</li>
+        <li>Prescription skincare regimen</li>
+      </ul>
+      <a href="form.html" class="btn-p">Book Premium</a>
     </div>
   </div>
-
-  <div class="conf-note">
-    <strong>What happens next?</strong><br>
-    Our specialist will review your medical form and photos before your call. You'll receive a reminder email 24 hours before your appointment. If you need to reschedule, please reply to your confirmation email or contact us directly.
-  </div>
-
-  <a href="index.html" class="btn" style="margin-top:32px">← Back to Home</a>
 </section>
 
 <!-- FOOTER -->
@@ -197,26 +235,6 @@
       link.style.color = 'var(--gold)';
       link.style.textDecoration = 'underline';
     }
-  });
-
-  // populate from URL params
-  document.addEventListener('DOMContentLoaded', function() {
-    const params = new URLSearchParams(window.location.search);
-    const name = params.get('name') || 'Patient';
-    const email = params.get('email') || '';
-    const dateStr = params.get('date') || '';
-    const time = params.get('time') || '';
-
-    document.getElementById('conf-name').textContent = name;
-    
-    if (dateStr) {
-      const date = new Date(dateStr);
-      document.getElementById('conf-date').textContent = date.toLocaleDateString('en-PK', { 
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-      });
-    }
-    
-    document.getElementById('conf-time').textContent = time;
   });
 </script>
 </body>

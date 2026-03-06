@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ | Lumen — Premium Online Dermatology & Aesthetic Consultancy Pakistan</title>
+  <meta name="description" content="Frequently asked questions about Lumen's online dermatology consultations, pricing, services, and booking process." />
+  <meta name="keywords" content="Lumen FAQ, dermatology questions, online consultation, skin specialist Pakistan, booking process" />
+  <meta name="author" content="Lumen" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://lumen-pk.com/faq" />
+  <meta property="og:title" content="Frequently Asked Questions — Lumen" />
+  <meta property="og:description" content="Answers to common questions about our online dermatology services." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://lumen-pk.com/faq" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Frequently Asked Questions — Lumen" />
+  <meta name="twitter:description" content="Answers to common questions about our online dermatology services." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --warm: #ede8df;
+      --dark: #2c1a0e;
+      --brown: #3d2512;
+      --gold: #b8865a;
+      --gold-l: #d4a574;
+      --muted: #8a7060;
+      --border: #e0d5c5;
+      --white: #fff;
+      --ease: cubic-bezier(0.22,1,0.36,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;cursor:none}
+
+    /* cursor */
+    #cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+    #cur-r{position:fixed;width:32px;height:32px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.45;transition:width .3s,height .3s,opacity .3s}
+    @media(max-width:768px){#cur,#cur-r{display:none}body{cursor:auto}}
+
+    /* nav */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;transition:padding .4s var(--ease),background .4s}
+    nav.s{background:rgba(245,240,232,.96);backdrop-filter:blur(14px);padding:14px 48px;box-shadow:0 1px 0 var(--border)}
+    .logo{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;letter-spacing:8px;text-transform:uppercase;color:#2c1a0e;text-decoration:none;opacity:0.85}
+    .nav-links{display:flex;gap:36px;list-style:none}
+    .nav-links a{font-size:13px;color:var(--dark);text-decoration:none;position:relative;transition:color .3s}
+    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-links a:hover::after{width:100%}
+    .btn-nav{background:var(--gold);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:.4px;padding:11px 26px;border-radius:50px;border:none;cursor:none;text-decoration:none;transition:background .3s,transform .3s}
+    .btn-nav:hover{background:var(--brown);transform:translateY(-1px)}
+    @media(max-width:768px){nav{padding:18px 20px}.nav-links{display:none}nav.s{padding:12px 20px}}
+
+    /* sections */
+    section{padding:120px 48px}
+    .lbl{display:flex;align-items:center;gap:14px;font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+    .lbl::before{content:'';display:block;width:30px;height:1px;background:var(--gold)}
+    .ttl{font-family:'Playfair Display',serif;font-size:clamp(38px,5vw,62px);font-weight:400;line-height:1.1;color:var(--dark)}
+    .ttl em{font-style:italic;color:var(--gold)}
+    .sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.75;max-width:500px;margin-top:14px}
+    .c{text-align:center}.c .lbl{justify-content:center}.c .sub{margin:14px auto 0}
+
+    /* buttons */
+    .btn{display:inline-block;background:var(--gold);color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:17px 46px;border-radius:50px;text-decoration:none;letter-spacing:.3px;transition:background .35s var(--ease),transform .35s var(--ease),box-shadow .35s;border:none;cursor:none}
+    .btn:hover{background:var(--brown);transform:translateY(-2px);box-shadow:0 12px 36px rgba(44,26,14,.18)}
+    .btn-outline{display:inline-block;border:1.5px solid var(--gold);color:var(--gold);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:13px 34px;border-radius:50px;text-decoration:none;transition:background .3s,color .3s;letter-spacing:.3px;cursor:none}
+    .btn-outline:hover{background:var(--gold);color:#fff}
+
+    /* faq */
+    #faq{background:linear-gradient(150deg,#f0ebe0,#e5dccf)}
+    .faq-wrap{max-width:720px;margin:0 auto}
+    .faq-item{border-bottom:1px solid var(--border);padding:28px 0}
+    .faq-q{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:0;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;color:var(--dark);background:none;border:none;width:100%;text-align:left;transition:color .3s}
+    .faq-q:hover{color:var(--gold)}
+    .faq-icon{font-size:14px;color:var(--gold);transition:transform .3s}
+    .faq-a{display:none;font-size:14px;font-weight:300;color:var(--muted);line-height:1.7;margin-top:14px;padding-left:0}
+    .faq-item.open .faq-a{display:block}
+    .faq-item.open .faq-icon{transform:rotate(45deg)}
+
+    /* footer */
+    footer{background:var(--brown);border-top:1px solid rgba(255,255,255,.08);padding:60px 48px 28px;color:rgba(255,255,255,.5);text-align:center}
+    .f-top{margin-bottom:44px;padding-bottom:44px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .f-center{display:flex;flex-direction:column;align-items:center;gap:20px}
+    .f-brand{font-family:'Playfair Display',serif;font-size:15px;font-weight:400;letter-spacing:8px;text-transform:uppercase;color:#fff;opacity:0.7;margin-bottom:14px}
+    .f-tagline{font-size:13px;font-weight:300;max-width:400px;line-height:1.65;margin:0}
+    .f-nav{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+    .f-nav a{font-size:13px;font-weight:300;color:rgba(255,255,255,.45);text-decoration:none;transition:color .3s}
+    .f-nav a:hover{color:var(--gold)}
+    .f-btm{font-size:11px;font-weight:300}
+    .f-btm a{color:var(--gold);text-decoration:none}
+    @media(max-width:768px){section{padding:80px 20px}.cta{padding:80px 20px}.f-top{flex-direction:column;gap:28px}footer{padding:44px 20px 20px}.f-nav{gap:16px}}
+
+    /* scroll reveal */
+    .rv{opacity:0;transform:translateY(26px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+    .rv.in{opacity:1;transform:none}
+
+    /* animations */
+    @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="logo" aria-label="Lumen Home">LUMEN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="doctors.html">Our Doctors</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+  </ul>
+  <a href="form.html" class="btn-nav">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-label="Page hero">
+  <div class="c">
+    <div class="lbl">FREQUENTLY ASKED QUESTIONS</div>
+    <h1 class="ttl">Got Questions?</h1>
+    <p class="sub">We've answered the most common questions about our online dermatology consultations and services.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" aria-labelledby="faq-h">
+  <div class="faq-wrap">
+    <div class="lbl">FAQ</div>
+    <h2 class="ttl" id="faq-h">Common Questions</h2>
+    <div class="faq-list rv">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>How does the online consultation work?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Our consultations are conducted via video call through a secure platform. You'll receive a link to join the call at your scheduled time. Our dermatologists will assess your skin concerns, provide a diagnosis, and recommend treatment options.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>What information do I need to provide before my appointment?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Please fill out our intake form with your medical history, current medications, and skin concerns. Upload clear photos of the affected areas. This helps our doctors prepare for your consultation.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you prescribe medications?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Yes, our licensed dermatologists can prescribe medications when appropriate. Prescriptions are sent electronically to your preferred pharmacy. We follow all Pakistani regulations for telemedicine prescriptions.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>How long does a consultation take?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Initial consultations typically last 20-30 minutes. Follow-up appointments are usually 15 minutes. The exact duration depends on your specific concerns and questions.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>What if I need to cancel or reschedule my appointment?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p>You can cancel or reschedule up to 24 hours before your appointment without charge. Please contact us via WhatsApp or email to make changes.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Are your services covered by insurance?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Currently, our services are self-pay. We accept all major credit cards and digital wallets. We're working on insurance partnerships for future coverage.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>What languages do your doctors speak?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p>Our doctors are fluent in English and Urdu. We can accommodate other languages with advance notice.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>How do I get my prescription filled?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <p>After your consultation, prescriptions are sent electronically to your chosen pharmacy. You can pick them up or have them delivered. We recommend pharmacies that offer home delivery.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="f-top">
+    <div class="f-center">
+      <div class="f-brand">LUMEN</div>
+      <p class="f-tagline">Pakistan's most trusted online dermatology and aesthetic medicine consultancy.</p>
+      <div class="f-nav">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="doctors.html">Doctors</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+        <a href="form.html">Book Now</a>
+      </div>
+    </div>
+  </div>
+  <div class="f-btm">
+    <p>© 2026 LUMEN. All rights reserved. | <a href="mailto:support@lumen-pk.com">support@lumen-pk.com</a></p>
+  </div>
+</footer>
+
+<script>
+  // cursor
+  const cur = document.getElementById('cur');
+  const curR = document.getElementById('cur-r');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='5px';cur.style.height='5px';curR.style.width='44px';curR.style.height='44px';curR.style.opacity='.8'});
+    el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';curR.style.width='32px';curR.style.height='32px';curR.style.opacity='.45'});
+  });
+
+  // nav scroll
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>nav.classList.toggle('s',scrollY>40),{passive:true});
+
+  // scroll reveal
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*70);obs.unobserve(e.target)}});
+  },{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+  // nav active state
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+      link.style.color = 'var(--gold)';
+      link.style.textDecoration = 'underline';
+    }
+  });
+
+  // faq toggle
+  function toggleFaq(btn){
+    const item=btn.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
