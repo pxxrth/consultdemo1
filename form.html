@@ -681,6 +681,14 @@
   .plan-card.plan-selected .plan-price sup {
     color: #b8865a !important;
   }
+
+  /* mobile stacking for plan cards */
+  @media(max-width:768px){
+    .plan-row {display:flex;flex-direction:column;}
+    .plan-row .plan-card {width:100%; margin-bottom:20px;}
+    .plan-row #plan-standard {order:1;}
+    .plan-row #plan-premium {order:2;}
+  }
 </style>
 </head>
 <body>
@@ -991,10 +999,10 @@
     <div class="field-group">
       <label>Front facing photo <span class="req">*</span></label>
       <div class="upload-zone" onclick="this.querySelector('input').click()">
-        <input type="file" accept="image/*" onchange="previewImage(this, 'preview1')">
+        <input type="file" id="photo-front" accept="image/*" multiple class="photo-input" onchange="previewImages(this, 'preview1')">
         <div class="upload-icon">📷</div>
         <h3>Upload front photo</h3>
-        <p>JPG or PNG · Max 10MB</p>
+        <p>JPG or PNG · Max 10MB · You may upload multiple photos</p>
         <div class="upload-preview" id="preview1"></div>
       </div>
     </div>
@@ -1002,10 +1010,10 @@
     <div class="field-group">
       <label>Close-up of affected area <span class="req">*</span></label>
       <div class="upload-zone" onclick="this.querySelector('input').click()">
-        <input type="file" accept="image/*" onchange="previewImage(this, 'preview2')">
+        <input type="file" id="photo-closeup" accept="image/*" multiple class="photo-input" onchange="previewImages(this, 'preview2')">
         <div class="upload-icon">🔍</div>
         <h3>Upload close-up photo</h3>
-        <p>JPG or PNG · Max 10MB</p>
+        <p>JPG or PNG · Max 10MB · You may upload multiple photos</p>
         <div class="upload-preview" id="preview2"></div>
       </div>
     </div>
@@ -1013,7 +1021,7 @@
     <div class="field-group">
       <label>Additional photos <span class="opt">optional</span></label>
       <div class="upload-zone" onclick="this.querySelector('input').click()">
-        <input type="file" accept="image/*" multiple onchange="previewImage(this, 'preview3')">
+        <input type="file" id="photo-additional" accept="image/*" multiple class="photo-input" onchange="previewImages(this, 'preview3')">
         <div class="upload-icon">➕</div>
         <h3>Upload more photos</h3>
         <p>Multiple files allowed</p>
@@ -1085,7 +1093,7 @@
       <p>Choose the consultation package that works best for you</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-bottom:32px">
+    <div class="plan-row" style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-bottom:32px">
       <!-- Standard -->
       <div class="plan-card" id="plan-standard" onclick="selectPlan('standard')">
         <div class="plan-label">Standard</div>
@@ -1404,6 +1412,43 @@
   let selectedAppointmentDate = null;
   let selectedAppointmentTime = null;
   let selectedPlan = 'standard';
+  var uploadedPhotos = {};
+  var patientPDFBlob = null;
+
+  // multiple-image preview handler that updates thumbnail area and global state
+  function previewImages(input, previewId) {
+    var preview = document.getElementById(previewId);
+    if (!preview) return;
+    preview.innerHTML = '';
+    var slotKey = input.id || previewId;
+    uploadedPhotos[slotKey] = [];
+    if (!input.files) return;
+    Array.from(input.files).forEach(function(file) {
+      if (!file.type.startsWith('image/')) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedPhotos[slotKey].push(e.target.result);
+        var wrapper = document.createElement('div');
+        wrapper.style.cssText = 'position:relative;display:inline-block;margin:4px;';
+        var img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.cssText = 'width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid #e0d5c5;';
+        var removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.textContent = '×';
+        removeBtn.style.cssText = 'position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#c0392b;color:white;border:none;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;';
+        removeBtn.onclick = function() {
+          var idx = uploadedPhotos[slotKey].indexOf(e.target.result);
+          if (idx > -1) uploadedPhotos[slotKey].splice(idx, 1);
+          wrapper.remove();
+        };
+        wrapper.appendChild(img);
+        wrapper.appendChild(removeBtn);
+        preview.appendChild(wrapper);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
   let currentCalendarMonth = new Date();
 
   // ── Navigation ──────────────────────────────────────────────
@@ -1484,19 +1529,9 @@
   }
 
   // ── Photo preview ────────────────────────────────────────────
+  // legacy wrapper for backwards compatibility
   function previewImage(input, previewId) {
-    const preview = document.getElementById(previewId);
-    preview.innerHTML = '';
-    Array.from(input.files).forEach(file => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.className = 'preview-thumb';
-        preview.appendChild(img);
-      };
-      reader.readAsDataURL(file);
-    });
+    previewImages(input, previewId);
   }
 
   // ── Helpers ──────────────────────────────────────────────────
@@ -1725,43 +1760,27 @@
 
     // ══ PHOTOS SECTION ══
     section('07 — Uploaded Photos');
-    const photoInputs = ['preview1', 'preview2', 'preview3'];
-    let photoCount = 0;
-    photoInputs.forEach((previewId, index) => {
-      const preview = document.getElementById(previewId);
-      if (preview && preview.querySelectorAll('img').length > 0) {
-        const imgs = preview.querySelectorAll('img');
-        imgs.forEach((img, imgIndex) => {
-          checkPage(60);
-          const imgData = img.src;
-          const imgWidth = 80;
-          const imgHeight = 60;
-          const x = margin + (index % 2) * (imgWidth + 10);
-          const currentY = y;
-          
-          try {
-            doc.addImage(imgData, 'JPEG', x, currentY, imgWidth, imgHeight);
-            doc.setTextColor(...muted);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(7);
-            const label = index === 0 ? 'Front Photo' : index === 1 ? 'Close-up' : `Additional ${imgIndex + 1}`;
-            doc.text(label, x, currentY + imgHeight + 3);
-          } catch (e) {
-            doc.setTextColor(...muted);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8);
-            doc.text('Photo upload failed to embed', x, currentY + 10);
-          }
-          
-          photoCount++;
-          if (photoCount % 2 === 0) y += imgHeight + 15;
-        });
-      }
+    var allPhotoKeys = Object.keys(uploadedPhotos);
+    var hasPhotos = false;
+    allPhotoKeys.forEach(function(key) {
+      if (uploadedPhotos[key] && uploadedPhotos[key].length > 0) hasPhotos = true;
     });
-    if (photoCount === 0) {
-      row('Photos', 'No photos uploaded');
+
+    if (hasPhotos) {
+      allPhotoKeys.forEach(function(key) {
+        (uploadedPhotos[key] || []).forEach(function(photoData) {
+          checkPage(60);
+          try {
+            doc.addImage(photoData, 'JPEG', margin, y, 80, 60);
+            y += 66;
+          } catch(e) {
+            console.error('PDF image error:', e);
+          }
+        });
+      });
     } else {
-      y += 10;
+      section('Patient Photos', sage);
+      row('Photos', 'No photos uploaded');
     }
 
     // ── Footer on every page ──
@@ -1921,7 +1940,7 @@
   }
 
   // ── Submit ───────────────────────────────────────────────────
-  function submitForm() {
+  async function submitForm() {
     console.log('submitForm() called');
     const allChecked = ['c1','c2','c3'].every(id => document.getElementById(id).classList.contains('checked'));
     if (!allChecked) {
@@ -1929,69 +1948,8 @@
       return;
     }
 
-    const voucherCode = generateVoucherCode();
-
-    // hide final section and mark steps done (actual success screen shown after PDF)
-    document.getElementById('s8').classList.remove('active');
-    document.querySelectorAll('.progress-step').forEach(p => p.className = 'progress-step done');
-    document.getElementById('progress-label').textContent = 'Submitted ✓';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // update confirmation email text on success screen
-    var emailDisplay = document.getElementById('confirm-email-display');
-    if (emailDisplay) {
-      var emailVal = document.getElementById('email') ? document.getElementById('email').value : '';
-      emailDisplay.textContent = emailVal || 'your email address';
-    }
-
-    // Generate and download PDFs
-    setTimeout(() => {
-      try {
-        // Generate patient PDF (without voucher)
-        const patientDoc = generatePDF(voucherCode, false);
-        const patientName = document.getElementById('f-name').value.trim().replace(/\s+/g, '_') || 'Patient';
-        const dateStr = new Date().toISOString().slice(0, 10);
-        patientDoc.save(`Lumen_Intake_${patientName}_${dateStr}.pdf`);
-        
-        // Generate doctor PDF (with voucher)
-        const doctorDoc = generatePDF(voucherCode, true);
-        // Doctor PDF is not auto-downloaded, only sent to Supabase
-      } catch(e) {
-        console.error('PDF generation failed:', e);
-      }
-      // Update voucher code on success screen
-      var voucherEl = document.getElementById('voucher-code');
-      if (voucherEl) voucherEl.textContent = voucherCode;
-    }, 600);
-
-    // === SEND TO SUPABASE ===
-    var SUPABASE_URL = 'https://nmkapqqfefqilxysxumk.supabase.co';
-    var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ta2FwcXFmZWZxaWx4eXN4dW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3ODMsImV4cCI6MjA4ODIyNzc4M30.KwQmnv0p10WwCBaQHjkmH37rJ9uFWCW2Lus5HlaXZ3A';
-
-    function getVal(id) {
-      var el = document.getElementById(id);
-      return el ? el.value.trim() : '';
-    }
-
-    function getRadioVal(name) {
-      var checked = document.querySelector('input[name="' + name + '"]:checked');
-      if (!checked) return '';
-      var pill = checked.closest('.radio-pill');
-      return pill ? pill.textContent.trim() : checked.value;
-    }
-
-    function getCheckedItems(sectionId) {
-      var items = document.querySelectorAll('#' + sectionId + ' .check-item.checked .check-label');
-      return Array.from(items).map(function(i) { return i.textContent.trim(); }).join(', ');
-    }
-
-    var pdfBase64 = '';
-    try {
-      var pdfDoc = generatePDF(voucherCode, true); // Doctor PDF with voucher
-      pdfBase64 = pdfDoc.output('datauristring').split(',')[1];
-    } catch(pdfErr) {
-      console.error('PDF base64 failed:', pdfErr);
-    }
+    var voucherCode = generateVoucherCode();
+    var appt = getSelectedAppointment();
 
     var patientData = {
       name:                 getVal('f-name'),
@@ -2025,48 +1983,90 @@
       consent_accuracy:     document.getElementById('c1') ? document.getElementById('c1').classList.contains('checked') : false,
       consent_data:         document.getElementById('c2') ? document.getElementById('c2').classList.contains('checked') : false,
       consent_online:       document.getElementById('c3') ? document.getElementById('c3').classList.contains('checked') : false,
-      marketing_consent:     document.getElementById('c4-check') ? document.getElementById('c4-check').classList.contains('checked') : false,
-      appointment_date:     selectedAppointmentDate ? selectedAppointmentDate.toISOString().split('T')[0] : '',
-      appointment_time:     selectedAppointmentTime || '',
-      selected_plan:        selectedPlan,
+      marketing_consent:    document.getElementById('c4-check') ? document.getElementById('c4-check').classList.contains('checked') : false,
+      appointment_date:     (appt && appt.date) || '',
+      appointment_time:     (appt && appt.time) || '',
+      selected_plan:        selectedPlan || 'standard',
       plan_price:           selectedPlan === 'premium' ? 'PKR 10,000' : 'PKR 5,000',
       voucher_code:         voucherCode,
       status:               'New',
       payment_status:       'Pending',
-      source:               'Website',
-      patient_pdf:          pdfBase64
+      source:               'Website'
     };
 
-    console.log('Sending to Supabase...', patientData.name, patientData.email);
+    // UI updates
+    document.getElementById('s8').classList.remove('active');
+    document.querySelectorAll('.progress-step').forEach(p => p.className = 'progress-step done');
+    document.getElementById('progress-label').textContent = 'Submitted ✓';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    fetch(SUPABASE_URL + '/rest/v1/patients', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Prefer': 'return=representation'
-      },
-      body: JSON.stringify(patientData)
-    })
-    .then(function(r) {
-      console.log('Supabase response status:', r.status);
-      return r.json();
-    })
-    .then(function(data) {
-      console.log('Supabase insert result:', data);
-      if (data && data[0] && data[0].id) {
-        console.log('Patient created in Supabase. ID:', data[0].id);
-      } else {
-        console.error('Supabase error:', data);
+    var emailDisplay = document.getElementById('confirm-email-display');
+    if (emailDisplay) {
+      var emailVal = document.getElementById('email') ? document.getElementById('email').value : '';
+      emailDisplay.textContent = emailVal || 'your email address';
+    }
+
+    // Supabase submission
+    var SUPABASE_URL = 'https://nmkapqqfefqilxysxumk.supabase.co';
+    var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ta2FwcXFmZWZxaWx4eXN4dW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3ODMsImV4cCI6MjA4ODIyNzc4M30.KwQmnv0p10WwCBaQHjkmH37rJ9uFWCW2Lus5HlaXZ3A';
+
+    function getVal(id) {
+      var el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+
+    function getRadioVal(name) {
+      var checked = document.querySelector('input[name="' + name + '"]:checked');
+      if (!checked) return '';
+      var pill = checked.closest('.radio-pill');
+      return pill ? pill.textContent.trim() : checked.value;
+    }
+
+    function getCheckedItems(sectionId) {
+      var items = document.querySelectorAll('#' + sectionId + ' .check-item.checked .check-label');
+      return Array.from(items).map(function(i) { return i.textContent.trim(); }).join(', ');
+    }
+
+    try {
+      var response = await fetch(SUPABASE_URL + '/rest/v1/patients', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Prefer': 'return=representation'
+        },
+        body: JSON.stringify(patientData)
+      });
+      var result = await response.json();
+      console.log('Patient created in Supabase:', result);
+      var patientId = result && result[0] && result[0].id;
+
+      try {
+        var patientDoc = generatePDF(voucherCode, false);
+        patientPDFBlob = patientDoc.output('blob');
+        if (patientId) {
+          var pdfBase64 = patientPDFBlob && await new Promise(r=>{
+            var reader=new FileReader();reader.onload=function(e){r(e.target.result.split(',')[1]);};reader.readAsDataURL(patientPDFBlob);
+          });
+          fetch(SUPABASE_URL + '/rest/v1/patients?id=eq.'+patientId, {
+            method:'PATCH',
+            headers:{
+              'Content-Type':'application/json',
+              'apikey':SUPABASE_KEY,
+              'Authorization':'Bearer '+SUPABASE_KEY
+            },
+            body:JSON.stringify({patient_pdf:pdfBase64})
+          }).catch(function(e){console.log('PDF upload to Supabase failed (non-critical):',e);});
+        }
+      } catch(pdfErr) {
+        console.log('Patient PDF generation failed (non-critical):', pdfErr);
       }
-    })
-    .catch(function(err) {
-      console.error('Supabase connection failed:', err);
-    });
+    } catch(supabaseErr) {
+      console.error('Supabase submission failed:', supabaseErr);
+    }
 
-    // send confirmation email (non-blocking)
-    var appt = getSelectedAppointment();
+    // send confirmation email
     sendConfirmationEmail(
       getVal('f-name'),
       getVal('f-email'),
@@ -2075,25 +2075,28 @@
       (appt && appt.time) || ''
     );
 
-    // show inline success screen instead of auto redirect
-    // Hide section 6
-    document.getElementById('s6').classList.remove('active');
+    // add download button
+    var successDiv = document.getElementById('form-success-screen');
+    if (successDiv) {
+      var pdfSection = document.createElement('div');
+      pdfSection.id = 'pdf-download-section';
+      pdfSection.style.cssText = 'margin: 16px auto; max-width: 360px;';
+      pdfSection.innerHTML = `
+        <button onclick="downloadPatientPDF()" style="width:100%;padding:14px 24px;background:transparent;border:1.5px solid #b8865a;color:#b8865a;border-radius:999px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;" onmouseover="this.style.background='#b8865a';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#b8865a'">&#8595; Download Your Consultation Summary</button>
+        <p style="font-size:11px;color:#8a7060;text-align:center;margin-top:8px;">Your summary PDF is also being sent to your email.</p>
+      `;
+      successDiv.insertBefore(pdfSection, successDiv.querySelector('a') || null);
+    }
 
-    // Update progress bar to complete
+    // show inline success screen instead of auto redirect
+    document.getElementById('s6').classList.remove('active');
     document.querySelectorAll('.progress-step').forEach(function(p) {
       p.className = 'progress-step done';
     });
     document.getElementById('progress-label').textContent = 'Form Complete ✓';
-
-    // Show the inline success message
-    var successDiv = document.getElementById('form-success-screen');
-    if (successDiv) {
-      successDiv.style.display = 'block';
-    }
-
+    if (successDiv) successDiv.style.display='block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
   // helper to go to calendar when user clicks button
   function proceedToCalendar() {
     var params = new URLSearchParams();
@@ -2109,6 +2112,22 @@
     initCheckItems();
     initConsentItems();
   });
+
+  // download helper for patient PDF stored during submission
+  function downloadPatientPDF() {
+    if (!patientPDFBlob) {
+      alert('PDF not ready yet. Please wait a moment.');
+      return;
+    }
+    var url = URL.createObjectURL(patientPDFBlob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Lumen_Consultation_Summary.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 </script>
 
 <!-- NAVIGATION: paste the <nav> block from index.html here -->

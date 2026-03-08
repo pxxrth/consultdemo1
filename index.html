@@ -130,6 +130,10 @@
     .t-track:hover{animation-play-state:paused}
     .t-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:38px 34px;min-width:320px;flex-shrink:0;transition:transform .4s var(--ease),box-shadow .4s}
     .t-card:hover{transform:translateY(-5px);box-shadow:0 16px 44px rgba(44,26,14,.07)}
+    /* optional sizing helpers for responsive layout */
+    .t-card-sm{min-width:220px;}
+    .t-card-md{min-width:280px;}
+    .t-card-lg{min-width:320px;}
     .stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:18px}
     .t-txt{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--dark);line-height:1.6;margin-bottom:22px}
     .t-auth{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
@@ -325,14 +329,24 @@
   </div>
   <div class="t-slider">
     <div class="t-track">
-      <div class="t-card rv" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Finally found a doctor who truly listens. My skin transformed completely within 6 weeks."</p><div class="t-auth">Fatima K. — Karachi</div></div>
-      <div class="t-card rv" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Expert advice without leaving home. The convenience is absolutely unmatched."</p><div class="t-auth">Sara M. — Lahore</div></div>
-      <div class="t-card rv" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The personalised skincare plan I received was a complete game changer."</p><div class="t-auth">Nadia A. — Islamabad</div></div>
-      <div class="t-card rv" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"My acne cleared in 8 weeks after years of failed treatments. Absolutely worth it."</p><div class="t-auth">Zara H. — Lahore</div></div>
-      <div class="t-card rv" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Finally found a doctor who truly listens. My skin transformed completely within 6 weeks."</p><div class="t-auth">Fatima K. — Karachi</div></div>
-      <div class="t-card rv" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Expert advice without leaving home. The convenience is absolutely unmatched."</p><div class="t-auth">Sara M. — Lahore</div></div>
-      <div class="t-card rv" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The personalised skincare plan I received was a complete game changer."</p><div class="t-auth">Nadia A. — Islamabad</div></div>
-      <div class="t-card rv" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"My acne cleared in 8 weeks after years of failed treatments. Absolutely worth it."</p><div class="t-auth">Zara H. — Lahore</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Finally found a doctor who truly listens. My skin transformed completely within 6 weeks."</p><div class="t-auth">Fatima K. — Karachi</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Expert advice without leaving home. The convenience is absolutely unmatched."</p><div class="t-auth">Sara M. — Lahore</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The personalised skincare plan I received was a complete game changer."</p><div class="t-auth">Nadia A. — Islamabad</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"My acne cleared in 8 weeks after years of failed treatments. Absolutely worth it."</p><div class="t-auth">Zara H. — Lahore</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"I was sceptical at first, but the results were phenomenal. Thank you!"</p><div class="t-auth">Aisha R. — Karachi</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Professional and caring staff. My skin has never looked better."</p><div class="t-auth">Hana B. — Islamabad</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Quick responses and excellent treatment plans. Highly recommended."</p><div class="t-auth">Leena S. — Lahore</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Affordable and effective consulting. Saved me weeks of hassle."</p><div class="t-auth">Meera P. — Rawalpindi</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The follow-up support made all the difference. I'm so grateful."</p><div class="t-auth">Anila T. — Karachi</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Finally found a doctor who truly listens. My skin transformed completely within 6 weeks."</p><div class="t-auth">Fatima K. — Karachi</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Expert advice without leaving home. The convenience is absolutely unmatched."</p><div class="t-auth">Sara M. — Lahore</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The personalised skincare plan I received was a complete game changer."</p><div class="t-auth">Nadia A. — Islamabad</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"My acne cleared in 8 weeks after years of failed treatments. Absolutely worth it."</p><div class="t-auth">Zara H. — Lahore</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"I was sceptical at first, but the results were phenomenal. Thank you!"</p><div class="t-auth">Aisha R. — Karachi</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Professional and caring staff. My skin has never looked better."</p><div class="t-auth">Hana B. — Islamabad</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Quick responses and excellent treatment plans. Highly recommended."</p><div class="t-auth">Leena S. — Lahore</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Affordable and effective consulting. Saved me weeks of hassle."</p><div class="t-auth">Meera P. — Rawalpindi</div></div>
+      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The follow-up support made all the difference. I'm so grateful."</p><div class="t-auth">Anila T. — Karachi</div></div>
     </div>
   </div>
 </section>
