@@ -266,6 +266,7 @@
   const patientName = urlParams.get('name') || '';
   const patientEmail = urlParams.get('email') || '';
   const patientPhone = urlParams.get('phone') || '';
+  const selectedPlan = urlParams.get('plan') || 'standard';
 
   // generate calendar for next 14 days
   function generateCalendar() {
@@ -330,7 +331,15 @@
     // send to Supabase
     const SUPABASE_URL = 'https://nmkapqqfefqilxysxumk.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ta2FwcXFmZWZxaWx4eXN4dW1rIiwicm9sZSI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ta2FwcXFmZWZxaWx4eXN4dW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3ODMsImV4cCI6MjA4ODIyNzc4M30.KwQmnv0p10WwCBaQHjkmH37rJ9uFWCW2Lus5HlaXZ3A';
-    
+        // also update CRM like the other calendar flow does
+    if (patientEmail) {
+      fetch('https://preview-sandbox--69a50682df9af07889300c56.base44.app/functions/new-patient-webhook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-key': 'K7mP3xQn9vR2tY8wA4jB6cD1eF5gH0iL' },
+        body: JSON.stringify({ updateOnly: true, email: patientEmail, appointmentDate: selectedDate.toISOString().split('T')[0], appointmentTime: selectedTime })
+      })
+      .then(r => r.json()).then(d => console.log('CRM updated:', d)).catch(e => console.error('CRM update failed:', e));
+    }
     const bookingData = {
       name: patientName,
       email: patientEmail,
@@ -341,6 +350,10 @@
       payment_status: 'Pending',
       source: 'Website'
     };
+
+    // include payment_method field in case schema needs it (e.g. 'bank_transfer')
+    // make sure the appointments table has a payment_method column – add if missing
+    bookingData.payment_method = null;
 
     fetch(SUPABASE_URL + '/rest/v1/appointments', {
       method: 'POST',
@@ -355,14 +368,18 @@
     .then(r => r.json())
     .then(data => {
       console.log('Appointment booked:', data);
-      // redirect to confirmation
+      // redirect to payment page; include the newly created booking ID
+      const bookingId = data && data[0] && data[0].id ? data[0].id : '';
       const params = new URLSearchParams({
         name: patientName,
         email: patientEmail,
+        phone: patientPhone,
         date: selectedDate.toISOString().split('T')[0],
-        time: selectedTime
+        time: selectedTime,
+        plan: selectedPlan
       });
-      window.location.href = 'confirmation.html?' + params.toString();
+      if (bookingId) params.set('booking', bookingId);
+      window.location.href = 'payment.html?' + params.toString();
     })
     .catch(err => {
       console.error('Booking failed:', err);

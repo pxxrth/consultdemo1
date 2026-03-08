@@ -399,6 +399,32 @@
     font-weight: 600;
   }
 
+  /* additional same styling for marketing consent checkbox */
+  .consent-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .consent-item.checked .consent-checkbox {
+    background: var(--sage);
+    border-color: var(--sage);
+  }
+
+  .consent-item.checked .consent-checkbox::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
   .consent-text { font-size: 13px; color: var(--deep); line-height: 1.6; }
   .consent-text strong { font-weight: 500; display: block; margin-bottom: 2px; }
 
@@ -542,6 +568,119 @@
   .voucher-desc { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
   .voucher-code { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 12px 16px; font-family: monospace; font-size: 18px; letter-spacing: 3px; color: var(--blush); }
   .voucher-expiry { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 12px; }
+
+  /* required field asterisk */
+  .required-label::after {
+    content: ' *';
+    color: #c0392b;
+    font-size: 12px;
+  }
+
+  /* plan card styles */
+  .plan-card {
+    border: 2px solid #e0d5c5;
+    border-radius: 14px;
+    padding: 32px 28px;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+    background: #ffffff;
+    position: relative;
+  }
+
+  .plan-card * {
+    color: #2c1a0e !important;
+  }
+
+  .plan-card .plan-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #b8865a !important;
+    margin-bottom: 12px;
+  }
+
+  .plan-card .plan-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: #2c1a0e !important;
+    margin-bottom: 8px;
+  }
+
+  .plan-card .plan-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 300;
+    color: #2c1a0e !important;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .plan-card .plan-price sup {
+    font-size: 16px;
+    vertical-align: super;
+    color: #2c1a0e !important;
+  }
+
+  .plan-card .plan-period {
+    font-size: 12px;
+    color: #8a7060 !important;
+    margin-bottom: 24px;
+  }
+
+  .plan-card .plan-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .plan-card .plan-features li {
+    font-size: 13px;
+    color: #5a4a40 !important;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0d5c5;
+  }
+
+  .plan-card .plan-features li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .plan-card .recommended-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #b8865a;
+    color: white !important;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 50px;
+  }
+
+  /* SELECTED STATE — only changes border and background, never text */
+  .plan-card.plan-selected {
+    border-color: #b8865a;
+    background: #fff8f2;
+    box-shadow: 0 8px 32px rgba(184,134,90,0.15);
+  }
+
+  .plan-card.plan-selected * {
+    color: #2c1a0e !important;
+  }
+
+  .plan-card.plan-selected .plan-price {
+    color: #b8865a !important;
+  }
+
+  .plan-card.plan-selected .plan-price sup {
+    color: #b8865a !important;
+  }
 </style>
 </head>
 <body>
@@ -577,17 +716,17 @@
 
     <div class="field-row">
       <div class="field-group">
-        <label>Full Name <span class="req">*</span></label>
+        <label class="required-label">Full Name</label>
         <input type="text" id="f-name" placeholder="e.g. Aisha Khan">
       </div>
       <div class="field-group">
-        <label>Date of Birth <span class="req">*</span></label>
-        <input type="date" id="f-dob">
+        <label class="required-label">Age</label>
+        <input type="date" id="f-dob" name="age">
       </div>
     </div>
 
     <div class="field-group">
-      <label>Gender <span class="req">*</span></label>
+      <label class="required-label">Gender</label>
       <div class="radio-group">
         <label class="radio-pill"><input type="radio" name="gender">Female</label>
         <label class="radio-pill"><input type="radio" name="gender">Male</label>
@@ -597,11 +736,11 @@
 
     <div class="field-row">
       <div class="field-group">
-        <label>WhatsApp Number <span class="req">*</span></label>
+        <label class="required-label">WhatsApp Number</label>
         <input type="tel" id="f-phone" placeholder="+92 300 0000000">
       </div>
       <div class="field-group">
-        <label>Email Address <span class="req">*</span></label>
+        <label class="required-label">Email Address</label>
         <input type="email" id="f-email" placeholder="you@email.com">
       </div>
     </div>
@@ -613,7 +752,7 @@
 
     <div class="nav">
       <div></div>
-      <button class="btn btn-next" onclick="goTo(2)">Continue →</button>
+      <button class="btn btn-next" onclick="if(validateSection1()) goTo(2)">Continue →</button>
     </div>
   </div>
 
@@ -947,28 +1086,36 @@
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-bottom:32px">
-      <div class="plan-card" id="plan-standard" onclick="selectPlan('standard')" style="padding:24px;border:2px solid #e0d5c5;border-radius:12px;cursor:pointer;transition:all .3s;text-align:center">
-        <div style="font-size:28px;font-weight:500;margin-bottom:8px">Standard</div>
-        <div style="font-size:32px;font-weight:400;color:#b8865a;margin-bottom:16px">PKR 5,000</div>
-        <div style="font-size:13px;line-height:1.8;color:#8a7060">
-          ✦ 30-minute consultation<br>
-          ✦ Video diagnosis<br>
-          ✦ Basic treatment plan<br>
-          ✦ Follow-up in 2 weeks
-        </div>
+      <!-- Standard -->
+      <div class="plan-card" id="plan-standard" onclick="selectPlan('standard')">
+        <div class="plan-label">Standard</div>
+        <div class="plan-name">Standard</div>
+        <div class="plan-price"><sup>PKR </sup>5,000</div>
+        <div class="plan-period">per consultation</div>
+        <ul class="plan-features">
+          <li>&#10022; Written consultation report</li>
+          <li>&#10022; Personalised skincare PDF</li>
+          <li>&#10022; 5-hour response time</li>
+          <li>&#10022; Priority doctor access</li>
+          <li>&#10022; Follow-up messages included</li>
+        </ul>
       </div>
 
-      <div class="plan-card" id="plan-premium" onclick="selectPlan('premium')" style="padding:24px;border:2px solid #e0d5c5;border-radius:12px;cursor:pointer;transition:all .3s;text-align:center">
-        <div style="background:#b8865a;color:#f5f0e8;padding:8px 12px;border-radius:6px;display:inline-block;font-size:11px;font-weight:500;margin-bottom:12px">RECOMMENDED</div>
-        <div style="font-size:28px;font-weight:500;margin-bottom:8px">Premium</div>
-        <div style="font-size:32px;font-weight:400;color:#b8865a;margin-bottom:16px">PKR 10,000</div>
-        <div style="font-size:13px;line-height:1.8;color:#8a7060">
-          ✦ 60-minute consultation<br>
-          ✦ HD video analysis<br>
-          ✦ Detailed treatment plan<br>
-          ✦ Product recommendations<br>
-          ✦ Priority follow-up support
-        </div>
+      <!-- Premium -->
+      <div class="plan-card" id="plan-premium" onclick="selectPlan('premium')">
+        <div class="recommended-badge">RECOMMENDED</div>
+        <div class="plan-label">Premium</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price"><sup>PKR </sup>10,000</div>
+        <div class="plan-period">per consultation</div>
+        <ul class="plan-features">
+          <li>&#10022; Comprehensive consultation report</li>
+          <li>&#10022; Personalised skincare PDF</li>
+          <li>&#10022; Immediate response</li>
+          <li>&#10022; Unlimited follow-ups</li>
+          <li>&#10022; Video consultation included</li>
+          <li>&#10022; Prescription skincare regimen</li>
+        </ul>
       </div>
     </div>
 
@@ -991,7 +1138,7 @@
     <div class="consent-item" id="c1">
       <div class="consent-box"></div>
       <div class="consent-text">
-        <strong>Accuracy of Information</strong>
+        <strong>Accuracy of Information</strong><span style="color:#c0392b; font-size:11px; margin-left:4px;">*</span>
         I confirm that all information provided in this form is accurate and complete to the best of my knowledge.
       </div>
     </div>
@@ -999,7 +1146,7 @@
     <div class="consent-item" id="c2">
       <div class="consent-box"></div>
       <div class="consent-text">
-        <strong>Data & Photo Consent</strong>
+        <strong>Data & Photo Consent</strong><span style="color:#c0392b; font-size:11px; margin-left:4px;">*</span>
         I consent to my photos, medical history, and personal data being used solely for the purpose of my dermatology consultation.
       </div>
     </div>
@@ -1007,8 +1154,16 @@
     <div class="consent-item" id="c3">
       <div class="consent-box"></div>
       <div class="consent-text">
-        <strong>Online Consultation Acknowledgement</strong>
+        <strong>Online Consultation Acknowledgement</strong><span style="color:#c0392b; font-size:11px; margin-left:4px;">*</span>
         I understand this is an online consultation service and not a substitute for emergency medical care.
+      </div>
+    </div>
+
+    <div class="consent-item" id="c4" onclick="toggleConsent('c4')">
+      <div class="consent-checkbox" id="c4-check"></div>
+      <div class="consent-text">
+        <strong>Marketing Communications</strong> <span style="font-size:11px;color:#8a7060;font-style:italic;">(optional)</span><br>
+        I agree to receive occasional updates, skincare tips, promotional offers and service announcements from Lumen via email. You can unsubscribe at any time.
       </div>
     </div>
 
@@ -1050,6 +1205,16 @@
   <p style="font-size: 13px; color: #8a7068; max-width: 380px; margin: 0 auto 36px; line-height: 1.7;">
     Your summary PDF has been downloaded to your device.
   </p>
+
+  <p style="
+  font-size: 14px;
+  color: #6b5a4e;
+  margin: 12px auto 0;
+  max-width: 400px;
+  line-height: 1.6;
+">
+  &#10003; A confirmation email has been sent to <strong id="confirm-email-display"></strong>
+</p>
 
   <!-- Voucher Block with Frosted Glass Overlay -->
   <div style="
@@ -1120,33 +1285,23 @@
     A copy of this voucher has been sent to your WhatsApp number.
   </p>
 
-  <!-- CTA Button -->
-  <button
-    type="button"
-    onclick="proceedToCalendar()"
-    style="
-      background: #c9826b;
-      color: white;
-      border: none;
-      padding: 16px 40px;
-      border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(201,130,107,0.35);
-      transition: all 0.2s;
-      letter-spacing: 0.3px;
-    "
-    onmouseover="this.style.background='#b8725e'; this.style.transform='translateY(-1px)'"
-    onmouseout="this.style.background='#c9826b'; this.style.transform='translateY(0)'"
-  >
-    Book Your Appointment Date &#8594;
-  </button>
-
-  <p style="font-size: 11px; color: #b8a09a; margin-top: 16px;">
-    You will be asked to select a date and time for your consultation.
-  </p>
+  <!-- Back to Home Button -->
+  <a href="index.html" style="
+    display: inline-block;
+    margin-top: 8px;
+    padding: 16px 40px;
+    background: #b8865a;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: all 0.3s;
+  " onmouseover="this.style.background='#9a6e45'" onmouseout="this.style.background='#b8865a'">
+    &#8592; Back to Home
+  </a>
 
 </div>
 
@@ -1154,8 +1309,96 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
+  // EMAIL SETUP REQUIRED:
+  // 1. Go to app.brevo.com and create a free account
+  // 2. Go to SMTP & API > API Keys > Generate a new API key
+  // 3. Replace BREVO_API_KEY_PLACEHOLDER above with your actual key
+  // 4. In Brevo, verify your sender domain: support@lumen-pk.com
+  // 5. Free tier: 300 emails/day — more than enough for current scale
+
+  function validateSection1() {
+    var name = document.getElementById('name') || document.querySelector('[name="name"]') || document.querySelector('#s1 input[type="text"]');
+    var email = document.getElementById('email') || document.querySelector('[name="email"]') || document.querySelector('#s1 input[type="email"]');
+    var phone = document.getElementById('phone') || document.querySelector('[name="phone"]') || document.querySelector('#s1 input[type="tel"]');
+    var age = document.getElementById('age') || document.querySelector('[name="age"]');
+    var gender = document.querySelector('#s1 input[name="gender"]:checked') || document.querySelector('#s1 .radio-pill.selected[data-field="gender"]');
+
+    var errors = [];
+    if (!name || !name.value.trim()) errors.push('Full name is required');
+    if (!email || !email.value.trim() || !email.value.includes('@')) errors.push('A valid email is required');
+    if (!phone || !phone.value.trim()) errors.push('Phone number is required');
+    if (!age || !age.value.trim()) errors.push('Age is required');
+    if (!gender) errors.push('Please select your gender');
+
+    if (errors.length > 0) {
+      showValidationError(errors[0]);
+      return false;
+    }
+    return true;
+  }
+
+  function showValidationError(message) {
+    var existing = document.getElementById('validation-toast');
+    if (existing) existing.remove();
+    var toast = document.createElement('div');
+    toast.id = 'validation-toast';
+    toast.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#2c1a0e;color:white;padding:14px 24px;border-radius:999px;font-size:14px;font-family:DM Sans,sans-serif;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,0.2);opacity:0;transition:opacity 0.3s;';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(function() { toast.style.opacity = '1'; }, 10);
+    setTimeout(function() { toast.style.opacity = '0'; setTimeout(function() { toast.remove(); }, 300); }, 3000);
+  }
+
   let currentSection = 1;
   const totalSections = 8;
+
+  function sendConfirmationEmail(patientName, patientEmail, selectedPlan, apptDate, apptTime) {
+    var planLabel = selectedPlan === 'premium' ? 'Premium — PKR 10,000' : 'Standard — PKR 5,000';
+    var apptLine = (apptDate && apptTime) ? apptDate + ' at ' + apptTime : 'To be confirmed';
+
+    var htmlBody = [
+      '<div style="font-family:Georgia,serif;max-width:560px;margin:0 auto;background:#f5f0e8;padding:40px 32px;border-radius:12px;">',
+      '<div style="text-align:center;margin-bottom:32px;">',
+      '<p style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#b8865a;margin:0;">LUMEN DERMATOLOGY</p>',
+      '<h1 style="font-size:32px;font-weight:400;color:#2c1a0e;margin:8px 0 0;">Your Consultation<br><em style="color:#b8865a;">is Confirmed</em></h1>',
+      '</div>',
+      '<p style="color:#5a4a40;font-size:15px;line-height:1.7;">Dear ' + patientName + ',</p>',
+      '<p style="color:#5a4a40;font-size:15px;line-height:1.7;">Thank you for submitting your consultation details with Lumen. We have received everything and our specialist will review your information before your appointment.</p>',
+      '<div style="background:white;border-radius:10px;padding:24px;margin:24px 0;border-left:4px solid #b8865a;">',
+      '<p style="margin:0 0 8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#b8865a;">Consultation Summary</p>',
+      '<table style="width:100%;border-collapse:collapse;">',
+      '<tr><td style="padding:8px 0;border-bottom:1px solid #f0ebe2;font-size:13px;color:#8a7060;width:40%;">Plan</td><td style="padding:8px 0;border-bottom:1px solid #f0ebe2;font-size:13px;color:#2c1a0e;font-weight:500;">' + planLabel + '</td></tr>',
+      '<tr><td style="padding:8px 0;border-bottom:1px solid #f0ebe2;font-size:13px;color:#8a7060;">Appointment</td><td style="padding:8px 0;border-bottom:1px solid #f0ebe2;font-size:13px;color:#2c1a0e;font-weight:500;">' + apptLine + '</td></tr>',
+      '<tr><td style="padding:8px 0;font-size:13px;color:#8a7060;">Status</td><td style="padding:8px 0;font-size:13px;color:#2c1a0e;font-weight:500;">Under Review</td></tr>',
+      '</table>',
+      '</div>',
+      '<p style="color:#5a4a40;font-size:15px;line-height:1.7;">Our team is available 7 days a week, 9am–10pm PKT. If you have any questions before your consultation, reply to this email or reach us on WhatsApp at <strong>+92 36145474452</strong>.</p>',
+      '<p style="color:#5a4a40;font-size:15px;line-height:1.7;margin-bottom:32px;">We look forward to helping you achieve healthier, more radiant skin.</p>',
+      '<div style="border-top:1px solid #e0d5c5;padding-top:24px;text-align:center;">',
+      '<p style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#b8865a;margin:0 0 6px;">LUMEN</p>',
+      '<p style="font-size:12px;color:#8a7060;margin:0;">support@lumen-pk.com | lumen-pk.com</p>',
+      '<p style="font-size:11px;color:#aaa;margin:12px 0 0;">You are receiving this email because you submitted a consultation request on lumen-pk.com.</p>',
+      '</div>',
+      '</div>'
+    ].join('');
+
+    // Brevo transactional email API — replace BREVO_API_KEY with actual key
+    fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': 'BREVO_API_KEY_PLACEHOLDER'
+      },
+      body: JSON.stringify({
+        sender: { name: 'Lumen Dermatology', email: 'support@lumen-pk.com' },
+        to: [{ email: patientEmail, name: patientName }],
+        subject: 'Your Lumen Consultation is Confirmed — ' + apptLine,
+        htmlContent: htmlBody
+      })
+    })
+    .then(function(r) { console.log('Confirmation email sent. Status:', r.status); })
+    .catch(function(e) { console.error('Email send failed:', e); });
+  }
   
   // Calendar and plan selection tracking
   let selectedAppointmentDate = null;
@@ -1181,6 +1424,15 @@
 
   // ── Radio pills ──────────────────────────────────────────────
   function initRadioPills() {
+    document.querySelectorAll('.radio-pill').forEach(pill => {
+      pill.addEventListener('click', function() {
+        const input = this.querySelector('input[type="radio"]');
+        if (input) {
+          input.checked = true;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    });
     document.querySelectorAll('.radio-pill input[type="radio"]').forEach(input => {
       input.addEventListener('change', function() {
         const name = this.name;
@@ -1215,7 +1467,7 @@
 
   // ── Consent items ────────────────────────────────────────────
   function initConsentItems() {
-    ['c1', 'c2', 'c3'].forEach(function(id) {
+    ['c1', 'c2', 'c3', 'c4'].forEach(function(id) {
       var item = document.getElementById(id);
       if (!item) return;
       item.addEventListener('click', function(e) {
@@ -1224,6 +1476,11 @@
         this.classList.toggle('checked');
       });
     });
+  }
+
+  function toggleConsent(id) {
+    var it = document.getElementById(id);
+    if (it) it.classList.toggle('checked');
   }
 
   // ── Photo preview ────────────────────────────────────────────
@@ -1653,31 +1910,14 @@
   function selectPlan(plan) {
     selectedPlan = plan;
     document.getElementById('selected-plan').value = plan;
-    
-    // Update card styles
-    const standardCard = document.getElementById('plan-standard');
-    const premiumCard = document.getElementById('plan-premium');
-    
-    if (plan === 'standard') {
-      standardCard.style.background = '#b8865a';
-      standardCard.style.color = '#f5f0e8';
-      standardCard.style.borderColor = '#b8865a';
-      premiumCard.style.background = '#f5f0e8';
-      premiumCard.style.color = '#2c1a0e';
-      premiumCard.style.borderColor = '#e0d5c5';
-    } else {
-      standardCard.style.background = '#f5f0e8';
-      standardCard.style.color = '#2c1a0e';
-      standardCard.style.borderColor = '#e0d5c5';
-      premiumCard.style.background = '#b8865a';
-      premiumCard.style.color = '#f5f0e8';
-      premiumCard.style.borderColor = '#b8865a';
-    }
-    
-    // Enable continue button
-    document.getElementById('plan-continue-btn').disabled = false;
-    document.getElementById('plan-continue-btn').style.opacity = '1';
-    document.getElementById('plan-continue-btn').style.cursor = 'pointer';
+    document.querySelectorAll('.plan-card').forEach(function(c) {
+      c.classList.remove('plan-selected');
+    });
+    document.getElementById('plan-' + plan).classList.add('plan-selected');
+    var btn = document.getElementById('plan-continue-btn');
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
   }
 
   // ── Submit ───────────────────────────────────────────────────
@@ -1696,6 +1936,13 @@
     document.querySelectorAll('.progress-step').forEach(p => p.className = 'progress-step done');
     document.getElementById('progress-label').textContent = 'Submitted ✓';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // update confirmation email text on success screen
+    var emailDisplay = document.getElementById('confirm-email-display');
+    if (emailDisplay) {
+      var emailVal = document.getElementById('email') ? document.getElementById('email').value : '';
+      emailDisplay.textContent = emailVal || 'your email address';
+    }
 
     // Generate and download PDFs
     setTimeout(() => {
@@ -1778,6 +2025,7 @@
       consent_accuracy:     document.getElementById('c1') ? document.getElementById('c1').classList.contains('checked') : false,
       consent_data:         document.getElementById('c2') ? document.getElementById('c2').classList.contains('checked') : false,
       consent_online:       document.getElementById('c3') ? document.getElementById('c3').classList.contains('checked') : false,
+      marketing_consent:     document.getElementById('c4-check') ? document.getElementById('c4-check').classList.contains('checked') : false,
       appointment_date:     selectedAppointmentDate ? selectedAppointmentDate.toISOString().split('T')[0] : '',
       appointment_time:     selectedAppointmentTime || '',
       selected_plan:        selectedPlan,
@@ -1816,6 +2064,16 @@
     .catch(function(err) {
       console.error('Supabase connection failed:', err);
     });
+
+    // send confirmation email (non-blocking)
+    var appt = getSelectedAppointment();
+    sendConfirmationEmail(
+      getVal('f-name'),
+      getVal('f-email'),
+      selectedPlan || 'standard',
+      (appt && appt.date) || '',
+      (appt && appt.time) || ''
+    );
 
     // show inline success screen instead of auto redirect
     // Hide section 6

@@ -72,10 +72,14 @@ function readUrlParams() {
   const patientName = params.get('name') || 'Patient';
   const patientEmail = params.get('email') || '';
   const patientPhone = params.get('phone') || '';
+  const selectedPlan = params.get('plan') || 'standard';
+  const bookingId = params.get('booking') || '';
   calendarState.params = {
     name: patientName,
     email: patientEmail,
-    phone: patientPhone
+    phone: patientPhone,
+    plan: selectedPlan,
+    booking: bookingId
   };
 }
 
@@ -267,6 +271,7 @@ function showConfirmation() {
   outParams.set('name', calendarState.params.name || '');
   outParams.set('email', calendarState.params.email || '');
   outParams.set('phone', calendarState.params.phone || '');
+  outParams.set('plan', calendarState.params.plan || 'standard');
 
   // human-readable date and time values
   const dateStr = calendarState.selectedDate
@@ -304,7 +309,42 @@ function showConfirmation() {
     .catch(function(e) { console.error('Appointment update failed:', e); });
   }
 
-  window.location.href = 'confirmation.html?' + outParams.toString();
+  // also create a booking record in Supabase so we have an ID for payment
+  const SUPABASE_URL = 'https://nmkapqqfefqilxysxumk.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ta2FwcXFmZWZxaWx4eXN4dW1rIiwicm9sZSI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFub24iLCJpYXQiOjE3NzI2NTE3ODMsImV4cCI6MjA4ODIyNzc4M30.KwQmnv0p10WwCBaQHjkmH37rJ9uFWCW2Lus5HlaXZ3A';
+  const bookingData = {
+    name: calendarState.params.name || '',
+    email: calendarState.params.email || '',
+    phone: calendarState.params.phone || '',
+    appointment_date: calendarState.selectedDate ? calendarState.selectedDate.toISOString().split('T')[0] : '',
+    appointment_time: calendarState.selectedTime || '',
+    status: 'Booked',
+    payment_status: 'Pending',
+    source: 'Website',
+    payment_method: null
+  };
+
+  fetch(SUPABASE_URL + '/rest/v1/appointments', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Prefer': 'return=representation'
+    },
+    body: JSON.stringify(bookingData)
+  })
+  .then(r => r.json())
+  .then(data => {
+    const bookingId = data && data[0] && data[0].id ? data[0].id : '';
+    if (bookingId) outParams.set('booking', bookingId);
+    window.location.href = 'payment.html?' + outParams.toString();
+  })
+  .catch(err => {
+    console.error('Booking creation failed:', err);
+    // fall back to redirect without booking id
+    window.location.href = 'payment.html?' + outParams.toString();
+  });
 }
 
 // === EVENT LISTENERS ===
