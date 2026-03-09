@@ -689,6 +689,27 @@
     .plan-row #plan-standard {order:1;}
     .plan-row #plan-premium {order:2;}
   }
+
+  .plan-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+@media (max-width: 768px) {
+  .plan-row {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .plan-card {
+    width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  #plan-premium::after {
+    display: none !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -994,42 +1015,10 @@
 
     <div class="divider"></div>
 
-    <div class="note">📸 Please upload photos in <strong>natural lighting</strong>, without filters or makeup on the affected area. Minimum 2 photos required.</div>
 
-    <div class="field-group">
-      <label>Front facing photo <span class="req">*</span></label>
-      <div class="upload-zone" onclick="this.querySelector('input').click()">
-        <input type="file" id="photo-front" accept="image/*" multiple class="photo-input" onchange="previewImages(this, 'preview1')">
-        <div class="upload-icon">📷</div>
-        <h3>Upload front photo</h3>
-        <p>JPG or PNG · Max 10MB · You may upload multiple photos</p>
-        <div class="upload-preview" id="preview1"></div>
-      </div>
-    </div>
+    <p style="font-size:13px;color:#8a7060;font-style:italic;padding:12px 0;">**You can share photos with your doctor during the consultation.**</p>
 
-    <div class="field-group">
-      <label>Close-up of affected area <span class="req">*</span></label>
-      <div class="upload-zone" onclick="this.querySelector('input').click()">
-        <input type="file" id="photo-closeup" accept="image/*" multiple class="photo-input" onchange="previewImages(this, 'preview2')">
-        <div class="upload-icon">🔍</div>
-        <h3>Upload close-up photo</h3>
-        <p>JPG or PNG · Max 10MB · You may upload multiple photos</p>
-        <div class="upload-preview" id="preview2"></div>
-      </div>
-    </div>
-
-    <div class="field-group">
-      <label>Additional photos <span class="opt">optional</span></label>
-      <div class="upload-zone" onclick="this.querySelector('input').click()">
-        <input type="file" id="photo-additional" accept="image/*" multiple class="photo-input" onchange="previewImages(this, 'preview3')">
-        <div class="upload-icon">➕</div>
-        <h3>Upload more photos</h3>
-        <p>Multiple files allowed</p>
-        <div class="upload-preview" id="preview3"></div>
-      </div>
-    </div>
-
-    <div class="nav">
+      <div class="nav">
       <button class="btn btn-back" onclick="goTo(4)">← Back</button>
       <button class="btn btn-next" onclick="goTo(6)">Continue →</button>
     </div>
@@ -1093,7 +1082,7 @@
       <p>Choose the consultation package that works best for you</p>
     </div>
 
-    <div class="plan-row" style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-bottom:32px">
+    <div class="plan-row" style="margin-bottom:32px">
       <!-- Standard -->
       <div class="plan-card" id="plan-standard" onclick="selectPlan('standard')">
         <div class="plan-label">Standard</div>
