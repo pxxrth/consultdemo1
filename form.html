@@ -425,7 +425,7 @@
     font-weight: 600;
   }
 
-  .consent-text { font-size: 13px; color: var(--deep); line-height: 1.6; }
+  .consent-text { pointer-events: none;font-size: 13px; color: var(--deep); line-height: 1.6; }
   .consent-text strong { font-weight: 500; display: block; margin-bottom: 2px; }
 
   /* Conditional field */
@@ -1522,7 +1522,7 @@
   }
 
   function toggleConsent(id) {
-    var it = document.getElementById(id);
+    var it = document.getElementById(id + '-check');
     if (it) it.classList.toggle('checked');
   }
 
