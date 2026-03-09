@@ -108,9 +108,9 @@
     .c-ico{font-size:26px;margin-bottom:22px;display:block}
     .c-ttl{font-family:'Playfair Display',serif;font-size:27px;font-weight:400;color:var(--dark);margin-bottom:14px;line-height:1.2}
     .c-desc{font-size:13px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:26px}
-    .c-lnk{font-size:13px;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap .3s}
+    .c-lnk{position:relative;z-index:10;font-size:13px;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap .3s}
     .c-lnk:hover{gap:10px}
-    .c-dot{position:absolute;bottom:28px;right:28px;width:7px;height:7px;border-radius:50%;background:var(--gold);opacity:.35}
+    .c-dot{pointer-events: none;position:absolute;bottom:28px;right:28px;width:7px;height:7px;border-radius:50%;background:var(--gold);opacity:.35}
     @media(max-width:768px){.svc-grid{grid-template-columns:1fr}}
 
     /* how it works */
