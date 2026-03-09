@@ -123,31 +123,89 @@
     .s-desc{font-size:13px;font-weight:300;color:var(--muted);line-height:1.75}
     @media(max-width:768px){.steps{grid-template-columns:1fr}}
 
-    /* testimonials */
-    #testimonials{background:var(--cream)}
-    .t-slider{position:relative;max-width:1080px;margin:48px auto 0;overflow:hidden}
-    .t-track{display:flex;gap:20px;animation:t-slide 34s linear infinite;width:max-content}
-    .t-track:hover{animation-play-state:paused}
-    .t-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:38px 34px;min-width:320px;flex-shrink:0;transition:transform .4s var(--ease),box-shadow .4s}
-    .t-card:hover{transform:translateY(-5px);box-shadow:0 16px 44px rgba(44,26,14,.07)}
-    /* optional sizing helpers for responsive layout */
-    .t-card-sm{min-width:220px;}
-    .t-card-md{min-width:280px;}
-    .t-card-lg{min-width:320px;}
-    .stars{color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:18px}
-    .t-txt{font-family:'Playfair Display',serif;font-size:18px;font-style:italic;color:var(--dark);line-height:1.6;margin-bottom:22px}
-    .t-auth{font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+    /* ── Patient Stories Slider ── */
+    .twrap {
+      overflow: hidden;
+      width: 100%;
+      padding: 48px 0;
+      background: var(--cream);
+    }
 
-    /* doctors */
-    #doctors{background:linear-gradient(150deg,#f0ebe0,#e5dccf)}
-    .doc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px;max-width:860px;margin-left:auto;margin-right:auto}
-    .doc-card{text-align:center;transition:transform .4s var(--ease)}
-    .doc-card:hover{transform:translateY(-5px)}
-    .doc-av{width:112px;height:112px;border-radius:50%;background:linear-gradient(135deg,var(--warm),var(--border));margin:0 auto 18px;border:3px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:34px;font-weight:300;color:var(--gold);transition:border-color .3s}
-    .doc-card:hover .doc-av{border-color:var(--gold)}
-    .doc-name{font-family:'Playfair Display',serif;font-size:21px;font-weight:400;color:var(--dark);margin-bottom:5px}
-    .doc-spec{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
-    @media(max-width:768px){.doc-grid{grid-template-columns:1fr}}
+    .ttrack {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: tscroll 40s linear infinite;
+    }
+
+    .twrap:hover .ttrack {
+      animation-play-state: paused;
+    }
+
+    @keyframes tscroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .tc {
+      background: #ffffff;
+      border: 1px solid #e0d5c5;
+      border-radius: 14px;
+      padding: 28px 24px;
+      min-width: 300px;
+      max-width: 300px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 16px rgba(44,26,14,0.04);
+    }
+
+    .t-stars {
+      color: #b8865a;
+      font-size: 13px;
+      letter-spacing: 3px;
+      margin-bottom: 14px;
+    }
+
+    .t-text {
+      font-size: 14px;
+      color: #3d2512;
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 16px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .t-by {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #8a7060;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      .tc {
+        min-width: 260px;
+        max-width: 260px;
+        padding: 20px;
+      }
+      .t-text {
+        font-size: 13px;
+      }
+      .ttrack {
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tc {
+        min-width: 220px;
+        max-width: 220px;
+        padding: 16px;
+      }
+      .t-text {
+        font-size: 12px;
+      }
+    }
 
     /* pricing */
     #pricing{background:var(--cream)}
@@ -212,7 +270,6 @@
     /* animations */
     @keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
     @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    @keyframes t-slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
   </style>
 </head>
@@ -226,7 +283,6 @@
   <a href="index.html" class="logo" aria-label="Lumen Home">LUMEN</a>
   <ul class="nav-links">
     <li><a href="services.html">Services</a></li>
-    <li><a href="doctors.html">Our Doctors</a></li>
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="faq.html">FAQ</a></li>
@@ -285,21 +341,21 @@
       <div class="c-num">01</div>
       <h3 class="c-ttl">General Dermatology</h3>
       <p class="c-desc">Acne, eczema, psoriasis, rosacea and all skin conditions diagnosed by certified dermatologists specialising in South Asian skin.</p>
-      <a href="form.html" class="c-lnk">Learn more →</a>
+      <a href="services.html" class="c-lnk">Learn more →</a>
       <div class="c-dot"></div>
     </article>
     <article class="svc-card rv">
       <div class="c-num">02</div>
       <h3 class="c-ttl">Aesthetic Medicine</h3>
       <p class="c-desc">Botox, fillers, chemical peels and aesthetic consultations tailored to enhance your natural beauty with clinical precision.</p>
-      <a href="form.html" class="c-lnk">Learn more →</a>
+      <a href="services.html" class="c-lnk">Learn more →</a>
       <div class="c-dot"></div>
     </article>
     <article class="svc-card rv">
       <div class="c-num">03</div>
       <h3 class="c-ttl">Hair &amp; Scalp</h3>
       <p class="c-desc">Comprehensive hair loss assessment, alopecia treatment and scalp care from specialist trichologists.</p>
-      <a href="form.html" class="c-lnk">Learn more →</a>
+      <a href="services.html" class="c-lnk">Learn more →</a>
       <div class="c-dot"></div>
     </article>
   </div>
@@ -316,38 +372,61 @@
   <div class="steps">
     <div class="step rv"><div class="s-num">01</div><h3 class="s-ttl">Fill Your Form</h3><p class="s-desc">Complete our detailed medical questionnaire and upload photos of your skin concern.</p></div>
     <div class="step rv"><div class="s-num">02</div><h3 class="s-ttl">Doctor Reviews</h3><p class="s-desc">A specialist carefully reviews your history, photos and concerns within your plan's response window.</p></div>
-    <div class="step rv"><div class="s-num">03</div><h3 class="s-ttl">Receive Your Plan</h3><p class="s-desc">Get a comprehensive report with diagnosis, recommendations and a tailored skincare plan — plus an instant PDF.</p></div>
+    <div class="step rv"><div class="s-num">03</div><h3 class="s-ttl">Receive Your Plan</h3><p class="s-desc">Get a comprehensive report with recommendations and a tailored skincare plan — plus an instant PDF.</p></div>
     <div class="step rv"><div class="s-num">04</div><h3 class="s-ttl">Follow Up</h3><p class="s-desc">Your doctor monitors progress and refines your plan for the best possible results.</p></div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials" aria-labelledby="t-h">
-  <div class="c">
-    <div class="lbl">Patient Stories</div>
-    <h2 class="ttl" id="t-h">What Our <em>Patients Say</em></h2>
-  </div>
-  <div class="t-slider">
-    <div class="t-track">
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Finally found a doctor who truly listens. My skin transformed completely within 6 weeks."</p><div class="t-auth">Fatima K. — Karachi</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Expert advice without leaving home. The convenience is absolutely unmatched."</p><div class="t-auth">Sara M. — Lahore</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The personalised skincare plan I received was a complete game changer."</p><div class="t-auth">Nadia A. — Islamabad</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"My acne cleared in 8 weeks after years of failed treatments. Absolutely worth it."</p><div class="t-auth">Zara H. — Lahore</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"I was sceptical at first, but the results were phenomenal. Thank you!"</p><div class="t-auth">Aisha R. — Karachi</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Professional and caring staff. My skin has never looked better."</p><div class="t-auth">Hana B. — Islamabad</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Quick responses and excellent treatment plans. Highly recommended."</p><div class="t-auth">Leena S. — Lahore</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Affordable and effective consulting. Saved me weeks of hassle."</p><div class="t-auth">Meera P. — Rawalpindi</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The follow-up support made all the difference. I'm so grateful."</p><div class="t-auth">Anila T. — Karachi</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Finally found a doctor who truly listens. My skin transformed completely within 6 weeks."</p><div class="t-auth">Fatima K. — Karachi</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Expert advice without leaving home. The convenience is absolutely unmatched."</p><div class="t-auth">Sara M. — Lahore</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The personalised skincare plan I received was a complete game changer."</p><div class="t-auth">Nadia A. — Islamabad</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"My acne cleared in 8 weeks after years of failed treatments. Absolutely worth it."</p><div class="t-auth">Zara H. — Lahore</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"I was sceptical at first, but the results were phenomenal. Thank you!"</p><div class="t-auth">Aisha R. — Karachi</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Professional and caring staff. My skin has never looked better."</p><div class="t-auth">Hana B. — Islamabad</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Quick responses and excellent treatment plans. Highly recommended."</p><div class="t-auth">Leena S. — Lahore</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"Affordable and effective consulting. Saved me weeks of hassle."</p><div class="t-auth">Meera P. — Rawalpindi</div></div>
-      <div class="t-card rv t-card-sm t-card-md t-card-lg" role="listitem" aria-hidden="true"><div class="stars" aria-label="5 stars">★★★★★</div><p class="t-txt">"The follow-up support made all the difference. I'm so grateful."</p><div class="t-auth">Anila T. — Karachi</div></div>
-    </div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MedicalOrganization",
+  "name": "LUMEN Dermatology & Aesthetic Medicine",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "500",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "author": {"@type": "Person", "name": "Fatima K."},
+      "reviewBody": "Finally a dermatologist who truly listens. My skin transformed completely within 6 weeks.",
+      "datePublished": "2025-11-01"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "author": {"@type": "Person", "name": "Sara M."},
+      "reviewBody": "Expert advice without leaving home. The convenience is absolutely unmatched.",
+      "datePublished": "2025-12-10"
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "author": {"@type": "Person", "name": "Nadia A."},
+      "reviewBody": "The personalised skincare plan I received was a complete game changer.",
+      "datePublished": "2026-01-05"
+    }
+  ]
+}
+</script>
+
+<section class="twrap" aria-label="Patient reviews and testimonials" itemscope itemtype="https://schema.org/Review">
+  <div class="ttrack">
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"Finally a dermatologist who truly listens. My skin transformed completely within 6 weeks."</p><div class="t-by">Fatima K. — Karachi</div></div>
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"Expert advice without leaving home. The convenience is absolutely unmatched."</p><div class="t-by">Sara M. — Lahore</div></div>
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"The personalised skincare plan I received was a complete game changer."</p><div class="t-by">Nadia A. — Islamabad</div></div>
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"Professional, thorough and responsive. I recommend LUMEN to everyone."</p><div class="t-by">Zara H. — Dubai</div></div>
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"The aesthetic consultation was incredibly detailed. I felt genuinely heard."</p><div class="t-by">Maryam R. — Karachi</div></div>
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"Finally a dermatologist who truly listens. My skin transformed completely within 6 weeks."</p><div class="t-by">Fatima K. — Karachi</div></div>
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"Expert advice without leaving home. The convenience is absolutely unmatched."</p><div class="t-by">Sara M. — Lahore</div></div>
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"The personalised skincare plan I received was a complete game changer."</p><div class="t-by">Nadia A. — Islamabad</div></div>
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"Professional, thorough and responsive. I recommend LUMEN to everyone."</p><div class="t-by">Zara H. — Dubai</div></div>
+    <div class="tc"><div class="t-stars">★★★★★</div><p class="t-text">"The aesthetic consultation was incredibly detailed. I felt genuinely heard."</p><div class="t-by">Maryam R. — Karachi</div></div>
   </div>
 </section>
 
@@ -369,7 +448,6 @@
       <div class="f-nav">
         <a href="index.html">Home</a>
         <a href="services.html">Services</a>
-        <a href="doctors.html">Doctors</a>
         <a href="pricing.html">Pricing</a>
         <a href="contact.html">Contact</a>
         <a href="faq.html">FAQ</a>
@@ -425,5 +503,7 @@
     }
   });
 </script>
+
+
 </body>
 </html>
