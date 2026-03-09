@@ -1404,8 +1404,17 @@
         htmlContent: htmlBody
       })
     })
-    .then(function(r) { console.log('Confirmation email sent. Status:', r.status); })
-    .catch(function(e) { console.error('Email send failed:', e); });
+    .then(async function(r) {
+      if (!r.ok) {
+        var errText = await r.text();
+        console.error('Brevo email failed. Status:', r.status, 'Details:', errText);
+      } else {
+        console.log('Confirmation email sent successfully. Status:', r.status);
+      }
+    })
+    .catch(function(e) {
+      console.error('Brevo network error:', e);
+    });
   }
   
   // Calendar and plan selection tracking
@@ -1952,43 +1961,43 @@
     var appt = getSelectedAppointment();
 
     var patientData = {
-      name:                 getVal('f-name'),
-      email:                getVal('f-email'),
-      phone:                getVal('f-phone'),
-      city:                 getVal('f-city'),
-      gender:               getRadioVal('gender'),
-      consultation_type:    getRadioVal('consult'),
-      condition:            getVal('f-concern'),
-      concern_duration:     getVal('f-duration'),
-      areas_affected:       getCheckedItems('s2'),
-      seen_doctor_before:   getRadioVal('prev'),
-      previous_treatment:   getVal('f-prev-treatment'),
-      known_allergies:      getRadioVal('allergy'),
-      allergy_details:      getVal('f-allergies'),
-      current_medications:  getRadioVal('meds'),
-      medication_details:   getVal('f-meds'),
-      medical_conditions:   getCheckedItems('s3'),
-      pregnant:             getRadioVal('preg'),
-      smoker:               getRadioVal('smoke'),
-      alcohol:              getRadioVal('alcohol'),
-      aesthetic_history:    getRadioVal('aesth'),
-      aesthetic_treatments: getCheckedItems('aesth-detail'),
-      aesthetic_reactions:  getVal('f-aesth-reactions'),
-      last_treatment_date:  getVal('f-aesth-date'),
-      skincare_routine:     getRadioVal('routine'),
-      morning_routine:      getVal('f-morning'),
-      evening_routine:      getVal('f-evening'),
-      uses_spf:             getRadioVal('spf'),
-      product_reactions:    getVal('f-reaction'),
-      consent_accuracy:     document.getElementById('c1') ? document.getElementById('c1').classList.contains('checked') : false,
-      consent_data:         document.getElementById('c2') ? document.getElementById('c2').classList.contains('checked') : false,
-      consent_online:       document.getElementById('c3') ? document.getElementById('c3').classList.contains('checked') : false,
-      marketing_consent:    document.getElementById('c4-check') ? document.getElementById('c4-check').classList.contains('checked') : false,
-      appointment_date:     (appt && appt.date) || '',
-      appointment_time:     (appt && appt.time) || '',
-      selected_plan:        selectedPlan || 'standard',
-      plan_price:           selectedPlan === 'premium' ? 'PKR 10,000' : 'PKR 5,000',
-      voucher_code:         voucherCode,
+      name:                 (getVal('f-name') || '').trim(),
+      email:                (getVal('f-email') || '').trim(),
+      phone:                (getVal('f-phone') || '').trim(),
+      city:                 (getVal('f-city') || '').trim(),
+      gender:               (getRadioVal('gender') || null),
+      consultation_type:    (getRadioVal('consult') || null),
+      condition:            (getVal('f-concern') || null),
+      concern_duration:     (getVal('f-duration') || null),
+      areas_affected:       (getCheckedItems('s2') || null),
+      seen_doctor_before:   (getRadioVal('prev') || null),
+      previous_treatment:   (getVal('f-prev-treatment') || null),
+      known_allergies:      (getRadioVal('allergy') || null),
+      allergy_details:      (getVal('f-allergies') || null),
+      current_medications:  (getRadioVal('meds') || null),
+      medication_details:   (getVal('f-meds') || null),
+      medical_conditions:   (getCheckedItems('s3') || null),
+      pregnant:             (getRadioVal('preg') || null),
+      smoker:               (getRadioVal('smoke') || null),
+      alcohol:              (getRadioVal('alcohol') || null),
+      aesthetic_history:    (getRadioVal('aesth') || null),
+      aesthetic_treatments: (getCheckedItems('aesth-detail') || null),
+      aesthetic_reactions:  (getVal('f-aesth-reactions') || null),
+      last_treatment_date:  (getVal('f-aesth-date') || null),
+      skincare_routine:     (getRadioVal('routine') || null),
+      morning_routine:      (getVal('f-morning') || null),
+      evening_routine:      (getVal('f-evening') || null),
+      uses_spf:             (getRadioVal('spf') || null),
+      product_reactions:    (getVal('f-reaction') || null),
+      consent_accuracy:     Boolean(document.getElementById('c1') && document.getElementById('c1').classList.contains('checked')),
+      consent_data:         Boolean(document.getElementById('c2') && document.getElementById('c2').classList.contains('checked')),
+      consent_online:       Boolean(document.getElementById('c3') && document.getElementById('c3').classList.contains('checked')),
+      marketing_consent:    Boolean(document.getElementById('c4-check') && document.getElementById('c4-check').classList.contains('checked')),
+      appointment_date:     ((appt && appt.date) || ''),
+      appointment_time:     ((appt && appt.time) || ''),
+      selected_plan:        (selectedPlan || 'standard'),
+      plan_price:           (selectedPlan === 'premium' ? 'PKR 10,000' : 'PKR 5,000'),
+      voucher_code:         (voucherCode || ''),
       status:               'New',
       payment_status:       'Pending',
       source:               'Website'
@@ -2038,8 +2047,15 @@
         },
         body: JSON.stringify(patientData)
       });
+      if (!response.ok) {
+        var errorBody = await response.text();
+        console.error('Supabase POST failed. Status:', response.status);
+        console.error('Supabase error details:', errorBody);
+        console.error('Payload sent:', JSON.stringify(patientData, null, 2));
+        return;
+      }
       var result = await response.json();
-      console.log('Patient created in Supabase:', result);
+      console.log('Patient created in Supabase. ID:', result[0] && result[0].id);
       var patientId = result && result[0] && result[0].id;
 
       try {
