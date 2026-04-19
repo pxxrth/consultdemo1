@@ -1170,6 +1170,16 @@
     </div>
   </div>
 
+  <!-- SECTION 9: Payment Gateway -->
+  <div class="section" id="s-payment" style="display:none; padding:0; margin:0; width:100vw; height:100vh; position:fixed; top:0; left:0; z-index:9999; background:#faf7f4;">
+    <iframe 
+      id="payment-iframe" 
+      src="Paymentv2.html" 
+      style="width:100%; height:100%; border:none; display:block; margin:0; padding:0;"
+      title="Secure Payment Gateway">
+    </iframe>
+  </div>
+
 <div id="form-success-screen" style="display:none; text-align:center; padding: 60px 24px; animation: fadeIn 0.6s ease;">
   
   <!-- Checkmark -->
@@ -1937,6 +1947,24 @@
     btn.style.cursor = 'pointer';
   }
 
+  // ── Helper Functions ────────────────────────────────────────
+  function getVal(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function getRadioVal(name) {
+    var checked = document.querySelector('input[name="' + name + '"]:checked');
+    if (!checked) return '';
+    var pill = checked.closest('.radio-pill');
+    return pill ? pill.textContent.trim() : checked.value;
+  }
+
+  function getCheckedItems(sectionId) {
+    var items = document.querySelectorAll('#' + sectionId + ' .check-item.checked .check-label');
+    return Array.from(items).map(function(i) { return i.textContent.trim(); }).join(', ');
+  }
+
   // ── Submit ───────────────────────────────────────────────────
   async function submitForm() {
     console.log('submitForm() called');
@@ -1992,38 +2020,67 @@
       source:               'Website'
     };
 
-    // UI updates
+    // Store form data for payment callback
+    sessionStorage.setItem('pendingPatientData', JSON.stringify(patientData));
+    sessionStorage.setItem('voucherCode', voucherCode);
+
+    // Hide consent section and show payment gateway
     document.getElementById('s8').classList.remove('active');
+    document.getElementById('s-payment').style.display = 'flex';
+    
+    // Update progress
     document.querySelectorAll('.progress-step').forEach(p => p.className = 'progress-step done');
-    document.getElementById('progress-label').textContent = 'Submitted ✓';
+    document.getElementById('progress-label').textContent = 'Payment Processing...';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    var emailDisplay = document.getElementById('confirm-email-display');
-    if (emailDisplay) {
-      var emailVal = document.getElementById('email') ? document.getElementById('email').value : '';
-      emailDisplay.textContent = emailVal || 'your email address';
-    }
+  }
 
-    // Supabase submission
+  // Listen for payment completion from Paymentv2.html iframe
+  window.addEventListener('message', function(event) {
+    console.log('Message received:', event.data);
+    if (event.data && event.data.type === 'paymentComplete') {
+      console.log('✓ PAYMENT COMPLETE MESSAGE RECEIVED!', event.data);
+      
+      // Get stored patient data
+      var patientData = JSON.parse(sessionStorage.getItem('pendingPatientData') || '{}');
+      var voucherCode = sessionStorage.getItem('voucherCode') || 'DERM-XXXX';
+
+      // Hide payment iframe
+      document.getElementById('s-payment').style.display = 'none';
+      
+      // Show success screen
+      var successDiv = document.getElementById('form-success-screen');
+      if (successDiv) {
+        successDiv.style.display = 'block';
+        
+        // Update email display
+        var emailDisplay = document.getElementById('confirm-email-display');
+        if (emailDisplay) {
+          emailDisplay.textContent = patientData.email || 'your email address';
+        }
+      }
+      
+      // Update progress
+      document.querySelectorAll('.progress-step').forEach(p => p.className = 'progress-step done');
+      document.getElementById('progress-label').textContent = 'Booking Complete ✓';
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // NOW submit to Supabase after payment is verified
+      submitToSupabase(patientData, voucherCode);
+    }
+  });
+
+  // New function: submit data to Supabase AFTER payment
+  async function submitToSupabase(patientData, voucherCode) {
     var SUPABASE_URL = 'https://nmkapqqfefqilxysxumk.supabase.co';
     var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ta2FwcXFmZWZxaWx4eXN4dW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI2NTE3ODMsImV4cCI6MjA4ODIyNzc4M30.KwQmnv0p10WwCBaQHjkmH37rJ9uFWCW2Lus5HlaXZ3A';
 
-    function getVal(id) {
-      var el = document.getElementById(id);
-      return el ? el.value.trim() : '';
-    }
-
-    function getRadioVal(name) {
-      var checked = document.querySelector('input[name="' + name + '"]:checked');
-      if (!checked) return '';
-      var pill = checked.closest('.radio-pill');
-      return pill ? pill.textContent.trim() : checked.value;
-    }
-
-    function getCheckedItems(sectionId) {
-      var items = document.querySelectorAll('#' + sectionId + ' .check-item.checked .check-label');
-      return Array.from(items).map(function(i) { return i.textContent.trim(); }).join(', ');
-    }
+    var submissionData = {
+      ...patientData,
+      payment_status: 'Verified',
+      status: 'Confirmed'
+    };
 
     try {
       var response = await fetch(SUPABASE_URL + '/rest/v1/patients', {
@@ -2034,17 +2091,17 @@
           'Authorization': 'Bearer ' + SUPABASE_KEY,
           'Prefer': 'return=representation'
         },
-        body: JSON.stringify(patientData)
+        body: JSON.stringify(submissionData)
       });
       if (!response.ok) {
         var errorBody = await response.text();
         console.error('Supabase POST failed. Status:', response.status);
         console.error('Supabase error details:', errorBody);
-        console.error('Payload sent:', JSON.stringify(patientData, null, 2));
+        console.error('Payload sent:', JSON.stringify(submissionData, null, 2));
         return;
       }
       var result = await response.json();
-      console.log('Patient created in Supabase. ID:', result[0] && result[0].id);
+      console.log('Patient created in Supabase after payment verification. ID:', result[0] && result[0].id);
       var patientId = result && result[0] && result[0].id;
 
       try {
